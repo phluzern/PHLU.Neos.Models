@@ -9,6 +9,7 @@ use PHLU\Neos\Models\Domain\Model\Contact;
 use PHLU\Neos\Models\Domain\Model\PersonName;
 use PHLU\Neos\Models\Domain\Repository\ContactRepository;
 use TYPO3\Flow\Annotations as Flow;
+use TYPO3\Media\Domain\Repository\ImageRepository;
 use TYPO3\Media\Domain\Service\ImageService;
 
 class ContactService
@@ -50,6 +51,12 @@ class ContactService
     protected $imageService;
 
     /**
+     * @Flow\Inject
+     * @var ImageRepository
+     */
+    protected $imageRepository;
+
+    /**
      * @var \Imagine\Image\ImagineInterface
      * @Flow\Inject(lazy = false)
      */
@@ -74,7 +81,6 @@ class ContactService
      * @var \TYPO3\Flow\Http\Client\Browser
      */
     protected $browser;
-
 
 
     /**
@@ -126,7 +132,6 @@ class ContactService
         $contact->setHash($hash);
 
 
-
         if ($contact->isHasChanges() && $data['_imageUrl']) {
 
             // import image
@@ -139,7 +144,8 @@ class ContactService
 
             if ($response->getStatusCode() == 200) {
 
-                $resource = $this->resourceManager->importResourceFromContent($response->getContent(),basename($data['_imageUrl']));
+                $resource = $this->resourceManager->importResourceFromContent($response->getContent(), basename($data['_imageUrl']));
+
                 if ($resource) {
                     if ($resource->getMediaType() === 'image/jpeg') {
 
@@ -151,10 +157,24 @@ class ContactService
                         }
 
                         if ($validImage) {
-                            $image = new \TYPO3\Media\Domain\Model\Image($resource);
-                            $image->setTitle($contact->getName()->getFullName());
-                            if ($image) $contact->setImage($image);
+                            if ($contact->getImage()) {
+                                $contact->getImage()->setResource($resource);
+                                $contact->getImage()->refresh();
+                                $contact->getImage()->setTitle($contact->getName()->getFullName());
+                                $contact->getImage()->setCaption($contact->getEventoid());
+                            } else {
+                                $image = new \TYPO3\Media\Domain\Model\Image($resource);
+                                if ($image) {
+                                    $image->setTitle($contact->getName()->getFullName());
+                                    $image->setCaption($contact->getEventoid());
+                                    $contact->setImage($image);
+                                }
+                            }
+
                         }
+
+
+
 
 
                     }
