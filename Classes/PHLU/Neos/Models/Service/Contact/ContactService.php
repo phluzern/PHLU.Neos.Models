@@ -126,6 +126,7 @@ class ContactService
         $contact->setHash($hash);
 
 
+
         if ($contact->isHasChanges() && $data['_imageUrl']) {
 
             // import image
@@ -151,6 +152,7 @@ class ContactService
 
                         if ($validImage) {
                             $image = new \TYPO3\Media\Domain\Model\Image($resource);
+                            $image->setTitle($contact->getName()->getFullName());
                             if ($image) $contact->setImage($image);
                         }
 
