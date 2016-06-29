@@ -133,6 +133,8 @@ class ContactService
         $contact->setHash($hash);
 
 
+
+
         if ($contact->isHasChanges() && $data['_imageUrl']) {
 
             // import image
