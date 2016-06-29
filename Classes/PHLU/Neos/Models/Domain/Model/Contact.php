@@ -7,6 +7,7 @@ namespace PHLU\Neos\Models\Domain\Model;
 
 use TYPO3\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
+use PHLU\Neos\Models\Domain\Repository;
 
 /**
  * @Flow\Entity

@@ -43,6 +43,20 @@ class ContactRepository extends Repository
 
     }
 
+    /**
+     * @param string $emailpart part before @ from email address
+     * @return \TYPO3\Flow\Persistence\QueryInterface
+     */
+    public function getOneByEmailPart($emailpart) {
+
+
+        $query = $this->createQuery();
+
+        return $query->matching($query->like('email',$emailpart."%"))->execute()->getFirst();
+
+
+    }
+
     
 
 }
