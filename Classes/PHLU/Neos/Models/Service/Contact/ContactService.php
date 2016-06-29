@@ -26,7 +26,8 @@ class ContactService
         'phone' => '',
         'email' => '',
         'function' => '',
-        '_imageUrl' => false,
+        'gender' => 0,
+        '_imageUrl' => '',
         'eventoId' => 0
     );
 
