@@ -38,7 +38,7 @@ class ContactRepository extends Repository
 
         $query = $this->createQuery();
 
-        return $query->matching($query->greaterThan('eventoid',0))->setOrderings(array('name.lastName' => QueryInterface::ORDER_DESCENDING))->execute();
+        return $query->matching($query->greaterThan('eventoid',0))->setOrderings(array('name.lastName' => QueryInterface::ORDER_ASCENDING))->execute();
 
 
     }
