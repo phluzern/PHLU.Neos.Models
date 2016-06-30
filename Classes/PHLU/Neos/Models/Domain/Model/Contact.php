@@ -240,6 +240,15 @@ class Contact extends AbstractModel
     }
 
     /**
+     * @return string
+     */
+    public function getEmailPart()
+    {
+
+        return substr($this->email,0,strpos($this->email,"@"));
+    }
+
+    /**
      * @param string $email
      */
     public function setEmail($email)
