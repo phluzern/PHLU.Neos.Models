@@ -5,6 +5,7 @@ namespace PHLU\Neos\Models\Service\Contact;
  * This file is part of the PHLU.Neos.Models package.
  */
 
+use Aws\CloudFront\Exception\Exception;
 use PHLU\Neos\Models\Domain\Model\Contact;
 use PHLU\Neos\Models\Domain\Model\PersonName;
 use PHLU\Neos\Models\Domain\Repository\ContactRepository;
@@ -133,8 +134,6 @@ class ContactService
         $contact->setHash($hash);
 
 
-
-
         if ($contact->isHasChanges() && $data['_imageUrl']) {
 
             // import image
@@ -203,6 +202,7 @@ class ContactService
      */
     public function createOrUpdateContact(Contact $contact)
     {
+
 
 
         if ($contact->isPersisted()) {
