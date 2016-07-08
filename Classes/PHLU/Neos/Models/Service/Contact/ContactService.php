@@ -6,12 +6,16 @@ namespace PHLU\Neos\Models\Service\Contact;
  */
 
 use Aws\CloudFront\Exception\Exception;
+
 use PHLU\Neos\Models\Domain\Model\Contact;
 use PHLU\Neos\Models\Domain\Model\PersonName;
 use PHLU\Neos\Models\Domain\Repository\ContactRepository;
 use TYPO3\Flow\Annotations as Flow;
+use TYPO3\Media\Domain\Repository\AssetCollectionRepository;
 use TYPO3\Media\Domain\Repository\ImageRepository;
 use TYPO3\Media\Domain\Service\ImageService;
+use TYPO3\Media\Domain\Model\AssetCollection;
+
 
 class ContactService
 {
@@ -39,6 +43,12 @@ class ContactService
      */
     protected $resourceManager;
 
+
+    /**
+     * @Flow\Inject
+     * @var AssetCollectionRepository
+     */
+    protected $assetCollectionRepository;
 
     /**
      * @Flow\Inject
@@ -86,10 +96,44 @@ class ContactService
 
 
     /**
+     * @var AssetCollection
+     */
+    protected $assetCollection = false;
+
+
+
+    /**
+     * Returns a contact model
+     * @return AssetCollection
+     * @api
+     */
+    public function getAssetCollection() {
+
+
+        if ($this->assetCollection === false) {
+            foreach ($this->assetCollectionRepository->findAll() as $collection) {
+                if ($collection->getTitle() == 'Contacts') {
+                    $this->assetCollection = $collection;
+                }
+            }
+            if ($this->assetCollection === false) {
+                $this->assetCollection = new AssetCollection('Contacts');
+                $this->assetCollectionRepository->add($this->assetCollection);
+                $this->persistenceManager->persistAll();
+            }
+
+        }
+
+        return $this->assetCollection;
+
+    }
+
+
+
+    /**
      * Returns a contact model
      *
      * @param array $data
-     *
      * @return Contact
      * @api
      */
@@ -158,18 +202,22 @@ class ContactService
                             $validImage = false;
                         }
 
+
+
                         if ($validImage) {
                             if ($contact->getImage()) {
                                 $contact->getImage()->setResource($resource);
                                 $contact->getImage()->refresh();
                                 $contact->getImage()->setTitle($contact->getName()->getFullName());
                                 $contact->getImage()->setCaption($contact->getEventoid());
+
                             } else {
                                 $image = new \TYPO3\Media\Domain\Model\Image($resource);
                                 if ($image) {
                                     $image->setTitle($contact->getName()->getFullName());
                                     $image->setCaption($contact->getEventoid());
                                     $contact->setImage($image);
+
                                 }
                             }
 
@@ -204,14 +252,24 @@ class ContactService
     {
 
 
+        $updated = false;
 
         if ($contact->isPersisted()) {
             if ($contact->isHasChanges()) {
                 $contact->setHasChanges(false);
                 $this->contactRepository->update($contact);
+                $updated = true;
             }
         } else {
             $this->contactRepository->add($contact);
+            $updated = true;
+        }
+
+
+        // add to asset collection
+        if ($updated && $contact->getImage()) {
+            $this->getAssetCollection()->addAsset($contact->getImage());
+            $this->assetCollectionRepository->update($this->getAssetCollection());
         }
 
 
