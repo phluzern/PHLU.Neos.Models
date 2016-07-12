@@ -21,7 +21,7 @@ class IntroductionPropertyAspect
 {
 
     /**
-     * @var boolean
+     * @var integer
      * @Flow\Introduce("class(TYPO3\Media\Domain\Model\AssetCollection)")
      */
     public $hidden;

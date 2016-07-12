@@ -24,15 +24,14 @@ class IntroductionInterfaceAspect
 
 
     /**
-     * Around advice, implements the new method "getQmpilot" of the
-    AssetCollectionInterface     *
+     * Around advice, implements the new method "getQmpilot" of the AssetCollectionInterface     *
      * @param  \TYPO3\Flow\AOP\JoinPointInterface $joinPoint The current join point
      * @return void
-     * @Flow\Around("method(TYPO3\Media\Domain\Model\AssetCollection->isHidden())")
+     * @Flow\Around("method(TYPO3\Media\Domain\Model\AssetCollection->getHidden())")
      */
-    public function isHidden(\TYPO3\Flow\AOP\JoinPointInterface $joinPoint) {
+    public function getHidden(\TYPO3\Flow\AOP\JoinPointInterface $joinPoint) {
 
-        return $joinPoint->getProxy()->hidden ? true : false;
+        return $joinPoint->getProxy()->hidden;
     }
 
 
@@ -44,9 +43,9 @@ class IntroductionInterfaceAspect
      * @return void
      * @Flow\Around("method(TYPO3\Media\Domain\Model\AssetCollection->setHidden())")
      */
-    public function setQmpilot(\TYPO3\Flow\AOP\JoinPointInterface $joinPoint) {
+    public function setHidden(\TYPO3\Flow\AOP\JoinPointInterface $joinPoint) {
 
-        $joinPoint->getProxy()->hidden = $joinPoint->getMethodArgument('hidden');
+        $joinPoint->getProxy()->hidden = $joinPoint->getMethodArgument('hidden') ? 1 : 0;
 
     }
 
