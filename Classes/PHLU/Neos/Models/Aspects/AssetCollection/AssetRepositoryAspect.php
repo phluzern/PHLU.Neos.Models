@@ -69,7 +69,15 @@ class AssetRepositoryAspect
         $self = $joinPoint->getProxy();
 
         $query = $self->createQuery();
-        $query->matching($query->logicalNot($query->equals('hidden', 1)));
+      //  $query->matching($query->logicalNot($query->equals('hidden', 1)));
+
+        $query->matching(
+
+            $query->logicalOr(array(
+                    $query->logicalNot($query->equals("hidden", 1)),
+                    $query->logicalAnd($query->equals("hidden", NULL)),
+                )
+            ));
 
         return $query->execute();
 
