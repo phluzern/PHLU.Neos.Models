@@ -28,7 +28,7 @@ interface AssetCollectionInterface
      *
      * @return boolean
      */
-    public function isHidden();
+    public function getHidden();
 
     /**
      * Sets the qmpilot array of this storage object

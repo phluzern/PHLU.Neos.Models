@@ -118,6 +118,7 @@ class ContactService
             }
             if ($this->assetCollection === false) {
                 $this->assetCollection = new AssetCollection('Contacts');
+                $this->assetCollection->setHidden(true);
                 $this->assetCollectionRepository->add($this->assetCollection);
                 $this->persistenceManager->persistAll();
             }
