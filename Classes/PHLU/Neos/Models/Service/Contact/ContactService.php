@@ -207,6 +207,7 @@ class ContactService
 
                         if ($validImage) {
                             if ($contact->getImage()) {
+                                $contact->getImage()->setHidden(true);
                                 $contact->getImage()->setResource($resource);
                                 $contact->getImage()->refresh();
                                 $contact->getImage()->setTitle($contact->getName()->getFullName());
@@ -217,6 +218,7 @@ class ContactService
                                 if ($image) {
                                     $image->setTitle($contact->getName()->getFullName());
                                     $image->setCaption($contact->getEventoid());
+                                    $image->setHidden(true);
                                     $contact->setImage($image);
 
                                 }

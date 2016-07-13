@@ -1,0 +1,19 @@
+#                                                                        #
+# Security policy for the Media package                                  #
+#                                                                        #
+
+privilegeTargets:
+
+  'TYPO3\Flow\Security\Authorization\Privilege\Entity\Doctrine\EntityPrivilege':
+
+    'PHLU.Neos.Models.RestrictableEntity.AssetCollections':
+      matcher: 'isType("TYPO3\Media\Domain\Model\AssetCollection") && property("hidden") == TRUE'
+
+
+roles:
+
+  'TYPO3.Neos:AbstractEditor':
+    privileges:
+      -
+        privilegeTarget: 'PHLU.Neos.Models.RestrictableEntity.AssetCollections'
+        permission: DENY
