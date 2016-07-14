@@ -37,6 +37,21 @@ interface AssetInterface
      * @return void
      */
     public function setHidden($hidden);
+    
+    /**
+     * Returns the qmpilot array this storage object
+     *
+     * @return boolean
+     */
+    public function getKeywords();
+
+    /**
+     * Sets the qmpilot array of this storage object
+     *
+     * @param boolean $keywords
+     * @return void
+     */
+    public function setKeywords($keywords);
 
 
 }

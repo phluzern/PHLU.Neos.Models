@@ -27,5 +27,12 @@ class IntroductionPropertyAspect
      */
     public $hidden;
 
+    /**
+     * @var string
+     * @ORM\Column(nullable=true)
+     * @Flow\Introduce("class(TYPO3\Media\Domain\Model\Asset)")
+     */
+    public $keywords;
+
 
 }

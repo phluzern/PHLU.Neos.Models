@@ -26,14 +26,14 @@ class AssetRepositoryAspect
      * @Flow\Before("method(TYPO3\Media\Domain\Repository\AssetRepository->addImageVariantFilterClause())")
      * @return void
      */
-    public function findBySearchTermOrTags(JoinPointInterface $joinPoint)
+    public function addImageVariantFilterClause(JoinPointInterface $joinPoint)
     {
 
-        $query = $joinPoint->getMethodArgument('query');
-        $queryBuilder = $query->getQueryBuilder();
-        $queryBuilder->andWhere('e.hidden IS NULL OR e.hidden = 0');
+       $query = $joinPoint->getMethodArgument('query');
+       $queryBuilder = $query->getQueryBuilder();
+       $queryBuilder->andWhere('e.hidden IS NULL OR e.hidden = 0');
 
-        $joinPoint->setMethodArgument('query',$query);
+       $joinPoint->setMethodArgument('query',$query);
 
 
 

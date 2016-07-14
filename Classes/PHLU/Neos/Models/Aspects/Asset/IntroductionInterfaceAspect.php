@@ -48,6 +48,32 @@ class IntroductionInterfaceAspect
         $joinPoint->getProxy()->hidden = $joinPoint->getMethodArgument('hidden') ? 1 : 0;
 
     }
+    
+    /**
+     * Around advice, implements the new method "getQmpilot" of the AssetInterface     *
+     * @param  \TYPO3\Flow\AOP\JoinPointInterface $joinPoint The current join point
+     * @return void
+     * @Flow\Around("method(TYPO3\Media\Domain\Model\Asset->getKeywords())")
+     */
+    public function getKeywords(\TYPO3\Flow\AOP\JoinPointInterface $joinPoint) {
+
+        return $joinPoint->getProxy()->keywords;
+    }
+
+
+    /**
+     * Around advice, implements the new method "setKeywords" of the
+     * "AssetInterface" interface
+     *
+     * @param  \TYPO3\Flow\AOP\JoinPointInterface $joinPoint The current join point
+     * @return void
+     * @Flow\Around("method(TYPO3\Media\Domain\Model\Asset->setKeywords())")
+     */
+    public function setKeywords(\TYPO3\Flow\AOP\JoinPointInterface $joinPoint) {
+
+        $joinPoint->getProxy()->keywords = $joinPoint->getMethodArgument('keywords') ? 1 : 0;
+
+    }
 
 
 
