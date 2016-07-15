@@ -12,6 +12,7 @@ use PHLU\Neos\Models\Domain\Model\PersonName;
 use PHLU\Neos\Models\Domain\Repository\ContactRepository;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Media\Domain\Repository\AssetCollectionRepository;
+use TYPO3\Media\Domain\Repository\AssetRepository;
 use TYPO3\Media\Domain\Repository\ImageRepository;
 use TYPO3\Media\Domain\Service\ImageService;
 use TYPO3\Media\Domain\Model\AssetCollection;
@@ -49,6 +50,12 @@ class ContactService
      * @var AssetCollectionRepository
      */
     protected $assetCollectionRepository;
+
+    /**
+     * @Flow\Inject
+     * @var \PHLU\Neos\Models\AssetRepository
+     */
+    protected $assetRepository;
 
     /**
      * @Flow\Inject
@@ -179,6 +186,7 @@ class ContactService
         $contact->setHash($hash);
 
 
+
         if ($contact->isHasChanges() && $data['_imageUrl']) {
 
             // import image
@@ -193,6 +201,7 @@ class ContactService
 
                 $resource = $this->resourceManager->importResourceFromContent($response->getContent(), basename($data['_imageUrl']));
 
+
                 if ($resource) {
                     if ($resource->getMediaType() === 'image/jpeg') {
 
@@ -206,7 +215,16 @@ class ContactService
 
 
                         if ($validImage) {
+
+                            $existingAsset = $this->assetRepository->findOneByResourceSha1($resource->getSha1());
+
+
                             if ($contact->getImage()) {
+
+                                if ($existingAsset) {
+                                    $resource = $existingAsset->getResource();
+                                }
+
                                 $contact->getImage()->setHidden(true);
                                 $contact->getImage()->setResource($resource);
                                 $contact->getImage()->refresh();
@@ -214,14 +232,21 @@ class ContactService
                                 $contact->getImage()->setCaption($contact->getEventoid());
 
                             } else {
-                                $image = new \TYPO3\Media\Domain\Model\Image($resource);
-                                if ($image) {
-                                    $image->setTitle($contact->getName()->getFullName());
-                                    $image->setCaption($contact->getEventoid());
-                                    $image->setHidden(true);
-                                    $contact->setImage($image);
 
+                                if ($existingAsset) {
+                                    $contact->setImage($existingAsset);
+                                } else {
+
+                                    $image = new \TYPO3\Media\Domain\Model\Image($resource);
+                                    if ($image) {
+                                        $image->setTitle($contact->getName()->getFullName());
+                                        $image->setCaption($contact->getEventoid());
+                                        $image->setHidden(true);
+                                        $contact->setImage($image);
+
+                                    }
                                 }
+
                             }
 
                         }
@@ -233,6 +258,17 @@ class ContactService
                     }
                 }
 
+            }
+
+
+            // find assets with same sha1, set hidden
+            if ($contact->getImage()) {
+                foreach ($this->assetRepository->findAllByResourceSha1($contact->getImage()->getResource()->getSha1()) as $asset) {
+                    if (!$asset->getHidden()) {
+                        $asset->setHidden(true);
+                        $this->assetRepository->update($asset);
+                    }
+                }
             }
 
 
