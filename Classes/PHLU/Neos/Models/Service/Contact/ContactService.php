@@ -293,7 +293,7 @@ class ContactService
 
         $updated = false;
 
-        if ($contact->isPersisted()) {
+        if ($contact->isPersisted() || $this->contactRepository->findByIdentifier($contact->getIdentifier())) {
             if ($contact->isHasChanges()) {
                 $contact->setHasChanges(false);
                 $this->contactRepository->update($contact);
