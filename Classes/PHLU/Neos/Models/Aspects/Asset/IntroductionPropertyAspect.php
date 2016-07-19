@@ -34,5 +34,12 @@ class IntroductionPropertyAspect
      */
     public $keywords;
 
+    /**
+     * @var string
+     * @ORM\Column(type="text", nullable=true)
+     * @Flow\Introduce("class(TYPO3\Media\Domain\Model\Asset)")
+     */
+    public $searchIndex;
+
 
 }

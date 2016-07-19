@@ -54,4 +54,20 @@ interface AssetInterface
     public function setKeywords($keywords);
 
 
+    /**
+     * Returns the qmpilot array this storage object
+     *
+     * @return boolean
+     */
+    public function getSearchIndex();
+
+    /**
+     * Sets the qmpilot array of this storage object
+     *
+     * @param boolean $searchIndex
+     * @return void
+     */
+    public function setSearchIndex($searchIndex);
+
+
 }

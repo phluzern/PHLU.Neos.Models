@@ -11,8 +11,8 @@ namespace PHLU\Neos\Models\Aspects\Asset;
  * source code.
  */
 
-use TYPO3\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
+use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Aop\JoinPointInterface;
 
 /**
@@ -23,18 +23,27 @@ class AssetRepositoryAspect
 
 
     /**
-     * @Flow\Before("method(TYPO3\Media\Domain\Repository\AssetRepository->addImageVariantFilterClause())")
+     * @Flow\Around("method(TYPO3\Media\Domain\Repository\AssetRepository->addImageVariantFilterClause())")
      * @return void
      */
     public function addImageVariantFilterClause(JoinPointInterface $joinPoint)
     {
 
-       $query = $joinPoint->getMethodArgument('query');
-       $queryBuilder = $query->getQueryBuilder();
-       $queryBuilder->andWhere('e.hidden IS NULL OR e.hidden = 0');
 
-       $joinPoint->setMethodArgument('query',$query);
+        $query = $joinPoint->getAdviceChain()->proceed($joinPoint);
 
+
+        $constraints = $query->getConstraint();
+
+        $query->matching(
+            $query->logicalAnd(
+                $query->logicalOr($query->equals('hidden',NULL),$query->equals('hidden',0)),
+                $query->logicalOr($constraints)
+            )
+        );
+
+
+        return $query;
 
 
     }
