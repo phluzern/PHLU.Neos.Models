@@ -70,4 +70,20 @@ interface AssetInterface
     public function setSearchIndex($searchIndex);
 
 
+    /**
+     * Returns the qmpilot array this storage object
+     *
+     * @return boolean
+     */
+    public function getLink();
+
+    /**
+     * Sets the qmpilot array of this storage object
+     *
+     * @param boolean $link
+     * @return void
+     */
+    public function setLink($link);
+
+
 }

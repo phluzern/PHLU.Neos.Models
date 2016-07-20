@@ -75,6 +75,32 @@ class IntroductionInterfaceAspect
         $joinPoint->getProxy()->searchIndex = $joinPoint->getMethodArgument('searchIndex');
 
     }
+
+    /**
+     * Around advice, implements the new method "getQmpilot" of the AssetInterface     *
+     * @param  \TYPO3\Flow\AOP\JoinPointInterface $joinPoint The current join point
+     * @return void
+     * @Flow\Around("method(TYPO3\Media\Domain\Model\Asset->getLink())")
+     */
+    public function getLink(\TYPO3\Flow\AOP\JoinPointInterface $joinPoint) {
+
+        return $joinPoint->getProxy()->link;
+    }
+
+
+    /**
+     * Around advice, implements the new method "setLink" of the
+     * "AssetInterface" interface
+     *
+     * @param  \TYPO3\Flow\AOP\JoinPointInterface $joinPoint The current join point
+     * @return void
+     * @Flow\Around("method(TYPO3\Media\Domain\Model\Asset->setLink())")
+     */
+    public function setLink(\TYPO3\Flow\AOP\JoinPointInterface $joinPoint) {
+
+        $joinPoint->getProxy()->link = $joinPoint->getMethodArgument('link');
+
+    }
     
     /**
      * Around advice, implements the new method "getQmpilot" of the AssetInterface     *
