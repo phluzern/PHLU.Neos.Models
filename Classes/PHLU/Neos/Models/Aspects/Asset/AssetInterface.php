@@ -84,5 +84,12 @@ interface AssetInterface
      */
     public function getFileDescription();
 
+    /**
+     * Returns the qmpilot file link targets
+     *
+     * @return boolean
+     */
+    public function getTarget();
+
 
 }

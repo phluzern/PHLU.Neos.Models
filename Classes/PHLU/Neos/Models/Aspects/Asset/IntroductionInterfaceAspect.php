@@ -150,11 +150,38 @@ class IntroductionInterfaceAspect
         if ($fileType == 'Link') {
 
             $uri = parse_url($joinPoint->getProxy()->getResource()->getLink());
-            return $uri['host'];
+            return isset($uri['host']) ? $uri['host'] : $joinPoint->getProxy()->getResource()->getLink();
 
         }
 
         return $this->getMediaTypePrintable($joinPoint->getProxy()->getResource()->getMediaType(), true) . ', ' . sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . @$sz[$factor];
+
+
+    }
+
+
+    /**
+     * Around advice, implements the new method "getTarget" of the
+     * "AssetInterface" interface
+     *
+     * @param  \TYPO3\Flow\AOP\JoinPointInterface $joinPoint The current join point
+     * @return void
+     * @Flow\Around("method(TYPO3\Media\Domain\Model\Asset->getTarget())")
+     */
+    public function getTarget(\TYPO3\Flow\AOP\JoinPointInterface $joinPoint)
+    {
+
+        $fileType = $this->getMediaTypePrintable($joinPoint->getProxy()->getResource()->getMediaType());
+
+        if ($fileType == 'shortcut') {
+            return "_".$this->getMediaTypePrintable($joinPoint->getProxy()->getResource()->getSha1());
+        }
+
+
+
+
+        return '_'.$fileType;
+
 
 
     }
