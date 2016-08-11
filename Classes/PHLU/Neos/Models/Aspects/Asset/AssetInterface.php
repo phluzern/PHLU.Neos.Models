@@ -70,6 +70,19 @@ interface AssetInterface
     public function setSearchIndex($searchIndex);
 
 
+    /**
+     * Returns the qmpilot filetype shortname
+     *
+     * @return boolean
+     */
+    public function getMediaTypeShortname();
+
+    /**
+     * Returns the qmpilot file description
+     *
+     * @return boolean
+     */
+    public function getFileDescription();
 
 
 }

@@ -29,7 +29,8 @@ class IntroductionInterfaceAspect
      * @return void
      * @Flow\Around("method(TYPO3\Media\Domain\Model\Asset->getHidden())")
      */
-    public function getHidden(\TYPO3\Flow\AOP\JoinPointInterface $joinPoint) {
+    public function getHidden(\TYPO3\Flow\AOP\JoinPointInterface $joinPoint)
+    {
 
         return $joinPoint->getProxy()->hidden;
     }
@@ -43,7 +44,8 @@ class IntroductionInterfaceAspect
      * @return void
      * @Flow\Around("method(TYPO3\Media\Domain\Model\Asset->setHidden())")
      */
-    public function setHidden(\TYPO3\Flow\AOP\JoinPointInterface $joinPoint) {
+    public function setHidden(\TYPO3\Flow\AOP\JoinPointInterface $joinPoint)
+    {
 
         $joinPoint->getProxy()->hidden = $joinPoint->getMethodArgument('hidden') ? 1 : 0;
 
@@ -56,7 +58,8 @@ class IntroductionInterfaceAspect
      * @return void
      * @Flow\Around("method(TYPO3\Media\Domain\Model\Asset->getSearchIndex())")
      */
-    public function getSearchIndex(\TYPO3\Flow\AOP\JoinPointInterface $joinPoint) {
+    public function getSearchIndex(\TYPO3\Flow\AOP\JoinPointInterface $joinPoint)
+    {
 
         return $joinPoint->getProxy()->searchIndex;
     }
@@ -70,21 +73,22 @@ class IntroductionInterfaceAspect
      * @return void
      * @Flow\Around("method(TYPO3\Media\Domain\Model\Asset->setSearchIndex())")
      */
-    public function setSearchIndex(\TYPO3\Flow\AOP\JoinPointInterface $joinPoint) {
+    public function setSearchIndex(\TYPO3\Flow\AOP\JoinPointInterface $joinPoint)
+    {
 
         $joinPoint->getProxy()->searchIndex = $joinPoint->getMethodArgument('searchIndex');
 
     }
 
 
-    
     /**
      * Around advice, implements the new method "getQmpilot" of the AssetInterface     *
      * @param  \TYPO3\Flow\AOP\JoinPointInterface $joinPoint The current join point
      * @return void
      * @Flow\Around("method(TYPO3\Media\Domain\Model\Asset->getKeywords())")
      */
-    public function getKeywords(\TYPO3\Flow\AOP\JoinPointInterface $joinPoint) {
+    public function getKeywords(\TYPO3\Flow\AOP\JoinPointInterface $joinPoint)
+    {
 
         return $joinPoint->getProxy()->keywords;
     }
@@ -98,18 +102,130 @@ class IntroductionInterfaceAspect
      * @return void
      * @Flow\Around("method(TYPO3\Media\Domain\Model\Asset->setKeywords())")
      */
-    public function setKeywords(\TYPO3\Flow\AOP\JoinPointInterface $joinPoint) {
+    public function setKeywords(\TYPO3\Flow\AOP\JoinPointInterface $joinPoint)
+    {
 
         $joinPoint->getProxy()->keywords = $joinPoint->getMethodArgument('keywords') ? 1 : 0;
 
     }
 
 
+    /**
+     * Around advice, implements the new method "getMediaTypeShortname" of the
+     * "AssetInterface" interface
+     *
+     * @param  \TYPO3\Flow\AOP\JoinPointInterface $joinPoint The current join point
+     * @return void
+     * @Flow\Around("method(TYPO3\Media\Domain\Model\Asset->getMediaTypeShortname())")
+     */
+    public function getMediaTypeShortname(\TYPO3\Flow\AOP\JoinPointInterface $joinPoint)
+    {
 
 
+        return $this->getMediaTypePrintable($joinPoint->getProxy()->getResource()->getMediaType());
 
 
+    }
 
+    /**
+     * Around advice, implements the new method "getFileDescription" of the
+     * "AssetInterface" interface
+     *
+     * @param  \TYPO3\Flow\AOP\JoinPointInterface $joinPoint The current join point
+     * @return void
+     * @Flow\Around("method(TYPO3\Media\Domain\Model\Asset->getFileDescription())")
+     */
+    public function getFileDescription(\TYPO3\Flow\AOP\JoinPointInterface $joinPoint)
+    {
+
+
+        $bytes = $joinPoint->getProxy()->getResource()->getFileSize();
+        $decimals = 1;
+
+        $sz = 'BKMGTP';
+        $factor = floor((strlen($bytes) - 1) / 3);
+
+        $fileType = $this->getMediaTypePrintable($joinPoint->getProxy()->getResource()->getMediaType(), true);
+
+        if ($fileType == 'Link') {
+
+            $uri = parse_url($joinPoint->getProxy()->getResource()->getLink());
+            return $uri['host'];
+
+        }
+
+        return $this->getMediaTypePrintable($joinPoint->getProxy()->getResource()->getMediaType(), true) . ', ' . sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . @$sz[$factor];
+
+
+    }
+
+    /**
+     * Helper function to generate media type strings
+     *
+     */
+
+    private function getMediaTypePrintable($mediaType, $humanredable = false)
+    {
+
+        $fileType = '';
+
+        $exp = explode("/", $mediaType, 2);
+        $fileType = $exp[count($exp) - 1];
+
+        if (strtolower($fileType) == 'msword') {
+            $fileType = 'word';
+        }
+
+        if (substr_count($fileType,'shortcut')) {
+            $fileType = 'shortcut';
+        }
+
+        if (substr_count($fileType, 'officedocument.spreadsheetml')) {
+            $fileType = 'excel';
+        }
+
+
+        $fileType = strtolower($fileType);
+
+        if ($humanredable) {
+
+            switch ($fileType) {
+
+                case 'shortcut':
+                    return 'Link';
+                    break;
+
+                case 'word':
+                    return 'Word';
+                    break;
+
+                case 'excel':
+                    return 'Excel';
+                    break;
+
+                case 'pdf':
+                    return 'PDF';
+                    break;
+
+                case 'jpeg':
+                case 'jpg':
+                case 'png':
+                case 'gif':
+                    return 'Bild';
+                    break;
+
+                default:
+                    return $fileType;
+                    break;
+            }
+
+
+        }
+
+        return $fileType;
+
+
+    }
 
 
 }
