@@ -174,13 +174,13 @@ class IntroductionInterfaceAspect
         $fileType = $this->getMediaTypePrintable($joinPoint->getProxy()->getResource()->getMediaType());
 
         if ($fileType == 'shortcut') {
-            return "_".$this->getMediaTypePrintable($joinPoint->getProxy()->getResource()->getSha1());
+            return $this->getMediaTypePrintable($joinPoint->getProxy()->getResource()->getSha1());
         }
 
 
 
 
-        return '_'.$fileType;
+        return $fileType;
 
 
 
