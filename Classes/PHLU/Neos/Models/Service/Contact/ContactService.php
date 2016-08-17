@@ -182,6 +182,14 @@ class ContactService
         $contact->setPhone($data['phone']);
         $contact->setEmail($data['email']);
         $contact->setFunction($data['function']);
+        $contact->setFunctions($data['functions']);
+        $contact->setLinks($data['links']);
+        $contact->setEducation($data['education']);
+        $contact->setHonorific($data['honorific']);
+        $contact->setActivities($data['activities']);
+        $contact->setExpertise($data['expertise']);
+        $contact->setConsulting($data['consulting']);
+
         $contact->setHasChanges($contact->getHash() === $hash ? false : true);
         $contact->setHash($hash);
 

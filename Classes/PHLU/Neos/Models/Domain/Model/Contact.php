@@ -90,12 +90,179 @@ class Contact extends AbstractModel
     protected $email;
 
 
+    /**
+     * @var string
+     * @ORM\Column(nullable=true,type="text")
+     */
+    protected $function;
+
 
     /**
      * @var string
-     * @ORM\Column(nullable=true)
+     * @ORM\Column(nullable=true,type="text")
      */
-    protected $function;
+    protected $links;
+
+
+    /**
+     * @var string
+     * @ORM\Column(nullable=true,type="text")
+     */
+    protected $education;
+
+
+
+    /**
+     * @var string
+     * @ORM\Column(nullable=true,type="text")
+     */
+    protected $honorific;
+
+
+
+    /**
+     * @var string
+     * @ORM\Column(nullable=true,type="text")
+     */
+    protected $activities;
+
+
+    /**
+     * @var string
+     * @ORM\Column(nullable=true,type="text")
+     */
+    protected $expertise;
+
+    /**
+     * @var string
+     * @ORM\Column(nullable=true,type="text")
+     */
+    protected $functions;
+
+    /**
+     * @var string
+     * @ORM\Column(nullable=true,type="text")
+     */
+    protected $consulting;
+
+    /**
+     * @return string
+     */
+    public function getConsulting()
+    {
+        return $this->consulting;
+    }
+
+    /**
+     * @param string $consulting
+     */
+    public function setConsulting($consulting)
+    {
+        $this->consulting = $consulting;
+    }
+
+
+
+    /**
+     * @return string
+     */
+    public function getFunctions()
+    {
+        return $this->functions;
+    }
+
+    /**
+     * @param string $functions
+     */
+    public function setFunctions($functions)
+    {
+        $this->functions = $functions;
+    }
+
+
+
+    /**
+     * @return string
+     */
+    public function getLinks()
+    {
+        return $this->links;
+    }
+
+    /**
+     * @param string $links
+     */
+    public function setLinks($links)
+    {
+        $this->links = $links;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEducation()
+    {
+        return $this->education;
+    }
+
+    /**
+     * @param string $education
+     */
+    public function setEducation($education)
+    {
+        $this->education = $education;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHonorific()
+    {
+        return $this->honorific;
+    }
+
+    /**
+     * @param string $honorific
+     */
+    public function setHonorific($honorific)
+    {
+        $this->honorific = $honorific;
+    }
+
+    /**
+     * @return string
+     */
+    public function getActivities()
+    {
+        return $this->activities;
+    }
+
+    /**
+     * @param string $activities
+     */
+    public function setActivities($activities)
+    {
+        $this->activities = $activities;
+    }
+
+    /**
+     * @return string
+     */
+    public function getExpertise()
+    {
+        return $this->expertise;
+    }
+
+    /**
+     * @param string $expertise
+     */
+    public function setExpertise($expertise)
+    {
+        $this->expertise = $expertise;
+    }
+
+
+
 
     /**
      * @return string
