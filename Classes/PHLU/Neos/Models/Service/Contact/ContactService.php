@@ -189,6 +189,7 @@ class ContactService
         $contact->setActivities($data['activities']);
         $contact->setExpertise($data['expertise']);
         $contact->setConsulting($data['consulting']);
+        $contact->setPublications($data['publications']);
 
         $contact->setHasChanges($contact->getHash() === $hash ? false : true);
         $contact->setHash($hash);
