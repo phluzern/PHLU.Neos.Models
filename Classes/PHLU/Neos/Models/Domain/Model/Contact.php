@@ -146,6 +146,31 @@ class Contact extends AbstractModel
     protected $consulting;
 
     /**
+     * @var array
+     * @ORM\Column(nullable=true)
+     */
+    protected $publications;
+
+    /**
+     * @return array
+     */
+    public function getPublications()
+    {
+        return $this->publications;
+    }
+
+    /**
+     * @param array $publications
+     */
+    public function setPublications($publications)
+    {
+        $this->publications = $publications;
+    }
+
+
+
+
+    /**
      * @return string
      */
     public function getConsulting()
