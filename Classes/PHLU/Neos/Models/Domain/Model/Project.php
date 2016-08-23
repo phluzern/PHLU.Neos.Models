@@ -32,6 +32,12 @@ class Project extends AbstractModel
      */
     protected $pPDBStatus;
 
+    /**
+     * @var string
+     * @ORM\Column(nullable=true)
+     */
+    protected $pPDBStatusLifetime;
+
 
     /**
      * @var string
@@ -117,6 +123,13 @@ class Project extends AbstractModel
 
 
     /**
+     * @var array
+     * @ORM\Column(nullable=true)
+     */
+    protected $participants;
+
+
+    /**
      * @var \DateTime
      * @ORM\Column(nullable=true)
      */
@@ -133,6 +146,42 @@ class Project extends AbstractModel
      * @ORM\Column(nullable=true)
      */
     protected $lastModify;
+
+    /**
+     * @return array
+     */
+    public function getParticipants()
+    {
+        return $this->participants;
+    }
+
+    /**
+     * @param array $participants
+     */
+    public function setParticipants($participants)
+    {
+        $this->participants = $participants;
+    }
+
+
+
+    /**
+     * @return string
+     */
+    public function getPPDBStatusLifetime()
+    {
+        return $this->pPDBStatusLifetime;
+    }
+
+    /**
+     * @param string $pPDBStatusLifetime
+     */
+    public function setPPDBStatusLifetime($pPDBStatusLifetime)
+    {
+        $this->pPDBStatusLifetime = $pPDBStatusLifetime;
+    }
+
+
 
     /**
      * @return int

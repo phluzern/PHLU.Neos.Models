@@ -17,6 +17,7 @@ class ProjectService
     protected $defaultData = array(
         'PPDBStatus' => '',
         'PPDBStatus' => '',
+        'pPDBStatusLifetime' => 'laufend',
         'TitleGerman' => '',
         'TitleEnglish' => '',
         'TeaserTextGerman' => '',
@@ -31,7 +32,9 @@ class ProjectService
         'Links' => array(),
         'StartDate' => '',
         'EndDate' => '',
-        'LastModify' => ''
+        'LastModify' => '',
+        'ProjectType' => '',
+        'Participants' => array()
     );
 
 
@@ -76,28 +79,32 @@ class ProjectService
 
         if ($project === null) $project = new Project();
 
-
-
         $project->setId($data['ID']);
         $project->setPPDBStatus($data['PPDBStatus']);
         $project->setTitleGerman($data['TitleGerman']);
         $project->setTitleEnglish($data['TitleEnglish']);
         $project->setTeaserTextGerman($data['TeaserTextGerman']);
-        $project->setTeaserTextGerman($data['TeaserTextEnglish']);
+        $project->setTeaserTextEnglish($data['TeaserTextEnglish']);
         $project->setAbstractTextGerman($data['AbstractTextGerman']);
         $project->setAbstractTextEnglish($data['AbstractTextEnglish']);
         $project->setResearchMainFocus($data['ResearchMainFocus']);
         $project->setOrganisationUnits($data['OrganisationUnits']);
         $project->setFinancingTypes($data['FinancingTypes']);
+        $project->setProjectType($data['ProjectType']);
         $project->setPhotos($data['Photos']);
         $project->setDocuments($data['Documents']);
+        $project->setParticipants($data['Participants']);
         $project->setLinks($data['Links']);
         $project->setStartDate(is_object($data['StartDate']) ? $data['StartDate'] : new \DateTime());
         $project->setEndDate(is_object($data['EndDate']) ? $data['EndDate'] : new \DateTime());
         $project->setLastModify(is_object($data['LastModify']) ? $data['LastModify'] : new \DateTime());
+        $project->setPPDBStatusLifetime($project->getEndDate()->getTimestamp() > time() ? 'laufend' : 'abgeschlossen');
 
         $project->setHasChanges($project->getHash() === $hash ? false : true);
         $project->setHash($hash);
+
+
+
 
 
         return $project;

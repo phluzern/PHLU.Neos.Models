@@ -339,6 +339,8 @@ class Contact extends AbstractModel
         return $this->image;
     }
 
+
+
     /**
      * @param \TYPO3\Media\Domain\Model\Image $image
      */
