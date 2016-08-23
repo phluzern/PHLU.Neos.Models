@@ -111,13 +111,11 @@ class Contact extends AbstractModel
     protected $education;
 
 
-
     /**
      * @var string
      * @ORM\Column(nullable=true,type="text")
      */
     protected $honorific;
-
 
 
     /**
@@ -156,6 +154,7 @@ class Contact extends AbstractModel
      * @ORM\Column(nullable=true)
      */
     protected $projects;
+
 
     /**
      * @return array
