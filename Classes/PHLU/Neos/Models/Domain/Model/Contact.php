@@ -155,6 +155,50 @@ class Contact extends AbstractModel
      */
     protected $projects;
 
+    /**
+     * @var boolean
+     */
+    protected $showPortrait;
+
+
+    /**
+     * @var boolean
+     */
+    protected $showPortraitImage;
+
+    /**
+     * @return boolean
+     */
+    public function isShowPortrait()
+    {
+        return $this->showPortrait;
+    }
+
+    /**
+     * @param boolean $showPortrait
+     */
+    public function setShowPortrait($showPortrait)
+    {
+        $this->showPortrait = $showPortrait;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isShowPortraitImage()
+    {
+        return $this->showPortraitImage;
+    }
+
+    /**
+     * @param boolean $showPortraitImage
+     */
+    public function setShowPortraitImage($showPortraitImage)
+    {
+        $this->showPortraitImage = $showPortraitImage;
+    }
+
+
 
     /**
      * @return array
@@ -336,7 +380,7 @@ class Contact extends AbstractModel
      */
     public function getImage()
     {
-        return $this->image;
+        return $this->isShowPortraitImage() ? $this->image : null;
     }
 
 

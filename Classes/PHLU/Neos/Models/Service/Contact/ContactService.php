@@ -34,7 +34,9 @@ class ContactService
         'function' => '',
         'gender' => 0,
         '_imageUrl' => '',
-        'eventoId' => 0
+        'eventoId' => 0,
+        'showPortrait' => false,
+        'showPortraitImage' => false
     );
 
 
@@ -191,6 +193,8 @@ class ContactService
         $contact->setConsulting($data['consulting']);
         $contact->setPublications($data['publications']);
         $contact->setProjects($data['projects']);
+        $contact->setShowPortrait($data['showPortrait']);
+        $contact->setShowPortraitImage($data['showPortraitImage']);
 
         $contact->setHasChanges($contact->getHash() === $hash ? false : true);
         $contact->setHash($hash);
