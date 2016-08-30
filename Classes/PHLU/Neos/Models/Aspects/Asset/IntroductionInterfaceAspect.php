@@ -212,30 +212,34 @@ class IntroductionInterfaceAspect
         $exp = explode("/", $mediaType, 2);
         $fileType = $exp[count($exp) - 1];
 
+
         if (strtolower($fileType) == 'msword') {
             $fileType = 'word';
         }
 
-        if (substr_count($fileType,'shortcut')) {
+        else if (substr_count($fileType,'shortcut')) {
             $fileType = 'shortcut';
         }
 
-
-        if (substr_count($fileType, 'octet-stream')) {
+        else if (substr_count($fileType, 'octet-stream')) {
             $fileType = 'shortcut';
         }
 
-
-        if (substr_count($fileType, 'officedocument.spreadsheetml')) {
+        else if (substr_count($fileType, 'officedocument.spreadsheetml')) {
             $fileType = 'excel';
         }
 
-        if (substr_count($fileType, 'officedocument.wordprocessingml')) {
+        else if (substr_count($fileType, 'officedocument.wordprocessingml')) {
             $fileType = 'word';
         }
 
+        else if (substr_count($fileType, 'ms-excel')) {
+            $fileType = 'excel';
+        }
 
-
+        else if (substr_count($fileType, 'ms-word')) {
+            $fileType = 'word';
+        }
 
 
 
