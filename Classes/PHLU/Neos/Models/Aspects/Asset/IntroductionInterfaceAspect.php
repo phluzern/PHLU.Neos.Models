@@ -147,6 +147,11 @@ class IntroductionInterfaceAspect
 
         $fileType = $this->getMediaTypePrintable($joinPoint->getProxy()->getResource()->getMediaType(), true);
 
+        if ($fileType == 'internal') {
+            return '';
+        }
+
+
         if ($fileType == 'Link') {
 
             $uri = parse_url($joinPoint->getProxy()->getResource()->getLink());
@@ -177,7 +182,9 @@ class IntroductionInterfaceAspect
             return $this->getMediaTypePrintable($joinPoint->getProxy()->getResource()->getSha1());
         }
 
-
+       if ($fileType == 'internal') {
+            return "_self";
+        }
 
 
         return $fileType;
@@ -194,6 +201,12 @@ class IntroductionInterfaceAspect
     private function getMediaTypePrintable($mediaType, $humanredable = false)
     {
 
+
+
+        if ($mediaType == 'node/html') {
+            return 'internal';
+        }
+
         $fileType = '';
 
         $exp = explode("/", $mediaType, 2);
@@ -207,9 +220,23 @@ class IntroductionInterfaceAspect
             $fileType = 'shortcut';
         }
 
+
+        if (substr_count($fileType, 'octet-stream')) {
+            $fileType = 'shortcut';
+        }
+
+
         if (substr_count($fileType, 'officedocument.spreadsheetml')) {
             $fileType = 'excel';
         }
+
+        if (substr_count($fileType, 'officedocument.wordprocessingml')) {
+            $fileType = 'word';
+        }
+
+
+
+
 
 
         $fileType = strtolower($fileType);
