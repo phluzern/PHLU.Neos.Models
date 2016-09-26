@@ -60,13 +60,6 @@ class AbstractModel
     /**
      * @return mixed
      */
-    public function isPersisted() {
-        return isset($this->Flow_Persistence_clone) ? true : false;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getIdentifier() {
         return $this->Persistence_Object_Identifier;
     }

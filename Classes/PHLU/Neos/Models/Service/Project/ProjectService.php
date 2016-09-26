@@ -123,7 +123,7 @@ class ProjectService
     {
 
 
-        if ($project->isPersisted()) {
+        if ($this->persistenceManager->isNewObject($project) === false) {
             if ($project->isHasChanges()) {
                 $project->setHasChanges(false);
                 $this->projectRepository->update($project);

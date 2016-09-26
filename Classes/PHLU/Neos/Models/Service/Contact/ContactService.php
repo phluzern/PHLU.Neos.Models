@@ -307,7 +307,7 @@ class ContactService
 
         $updated = false;
 
-        if ($contact->isPersisted()) {
+        if ($this->persistenceManager->isNewObject($contact) === false) {
             if ($contact->isHasChanges()) {
                 $contact->setHasChanges(false);
                 $this->contactRepository->update($contact);
