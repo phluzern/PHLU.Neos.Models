@@ -88,10 +88,12 @@ class ContactAspect
             $baseNode = $this->nodeDataRepository->findOneByIdentifier('7f434ec8-ad74-4032-a8fe-6842c4d3e4a1', $this->workspaceRepository->findByIdentifier('live'));
             /* @var $baseNodeDatabase NodeData */
             $baseNodeDatabase = $this->nodeDataRepository->findOneByPath($baseNode->getPath() . "/database", $this->workspaceRepository->findByIdentifier('live'));
-            $nodeType = $this->nodeTypeManager->getNodeType('PHLU.Corporate:Contact');
-            if ($this->nodeDataRepository->findOneByPath($baseNodeDatabase->getPath() . "/" . 'contact-' . $contact->getEventoid(),$this->workspaceRepository->findByIdentifier('live')) === null) {
-                $contactNode = $baseNodeDatabase->createNodeData('contact-' . $contact->getEventoid(), $nodeType);
-                $this->nodeDataRepository->update($this->updateContactNode($contactNode, $contact));
+            if ($baseNodeDatabase !== null) {
+                $nodeType = $this->nodeTypeManager->getNodeType('PHLU.Corporate:Contact');
+                if ($this->nodeDataRepository->findOneByPath($baseNodeDatabase->getPath() . "/" . 'contact-' . $contact->getEventoid(), $this->workspaceRepository->findByIdentifier('live')) === null) {
+                    $contactNode = $baseNodeDatabase->createNodeData('contact-' . $contact->getEventoid(), $nodeType);
+                    $this->nodeDataRepository->update($this->updateContactNode($contactNode, $contact));
+                }
             }
 
 
