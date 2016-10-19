@@ -71,8 +71,6 @@ class ProjectService
             if (isset($data[$key]) === false) $data[$key] = $val;
         }
 
-
-
         $hash = sha1(json_encode($data));
 
         $project = $this->projectRepository->getOneByPpDbId($data['ID']);
