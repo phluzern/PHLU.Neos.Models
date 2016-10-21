@@ -92,6 +92,7 @@ class ContactAspect
                 $nodeType = $this->nodeTypeManager->getNodeType('PHLU.Corporate:Contact');
                 if ($this->nodeDataRepository->findOneByPath($baseNodeDatabase->getPath() . "/" . 'contact-' . $contact->getEventoid(), $this->workspaceRepository->findByIdentifier('live')) === null) {
                     $contactNode = $baseNodeDatabase->createNodeData('contact-' . $contact->getEventoid(), $nodeType);
+                    $contactNode->setProperty('contact', $contact->getEventoid());
                     $this->nodeDataRepository->update($this->updateContactNode($contactNode, $contact));
                 }
             }
