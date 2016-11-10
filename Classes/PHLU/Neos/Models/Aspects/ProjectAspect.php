@@ -147,8 +147,6 @@ class ProjectAspect
         $node->setProperty('lastmodify', $project->getLastModify());
 
 
-        $this->searchIndexFactory->updateIndexForNodeData($node);
-
         return $node;
 
 

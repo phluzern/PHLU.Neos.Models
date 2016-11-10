@@ -136,8 +136,6 @@ class ContactAspect
         $node->setProperty('image', $contact->getImage());
 
 
-        $this->searchIndexFactory->updateIndexForNodeData($node);
-
         return $node;
 
 
