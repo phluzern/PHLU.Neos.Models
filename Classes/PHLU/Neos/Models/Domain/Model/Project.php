@@ -87,6 +87,12 @@ class Project extends AbstractModel
      */
     protected $researchMainFocus;
 
+    /**
+     * @var array
+     * @ORM\Column(nullable=true)
+     */
+    protected $researchUnit;
+
 
     /**
      * @var array
@@ -469,6 +475,22 @@ class Project extends AbstractModel
     public function setLastModify($lastModify)
     {
         $this->lastModify = $lastModify;
+    }
+
+    /**
+     * @return array
+     */
+    public function getResearchUnit()
+    {
+        return $this->researchUnit;
+    }
+
+    /**
+     * @param array $researchUnit
+     */
+    public function setResearchUnit($researchUnit)
+    {
+        $this->researchUnit = $researchUnit;
     }
 
 

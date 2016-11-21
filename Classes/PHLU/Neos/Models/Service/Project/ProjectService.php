@@ -25,6 +25,7 @@ class ProjectService
         'AbstractTextGerman' => '',
         'AbstractTextEnglish' => '',
         'ResearchMainFocus' => array(),
+        'ResearchUnit' => array(),
         'OrganisationUnits' => array(),
         'FinancingTypes' => array(),
         'Photos' => array(),
@@ -86,6 +87,7 @@ class ProjectService
         $project->setAbstractTextGerman($data['AbstractTextGerman']);
         $project->setAbstractTextEnglish($data['AbstractTextEnglish']);
         $project->setResearchMainFocus($data['ResearchMainFocus']);
+        $project->setResearchUnit($data['ResearchUnit']);
         $project->setOrganisationUnits($data['OrganisationUnits']);
         $project->setFinancingTypes($data['FinancingTypes']);
         $project->setProjectType($data['ProjectType']);

@@ -136,6 +136,7 @@ class ProjectAspect
         $node->setProperty('abstracttextgerman', $project->getAbstractTextGerman());
         $node->setProperty('abstracttextenglish', $project->getAbstractTextEnglish());
         $node->setProperty('researchmainfocus', $project->getResearchMainFocus());
+        $node->setProperty('researchunit', $project->getResearchUnit());
         $node->setProperty('organisationunits', $project->getOrganisationUnits());
         $node->setProperty('financingtypes', $project->getFinancingTypes());
         $node->setProperty('photos', $project->getPhotos());
