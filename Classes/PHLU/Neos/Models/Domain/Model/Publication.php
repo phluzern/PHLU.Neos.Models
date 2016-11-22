@@ -46,6 +46,12 @@ class Publication extends AbstractModel
     protected $projects;
 
     /**
+     * @var array
+     * @ORM\Column(nullable=true)
+     */
+    protected $organisations;
+
+    /**
      * @var \DateTime
      * @ORM\Column(nullable=true)
      */
@@ -189,6 +195,22 @@ class Publication extends AbstractModel
     public function setPersons($persons)
     {
         $this->persons = $persons;
+    }
+
+    /**
+     * @return array
+     */
+    public function getOrganisations()
+    {
+        return $this->organisations;
+    }
+
+    /**
+     * @param array $organisations
+     */
+    public function setOrganisations($organisations)
+    {
+        $this->organisations = $organisations;
     }
 
 

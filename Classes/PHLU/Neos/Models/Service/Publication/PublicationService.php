@@ -69,6 +69,7 @@ class PublicationService
         $publication->setDate(is_object($data['Date']) ? $data['Date'] : new \DateTime());
         $publication->setPublicationTypeId($data['PublicationTypeId']);
         $publication->setPersons($data['Persons']);
+        $publication->setOrganisations($data['Organisations']);
 
 
         $publication->setHasChanges($publication->getHash() === $hash ? false : true);
