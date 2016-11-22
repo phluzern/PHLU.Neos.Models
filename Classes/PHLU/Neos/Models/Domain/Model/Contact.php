@@ -156,6 +156,12 @@ class Contact extends AbstractModel
     protected $projects;
 
     /**
+     * @var array
+     * @ORM\Column(nullable=true)
+     */
+    protected $organisations;
+
+    /**
      * @var boolean
      */
     protected $showPortrait;
@@ -552,6 +558,22 @@ class Contact extends AbstractModel
      */
     public function getName() {
         return $this->name;
+    }
+
+    /**
+     * @return array
+     */
+    public function getOrganisations()
+    {
+        return $this->organisations;
+    }
+
+    /**
+     * @param array $organisations
+     */
+    public function setOrganisations($organisations)
+    {
+        $this->organisations = $organisations;
     }
 
 

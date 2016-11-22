@@ -127,6 +127,7 @@ class ContactAspect
         $node->setProperty('email', $contact->getEmail());
         $node->setProperty('phone', $contact->getPhone());
         $node->setProperty('text', $contact->getName()->getFirstName() . " " . $contact->getName()->getLastName());
+        $node->setProperty('organisations', $contact->getOrganisations());
 
         if ($node->getProperty('functionCustom') == '') {
             $node->setProperty('function', $contact->getFunction());

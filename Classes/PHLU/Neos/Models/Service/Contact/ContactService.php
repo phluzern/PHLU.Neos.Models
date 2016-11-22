@@ -36,7 +36,8 @@ class ContactService
         '_imageUrl' => '',
         'eventoId' => 0,
         'showPortrait' => false,
-        'showPortraitImage' => false
+        'showPortraitImage' => false,
+        'organisations' => array()
     );
 
 
@@ -195,6 +196,8 @@ class ContactService
         $contact->setProjects($data['projects']);
         $contact->setShowPortrait($data['showPortrait']);
         $contact->setShowPortraitImage($data['showPortraitImage']);
+        $contact->setOrganisations($data['organisations']);
+
 
         $contact->setHasChanges($contact->getHash() === $hash ? false : true);
         $contact->setHash($hash);
