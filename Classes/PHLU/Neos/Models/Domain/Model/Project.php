@@ -5,6 +5,7 @@ namespace PHLU\Neos\Models\Domain\Model;
  * This file is part of the PHLU.Ppdb package.
  */
 
+
 use TYPO3\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -13,6 +14,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Project extends AbstractModel
 {
+
+
+
 
     /**
      * @var integer
@@ -99,6 +103,12 @@ class Project extends AbstractModel
      * @ORM\Column(nullable=true)
      */
     protected $organisationUnits;
+
+    /**
+     * @var array
+     * @ORM\Column(nullable=true)
+     */
+    protected $publications;
 
 
     /**
@@ -491,6 +501,22 @@ class Project extends AbstractModel
     public function setResearchUnit($researchUnit)
     {
         $this->researchUnit = $researchUnit;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPublications()
+    {
+        return $this->publications;
+    }
+
+    /**
+     * @param array $publications
+     */
+    public function setPublications($publications)
+    {
+        $this->publications = $publications;
     }
 
 

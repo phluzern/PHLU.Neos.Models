@@ -94,6 +94,7 @@ class ProjectService
         $project->setPhotos($data['Photos']);
         $project->setDocuments($data['Documents']);
         $project->setParticipants($data['Participants']);
+        $project->setPublications($data['Publications']);
         $project->setLinks($data['Links']);
         $project->setStartDate(is_object($data['StartDate']) ? $data['StartDate'] : new \DateTime());
         $project->setEndDate(is_object($data['EndDate']) ? $data['EndDate'] : new \DateTime());

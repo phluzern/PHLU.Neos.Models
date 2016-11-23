@@ -135,7 +135,7 @@ class PublicationAspect
         $node->setProperty('Language', $publication->getLanguage());
         $node->setProperty('Projects', $publication->getProjects());
         $node->setProperty('Date', $publication->getDate());
-        $node->setProperty('PublicationTypeId', $publication->getPublicationTypeId());
+        $node->setProperty('PublicationType', $publication->getPublicationType());
         $node->setProperty('Persons', $publication->getPersons());
         $node->setProperty('Organisations', $publication->getOrganisations());
 

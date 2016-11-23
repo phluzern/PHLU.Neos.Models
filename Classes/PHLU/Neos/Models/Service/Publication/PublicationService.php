@@ -67,7 +67,7 @@ class PublicationService
         $publication->setLanguage($data['Language']);
         $publication->setProjects($data['Projects']);
         $publication->setDate(is_object($data['Date']) ? $data['Date'] : new \DateTime());
-        $publication->setPublicationTypeId($data['PublicationTypeId']);
+        $publication->setPublicationType($data['PublicationTypeId']);
         $publication->setPersons($data['Persons']);
         $publication->setOrganisations($data['Organisations']);
 

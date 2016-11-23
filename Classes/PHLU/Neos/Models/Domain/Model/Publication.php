@@ -58,9 +58,10 @@ class Publication extends AbstractModel
     protected $date;
 
     /**
-     * @var integer
+     * @var array
+     * @ORM\Column(nullable=true)
      */
-    protected $publicationTypeId;
+    protected $publicationType;
 
 
     /**
@@ -166,20 +167,21 @@ class Publication extends AbstractModel
     }
 
     /**
-     * @return int
+     * @return array
      */
-    public function getPublicationTypeId()
+    public function getPublicationType()
     {
-        return $this->publicationTypeId;
+        return $this->publicationType;
     }
 
     /**
-     * @param int $publicationTypeId
+     * @param array $publicationType
      */
-    public function setPublicationTypeId($publicationTypeId)
+    public function setPublicationType($publicationType)
     {
-        $this->publicationTypeId = $publicationTypeId;
+        $this->publicationType = $publicationType;
     }
+
 
     /**
      * @return array

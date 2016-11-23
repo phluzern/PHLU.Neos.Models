@@ -29,4 +29,17 @@ class PublicationRepository extends Repository
 
     }
 
+    /**
+     * @param int $ppdbProjectId
+     * @return \TYPO3\Flow\Persistence\QueryInterface
+     */
+    public function getByPpdbProjectId($ppdbProjectId) {
+
+
+        $query = $this->createQuery();
+        return $query->matching($query->like('projects', '%:'.$ppdbProjectId.';%'))->execute();
+
+
+    }
+
 }
