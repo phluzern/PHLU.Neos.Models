@@ -18,6 +18,7 @@ class PublicationService
         'Citationstyle' => '',
         'Title' => '',
         'Language' => '',
+        'URL' => '',
         'Projects' => array()
     );
 
@@ -70,6 +71,7 @@ class PublicationService
         $publication->setPublicationType($data['PublicationTypeId']);
         $publication->setPersons($data['Persons']);
         $publication->setOrganisations($data['Organisations']);
+        $publication->setUrl($data['URL']);
 
 
         $publication->setHasChanges($publication->getHash() === $hash ? false : true);

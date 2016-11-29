@@ -138,6 +138,7 @@ class PublicationAspect
         $node->setProperty('PublicationType', $publication->getPublicationType());
         $node->setProperty('Persons', $publication->getPersons());
         $node->setProperty('Organisations', $publication->getOrganisations());
+        $node->setProperty('Url', $publication->getUrl());
 
         return $node;
 
