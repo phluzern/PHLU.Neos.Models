@@ -25,6 +25,12 @@ class Publication extends AbstractModel
      */
     protected $citationstyle;
 
+    /**
+     * @var string
+     * @ORM\Column(nullable=true,type="text")
+     */
+    protected $url;
+
 
     /**
      * @var string
@@ -213,6 +219,22 @@ class Publication extends AbstractModel
     public function setOrganisations($organisations)
     {
         $this->organisations = $organisations;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param string $url
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
     }
 
 
