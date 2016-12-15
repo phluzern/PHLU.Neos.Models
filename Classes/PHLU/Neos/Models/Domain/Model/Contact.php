@@ -162,6 +162,12 @@ class Contact extends AbstractModel
     protected $organisations;
 
     /**
+     * @var array
+     * @ORM\Column(nullable=true)
+     */
+    protected $achievements;
+
+    /**
      * @var boolean
      */
     protected $showPortrait;
@@ -574,6 +580,22 @@ class Contact extends AbstractModel
     public function setOrganisations($organisations)
     {
         $this->organisations = $organisations;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAchievements()
+    {
+        return $this->achievements;
+    }
+
+    /**
+     * @param array $achievements
+     */
+    public function setAchievements($achievements)
+    {
+        $this->achievements = $achievements;
     }
 
 

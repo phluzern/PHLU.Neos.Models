@@ -197,6 +197,7 @@ class ContactService
         $contact->setShowPortrait($data['showPortrait']);
         $contact->setShowPortraitImage($data['showPortraitImage']);
         $contact->setOrganisations($data['organisations']);
+        $contact->setAchievements($data['achievements']);
 
 
         $contact->setHasChanges($contact->getHash() === $hash ? false : true);
