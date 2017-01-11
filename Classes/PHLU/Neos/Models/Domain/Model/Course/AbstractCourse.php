@@ -18,6 +18,12 @@ abstract class AbstractCourse extends AbstractModel
 
 
     /**
+     * @var boolean
+     */
+    protected $deleted;
+
+
+    /**
      * @var string
      * @ORM\Column(nullable=false,type="text")
      */
@@ -28,10 +34,18 @@ abstract class AbstractCourse extends AbstractModel
      * @var string
      * @ORM\Column(nullable=false,type="text")
      */
+    protected $description;
+
+
+    /**
+     * @var string
+     * @ORM\Column(nullable=false,type="text")
+     */
     protected $nr;
 
     /**
      * @var integer
+     * @ORM\Column(nullable=true)
      */
     protected $ects;
 
@@ -52,6 +66,22 @@ abstract class AbstractCourse extends AbstractModel
      */
     protected $targetgroups;
 
+    /**
+     * @return boolean
+     */
+    public function isDeleted()
+    {
+        return $this->deleted;
+    }
+
+    /**
+     * @param boolean $deleted
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+    }
+
 
 
     /**
@@ -59,6 +89,22 @@ abstract class AbstractCourse extends AbstractModel
      * @ORM\Column(nullable=false)
      */
     protected $id;
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
 
 
     /**
@@ -172,8 +218,6 @@ abstract class AbstractCourse extends AbstractModel
     {
         $this->targetgroups = $targetgroups;
     }
-
-
 
 
 }

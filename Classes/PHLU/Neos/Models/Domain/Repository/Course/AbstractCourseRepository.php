@@ -1,5 +1,5 @@
 <?php
-namespace PHLU\Neos\Models\Domain\Repository;
+namespace PHLU\Neos\Models\Domain\Repository\Course;
 
 /*
  * This file is part of the PHLU.Neos.Models package.
