@@ -25,21 +25,21 @@ abstract class AbstractCourse extends AbstractModel
 
     /**
      * @var string
-     * @ORM\Column(nullable=false,type="text")
+     * @ORM\Column(nullable=true,type="text")
      */
     protected $title;
 
 
     /**
      * @var string
-     * @ORM\Column(nullable=false,type="text")
+     * @ORM\Column(nullable=true,type="text")
      */
     protected $description;
 
 
     /**
      * @var string
-     * @ORM\Column(nullable=false,type="text")
+     * @ORM\Column(nullable=true,type="text")
      */
     protected $nr;
 
