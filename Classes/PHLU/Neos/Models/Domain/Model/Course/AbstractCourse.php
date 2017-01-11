@@ -51,6 +51,7 @@ abstract class AbstractCourse extends AbstractModel
 
     /**
      * @var float
+     * @ORM\Column(nullable=true)
      */
     protected $fee;
 
