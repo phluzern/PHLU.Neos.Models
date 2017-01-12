@@ -151,6 +151,7 @@ class CourseAspect
         $node->setProperty('fee',$course->getFee());
         $node->setProperty('leaders',$course->getLeaders());
         $node->setProperty('targetgroups',$course->getTargetgroups());
+        $node->setProperty('deleted',$course->isDeleted());
 
         switch ($node->getNodeType()->getName()) {
 
