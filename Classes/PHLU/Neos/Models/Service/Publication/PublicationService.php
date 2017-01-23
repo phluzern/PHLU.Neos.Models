@@ -19,6 +19,7 @@ class PublicationService
         'Title' => '',
         'Language' => '',
         'URL' => '',
+        'Persons' => array(),
         'Projects' => array()
     );
 
