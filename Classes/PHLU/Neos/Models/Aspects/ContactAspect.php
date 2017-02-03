@@ -127,13 +127,12 @@ class ContactAspect
         $node->setProperty('email', $contact->getEmail());
         $node->setProperty('phone', $contact->getPhone());
         $node->setProperty('text', $contact->getName()->getFirstName() . " " . $contact->getName()->getLastName());
-        $node->setProperty('organisations', $contact->getOrganisations());
         $node->setProperty('eventoid', $contact->getEventoid());
-        $node->setProperty('education', $contact->getEducation());
-        $node->setProperty('activities', $contact->getActivities());
-        $node->setProperty('functions', $contact->getFunctions());
-        $node->setProperty('consulting', $contact->getConsulting());
-        $node->setProperty('expertise', $contact->getExpertise());
+//        $node->setProperty('education', $contact->getEducation());
+//        $node->setProperty('activities', $contact->getActivities());
+//        $node->setProperty('functions', $contact->getFunctions());
+//        $node->setProperty('consulting', $contact->getConsulting());
+//        $node->setProperty('expertise', $contact->getExpertise());
 
 
         if ($node->getProperty('functionCustom') == '') {
