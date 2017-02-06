@@ -8,15 +8,15 @@ use PHLU\Neos\Models\Domain\Model\Course\Study\FurtherEducation\Course;
 use PHLU\Neos\Models\Domain\Repository\CourseRepository;
 use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Persistence\Doctrine\PersistenceManager;
-use TYPO3\Neos\Domain\Repository\SiteRepository;
-use TYPO3\Neos\Domain\Service\ContentContextFactory;
-use TYPO3\Neos\Utility\NodeUriPathSegmentGenerator;
+use Neos\Neos\Domain\Repository\SiteRepository;
+use Neos\Neos\Domain\Service\ContentContextFactory;
+use Neos\Neos\Utility\NodeUriPathSegmentGenerator;
 use TYPO3\TYPO3CR\Domain\Model\NodeData;
 use TYPO3\TYPO3CR\Domain\Repository\NodeDataRepository;
 use TYPO3\TYPO3CR\Domain\Service\NodeTypeManager;
 use Neos\Flow\Aop\JoinPointInterface;
-use TYPO3\Neos\Domain\Service\SiteService;
-use TYPO3\Neos\Domain\Model\Site;
+use Neos\Neos\Domain\Service\SiteService;
+use Neos\Neos\Domain\Model\Site;
 use TYPO3\TYPO3CR\Domain\Model\Node;
 
 /**

@@ -12,7 +12,7 @@ privilegeTargets:
 
 roles:
 
-  'TYPO3.Neos:AbstractEditor':
+  'Neos.Neos:AbstractEditor':
     privileges:
       -
         privilegeTarget: 'PHLU.Neos.Models.RestrictableEntity.AssetCollections'

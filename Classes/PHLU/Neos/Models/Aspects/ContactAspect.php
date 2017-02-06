@@ -9,7 +9,7 @@ use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Aop\JoinPointInterface;
 use Neos\Flow\Error\Exception;
 use Neos\Flow\Persistence\Doctrine\PersistenceManager;
-use TYPO3\Neos\Domain\Service\SiteService;
+use Neos\Neos\Domain\Service\SiteService;
 use TYPO3\TYPO3CR\Domain\Model\NodeData;
 use TYPO3\TYPO3CR\Domain\Repository\NodeDataRepository;
 use Neoslive\Hybridsearch\Factory\SearchIndexFactory;
