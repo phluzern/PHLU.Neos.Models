@@ -6,9 +6,9 @@ namespace PHLU\Neos\Models\Domain\Repository;
  */
 
 use PHLU\Neos\Models\Domain\Model\Contact;
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Persistence\Repository;
-use TYPO3\Flow\Persistence\QueryInterface;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Persistence\Repository;
+use Neos\Flow\Persistence\QueryInterface;
 
 /**
  * @Flow\Scope("singleton")
@@ -19,7 +19,7 @@ class ContactRepository extends Repository
 
     /**
      * @param $eventoId
-     * @return \TYPO3\Flow\Persistence\QueryInterface
+     * @return \Neos\Flow\Persistence\QueryInterface
      */
     public function getOneByEventoId($eventoId) {
 
@@ -127,7 +127,7 @@ class ContactRepository extends Repository
     }
 
     /**
-     * @return \TYPO3\Flow\Persistence\QueryInterface
+     * @return \Neos\Flow\Persistence\QueryInterface
      */
     public function findAllOrderedByName() {
 
@@ -141,7 +141,7 @@ class ContactRepository extends Repository
 
     /**
      * @param string $emailpart part before @ from email address
-     * @return \TYPO3\Flow\Persistence\QueryInterface
+     * @return \Neos\Flow\Persistence\QueryInterface
      */
     public function getOneByEmailPart($emailpart) {
 

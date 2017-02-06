@@ -5,10 +5,10 @@ namespace PHLU\Neos\Models\Aspects;
 
 use PHLU\Neos\Models\Domain\Model\Project;
 use PHLU\Neos\Models\Domain\Repository\ProjectRepository;
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Aop\JoinPointInterface;
-use TYPO3\Flow\Error\Exception;
-use TYPO3\Flow\Persistence\Doctrine\PersistenceManager;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Aop\JoinPointInterface;
+use Neos\Flow\Error\Exception;
+use Neos\Flow\Persistence\Doctrine\PersistenceManager;
 use TYPO3\Neos\Domain\Service\SiteService;
 use TYPO3\TYPO3CR\Domain\Model\NodeData;
 use TYPO3\TYPO3CR\Domain\Repository\NodeDataRepository;
@@ -73,7 +73,7 @@ class ProjectAspect
 
     /**
      * @param Project $project
-     * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
+     * @throws \Neos\Flow\Persistence\Exception\IllegalObjectTypeException
      */
     protected function findProjectNodesAndUpdate(Project $project)
     {

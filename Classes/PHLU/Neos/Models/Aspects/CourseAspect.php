@@ -6,15 +6,15 @@ namespace PHLU\Neos\Models\Aspects;
 use PHLU\Evento\Service\Course\ImportService;
 use PHLU\Neos\Models\Domain\Model\Course\Study\FurtherEducation\Course;
 use PHLU\Neos\Models\Domain\Repository\CourseRepository;
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Persistence\Doctrine\PersistenceManager;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Persistence\Doctrine\PersistenceManager;
 use TYPO3\Neos\Domain\Repository\SiteRepository;
 use TYPO3\Neos\Domain\Service\ContentContextFactory;
 use TYPO3\Neos\Utility\NodeUriPathSegmentGenerator;
 use TYPO3\TYPO3CR\Domain\Model\NodeData;
 use TYPO3\TYPO3CR\Domain\Repository\NodeDataRepository;
 use TYPO3\TYPO3CR\Domain\Service\NodeTypeManager;
-use TYPO3\Flow\Aop\JoinPointInterface;
+use Neos\Flow\Aop\JoinPointInterface;
 use TYPO3\Neos\Domain\Service\SiteService;
 use TYPO3\Neos\Domain\Model\Site;
 use TYPO3\TYPO3CR\Domain\Model\Node;
@@ -113,7 +113,7 @@ class CourseAspect
 
     /**
      * @param mixed $course
-     * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
+     * @throws \Neos\Flow\Persistence\Exception\IllegalObjectTypeException
      */
     protected function findCourseNodesAndUpdate($course)
     {

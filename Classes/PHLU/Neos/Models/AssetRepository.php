@@ -2,7 +2,7 @@
 namespace PHLU\Neos\Models;
 
 /*
- * This file is part of the TYPO3.Flow package.
+ * This file is part of the Neos.Flow package.
  *
  * (c) Contributors of the Neos Project - www.neos.io
  *
@@ -13,7 +13,7 @@ namespace PHLU\Neos\Models;
 
 
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
 /**
  * Resource Repository
@@ -22,7 +22,7 @@ use TYPO3\Flow\Annotations as Flow;
  * provided by Resource Manager instead.
  *
  * @Flow\Scope("singleton")
- * @see \TYPO3\Flow\ResourceManagement\ResourceManager
+ * @see \Neos\Flow\ResourceManagement\ResourceManager
  */
 class AssetRepository extends \TYPO3\Media\Domain\Repository\AssetRepository
 {

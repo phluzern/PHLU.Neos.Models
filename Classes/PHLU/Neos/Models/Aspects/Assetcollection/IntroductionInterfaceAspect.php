@@ -11,7 +11,7 @@ namespace PHLU\Neos\Models\Aspects\AssetCollection;
  * source code.
  */
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
 use PHLU\Qmpilot\Domain\Model\Qmpilot;
 
@@ -25,11 +25,11 @@ class IntroductionInterfaceAspect
 
     /**
      * Around advice, implements the new method "getQmpilot" of the AssetCollectionInterface     *
-     * @param  \TYPO3\Flow\Aop\JoinPointInterface $joinPoint The current join point
+     * @param  \Neos\Flow\Aop\JoinPointInterface $joinPoint The current join point
      * @return void
      * @Flow\Around("method(TYPO3\Media\Domain\Model\AssetCollection->getHidden())")
      */
-    public function getHidden(\TYPO3\Flow\Aop\JoinPointInterface $joinPoint) {
+    public function getHidden(\Neos\Flow\Aop\JoinPointInterface $joinPoint) {
 
         return $joinPoint->getProxy()->hidden;
     }
@@ -39,11 +39,11 @@ class IntroductionInterfaceAspect
      * Around advice, implements the new method "setHidden" of the
      * "AssetCollectionInterface" interface
      *
-     * @param  \TYPO3\Flow\Aop\JoinPointInterface $joinPoint The current join point
+     * @param  \Neos\Flow\Aop\JoinPointInterface $joinPoint The current join point
      * @return void
      * @Flow\Around("method(TYPO3\Media\Domain\Model\AssetCollection->setHidden())")
      */
-    public function setHidden(\TYPO3\Flow\Aop\JoinPointInterface $joinPoint) {
+    public function setHidden(\Neos\Flow\Aop\JoinPointInterface $joinPoint) {
 
         $joinPoint->getProxy()->hidden = $joinPoint->getMethodArgument('hidden') ? 1 : 0;
 

@@ -8,7 +8,7 @@ namespace PHLU\Neos\Models\Service\Publication;
 
 use PHLU\Neos\Models\Domain\Model\Publication;
 use PHLU\Neos\Models\Domain\Repository\PublicationRepository;
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
 
 class PublicationService
@@ -34,7 +34,7 @@ class PublicationService
 
     /**
      * @Flow\Inject
-     * @var \TYPO3\Flow\Persistence\PersistenceManagerInterface
+     * @var \Neos\Flow\Persistence\PersistenceManagerInterface
      */
     protected $persistenceManager;
 

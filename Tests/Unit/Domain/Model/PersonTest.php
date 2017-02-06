@@ -8,7 +8,7 @@ namespace PHLU\Neos\Models\Tests\Unit\Domain\Model;
 /**
  * Testcase for Person
  */
-class PersonTest extends \TYPO3\Flow\Tests\UnitTestCase
+class PersonTest extends \Neos\Flow\Tests\UnitTestCase
 {
 
     /**

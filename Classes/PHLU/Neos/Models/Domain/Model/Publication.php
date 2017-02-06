@@ -5,7 +5,7 @@ namespace PHLU\Neos\Models\Domain\Model;
  * This file is part of the PHLU.Ppdb package.
  */
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

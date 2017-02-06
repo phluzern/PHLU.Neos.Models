@@ -6,7 +6,7 @@ namespace PHLU\Neos\Models\Domain\Model\Course\Module\FurtherEducation;
  */
 
 use PHLU\Neos\Models\Domain\Model\Course\Module\AbstractModule;
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

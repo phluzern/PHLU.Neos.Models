@@ -4,7 +4,7 @@
 
 privilegeTargets:
 
-  'TYPO3\Flow\Security\Authorization\Privilege\Entity\Doctrine\EntityPrivilege':
+  'Neos\Flow\Security\Authorization\Privilege\Entity\Doctrine\EntityPrivilege':
 
     'PHLU.Neos.Models.RestrictableEntity.AssetCollections':
       matcher: 'isType("TYPO3\Media\Domain\Model\AssetCollection") && property("hidden") == TRUE && property("hidden") != NULL'

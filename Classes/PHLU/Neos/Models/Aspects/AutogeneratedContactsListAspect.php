@@ -4,8 +4,8 @@ namespace PHLU\Neos\Models\Aspects;
 
 
 use PHLU\Evento\Service\Contact\ImportService;
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Aop\JoinPointInterface;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Aop\JoinPointInterface;
 
 /**
  * @Flow\Scope("singleton")

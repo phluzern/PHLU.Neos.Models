@@ -8,7 +8,7 @@ namespace PHLU\Neos\Models\Service\Project;
 
 use PHLU\Neos\Models\Domain\Model\Project;
 use PHLU\Neos\Models\Domain\Repository\ProjectRepository;
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
 
 class ProjectService
@@ -49,7 +49,7 @@ class ProjectService
 
     /**
      * @Flow\Inject
-     * @var \TYPO3\Flow\Persistence\PersistenceManagerInterface
+     * @var \Neos\Flow\Persistence\PersistenceManagerInterface
      */
     protected $persistenceManager;
 

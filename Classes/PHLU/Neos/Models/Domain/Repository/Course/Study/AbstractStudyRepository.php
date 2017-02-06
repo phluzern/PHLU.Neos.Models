@@ -5,9 +5,9 @@ namespace PHLU\Neos\Models\Domain\Repository\Course\Study;
  * This file is part of the PHLU.Neos.Models package.
  */
 
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Persistence\Repository;
-use TYPO3\Flow\Persistence\QueryInterface;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Persistence\Repository;
+use Neos\Flow\Persistence\QueryInterface;
 use PHLU\Neos\Models\Domain\Repository\Course\AbstractCourseRepository;
 
 /**

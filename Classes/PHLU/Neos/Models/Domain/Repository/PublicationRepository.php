@@ -5,8 +5,8 @@ namespace PHLU\Neos\Models\Domain\Repository;
  * This file is part of the PHLU.Ppdb package.
  */
 
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Persistence\Repository;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Persistence\Repository;
 
 /**
  * @Flow\Scope("singleton")
@@ -17,7 +17,7 @@ class PublicationRepository extends Repository
 
     /**
      * @param int $ppdbId
-     * @return \TYPO3\Flow\Persistence\QueryInterface
+     * @return \Neos\Flow\Persistence\QueryInterface
      */
     public function getOneByPpDbId($ppdbId) {
 
@@ -31,7 +31,7 @@ class PublicationRepository extends Repository
 
     /**
      * @param int $ppdbProjectId
-     * @return \TYPO3\Flow\Persistence\QueryInterface
+     * @return \Neos\Flow\Persistence\QueryInterface
      */
     public function getByPpdbProjectId($ppdbProjectId) {
 

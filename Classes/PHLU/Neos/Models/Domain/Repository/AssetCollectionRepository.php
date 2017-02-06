@@ -5,8 +5,8 @@ namespace PHLU\Neos\Models\Domain\Repository;
  * This file is part of the PHLU.Neos.Models package.
  */
 
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Persistence\QueryInterface;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Persistence\QueryInterface;
 
 /**
  * @Flow\Scope("singleton")
@@ -21,7 +21,7 @@ class AssetCollectionRepository extends \TYPO3\Media\Domain\Repository\AssetColl
     /**
      * Find hidden collections
      *
-     * @return \TYPO3\Flow\Persistence\QueryResultInterface
+     * @return \Neos\Flow\Persistence\QueryResultInterface
      */
     public function getHiddenCollections()
     {

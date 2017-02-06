@@ -6,9 +6,9 @@ namespace PHLU\Neos\Models\Domain\Repository\Course\Module\FurtherEducation;
  */
 
 use PHLU\Neos\Models\Domain\Repository\Course\Module\AbstractModuleRepository;
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Persistence\Repository;
-use TYPO3\Flow\Persistence\QueryInterface;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Persistence\Repository;
+use Neos\Flow\Persistence\QueryInterface;
 
 
 /**

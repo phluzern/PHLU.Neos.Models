@@ -3,7 +3,7 @@
 namespace PHLU\Neos\Models\Aspects\AssetCollection;
 
 /*
- * This file is part of the TYPO3.Flow package.
+ * This file is part of the Neos.Flow package.
  *
  * (c) Contributors of the Neos Project - www.neos.io
  *
@@ -13,7 +13,7 @@ namespace PHLU\Neos\Models\Aspects\AssetCollection;
  */
 
 use PHLU\Qmpilot\Domain\Model\Qmpilot;
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
 /**
  * Interface which defines the basic meta data getters and setters for Resource

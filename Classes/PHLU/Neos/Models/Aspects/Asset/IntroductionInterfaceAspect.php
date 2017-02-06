@@ -11,7 +11,7 @@ namespace PHLU\Neos\Models\Aspects\Asset;
  * source code.
  */
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
 use PHLU\Qmpilot\Domain\Model\Qmpilot;
 
@@ -25,11 +25,11 @@ class IntroductionInterfaceAspect
 
     /**
      * Around advice, implements the new method "getQmpilot" of the AssetInterface     *
-     * @param  \TYPO3\Flow\Aop\JoinPointInterface $joinPoint The current join point
+     * @param  \Neos\Flow\Aop\JoinPointInterface $joinPoint The current join point
      * @return void
      * @Flow\Around("method(TYPO3\Media\Domain\Model\Asset->getHidden())")
      */
-    public function getHidden(\TYPO3\Flow\Aop\JoinPointInterface $joinPoint)
+    public function getHidden(\Neos\Flow\Aop\JoinPointInterface $joinPoint)
     {
 
         return $joinPoint->getProxy()->hidden;
@@ -40,11 +40,11 @@ class IntroductionInterfaceAspect
      * Around advice, implements the new method "setHidden" of the
      * "AssetInterface" interface
      *
-     * @param  \TYPO3\Flow\Aop\JoinPointInterface $joinPoint The current join point
+     * @param  \Neos\Flow\Aop\JoinPointInterface $joinPoint The current join point
      * @return void
      * @Flow\Around("method(TYPO3\Media\Domain\Model\Asset->setHidden())")
      */
-    public function setHidden(\TYPO3\Flow\Aop\JoinPointInterface $joinPoint)
+    public function setHidden(\Neos\Flow\Aop\JoinPointInterface $joinPoint)
     {
 
         $joinPoint->getProxy()->hidden = $joinPoint->getMethodArgument('hidden') ? 1 : 0;
@@ -54,11 +54,11 @@ class IntroductionInterfaceAspect
 
     /**
      * Around advice, implements the new method "getQmpilot" of the AssetInterface     *
-     * @param  \TYPO3\Flow\Aop\JoinPointInterface $joinPoint The current join point
+     * @param  \Neos\Flow\Aop\JoinPointInterface $joinPoint The current join point
      * @return void
      * @Flow\Around("method(TYPO3\Media\Domain\Model\Asset->getSearchIndex())")
      */
-    public function getSearchIndex(\TYPO3\Flow\Aop\JoinPointInterface $joinPoint)
+    public function getSearchIndex(\Neos\Flow\Aop\JoinPointInterface $joinPoint)
     {
 
         return $joinPoint->getProxy()->searchIndex;
@@ -69,11 +69,11 @@ class IntroductionInterfaceAspect
      * Around advice, implements the new method "setSearchIndex" of the
      * "AssetInterface" interface
      *
-     * @param  \TYPO3\Flow\Aop\JoinPointInterface $joinPoint The current join point
+     * @param  \Neos\Flow\Aop\JoinPointInterface $joinPoint The current join point
      * @return void
      * @Flow\Around("method(TYPO3\Media\Domain\Model\Asset->setSearchIndex())")
      */
-    public function setSearchIndex(\TYPO3\Flow\Aop\JoinPointInterface $joinPoint)
+    public function setSearchIndex(\Neos\Flow\Aop\JoinPointInterface $joinPoint)
     {
 
         $joinPoint->getProxy()->searchIndex = $joinPoint->getMethodArgument('searchIndex');
@@ -83,11 +83,11 @@ class IntroductionInterfaceAspect
 
     /**
      * Around advice, implements the new method "getQmpilot" of the AssetInterface     *
-     * @param  \TYPO3\Flow\Aop\JoinPointInterface $joinPoint The current join point
+     * @param  \Neos\Flow\Aop\JoinPointInterface $joinPoint The current join point
      * @return void
      * @Flow\Around("method(TYPO3\Media\Domain\Model\Asset->getKeywords())")
      */
-    public function getKeywords(\TYPO3\Flow\Aop\JoinPointInterface $joinPoint)
+    public function getKeywords(\Neos\Flow\Aop\JoinPointInterface $joinPoint)
     {
 
         return $joinPoint->getProxy()->keywords;
@@ -98,11 +98,11 @@ class IntroductionInterfaceAspect
      * Around advice, implements the new method "setKeywords" of the
      * "AssetInterface" interface
      *
-     * @param  \TYPO3\Flow\Aop\JoinPointInterface $joinPoint The current join point
+     * @param  \Neos\Flow\Aop\JoinPointInterface $joinPoint The current join point
      * @return void
      * @Flow\Around("method(TYPO3\Media\Domain\Model\Asset->setKeywords())")
      */
-    public function setKeywords(\TYPO3\Flow\Aop\JoinPointInterface $joinPoint)
+    public function setKeywords(\Neos\Flow\Aop\JoinPointInterface $joinPoint)
     {
 
         $joinPoint->getProxy()->keywords = $joinPoint->getMethodArgument('keywords') ? 1 : 0;
@@ -114,11 +114,11 @@ class IntroductionInterfaceAspect
      * Around advice, implements the new method "getMediaTypeShortname" of the
      * "AssetInterface" interface
      *
-     * @param  \TYPO3\Flow\Aop\JoinPointInterface $joinPoint The current join point
+     * @param  \Neos\Flow\Aop\JoinPointInterface $joinPoint The current join point
      * @return void
      * @Flow\Around("method(TYPO3\Media\Domain\Model\Asset->getMediaTypeShortname())")
      */
-    public function getMediaTypeShortname(\TYPO3\Flow\Aop\JoinPointInterface $joinPoint)
+    public function getMediaTypeShortname(\Neos\Flow\Aop\JoinPointInterface $joinPoint)
     {
 
 
@@ -131,11 +131,11 @@ class IntroductionInterfaceAspect
      * Around advice, implements the new method "getFileDescription" of the
      * "AssetInterface" interface
      *
-     * @param  \TYPO3\Flow\Aop\JoinPointInterface $joinPoint The current join point
+     * @param  \Neos\Flow\Aop\JoinPointInterface $joinPoint The current join point
      * @return void
      * @Flow\Around("method(TYPO3\Media\Domain\Model\Asset->getFileDescription())")
      */
-    public function getFileDescription(\TYPO3\Flow\Aop\JoinPointInterface $joinPoint)
+    public function getFileDescription(\Neos\Flow\Aop\JoinPointInterface $joinPoint)
     {
 
 
@@ -169,11 +169,11 @@ class IntroductionInterfaceAspect
      * Around advice, implements the new method "getTarget" of the
      * "AssetInterface" interface
      *
-     * @param  \TYPO3\Flow\Aop\JoinPointInterface $joinPoint The current join point
+     * @param  \Neos\Flow\Aop\JoinPointInterface $joinPoint The current join point
      * @return void
      * @Flow\Around("method(TYPO3\Media\Domain\Model\Asset->getTarget())")
      */
-    public function getTarget(\TYPO3\Flow\Aop\JoinPointInterface $joinPoint)
+    public function getTarget(\Neos\Flow\Aop\JoinPointInterface $joinPoint)
     {
 
         $fileType = $this->getMediaTypePrintable($joinPoint->getProxy()->getResource()->getMediaType());

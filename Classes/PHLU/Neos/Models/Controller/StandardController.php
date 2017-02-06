@@ -5,9 +5,9 @@ namespace PHLU\Neos\Models\Controller;
  * This file is part of the PHLU.Neos.Models package.
  */
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
-class StandardController extends \TYPO3\Flow\Mvc\Controller\ActionController
+class StandardController extends \Neos\Flow\Mvc\Controller\ActionController
 {
 
     /**

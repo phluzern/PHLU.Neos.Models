@@ -10,7 +10,7 @@ use Aws\CloudFront\Exception\Exception;
 use PHLU\Neos\Models\Domain\Model\Contact;
 use PHLU\Neos\Models\Domain\Model\PersonName;
 use PHLU\Neos\Models\Domain\Repository\ContactRepository;
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 use TYPO3\Media\Domain\Repository\AssetCollectionRepository;
 use TYPO3\Media\Domain\Repository\AssetRepository;
 use TYPO3\Media\Domain\Repository\ImageRepository;
@@ -43,7 +43,7 @@ class ContactService
 
     /**
      * @Flow\Inject
-     * @var \TYPO3\Flow\ResourceManagement\ResourceManager
+     * @var \Neos\Flow\ResourceManagement\ResourceManager
      */
     protected $resourceManager;
 
@@ -87,20 +87,20 @@ class ContactService
 
     /**
      * @Flow\Inject
-     * @var \TYPO3\Flow\Persistence\PersistenceManagerInterface
+     * @var \Neos\Flow\Persistence\PersistenceManagerInterface
      */
     protected $persistenceManager;
 
 
     /**
      * @Flow\Inject
-     * @var \TYPO3\Flow\Http\Client\CurlEngine
+     * @var \Neos\Flow\Http\Client\CurlEngine
      */
     protected $browserRequestEngine;
 
     /**
      * @Flow\Inject
-     * @var \TYPO3\Flow\Http\Client\Browser
+     * @var \Neos\Flow\Http\Client\Browser
      */
     protected $browser;
 
