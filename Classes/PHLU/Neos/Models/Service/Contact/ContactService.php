@@ -11,11 +11,11 @@ use PHLU\Neos\Models\Domain\Model\Contact;
 use PHLU\Neos\Models\Domain\Model\PersonName;
 use PHLU\Neos\Models\Domain\Repository\ContactRepository;
 use Neos\Flow\Annotations as Flow;
-use TYPO3\Media\Domain\Repository\AssetCollectionRepository;
-use TYPO3\Media\Domain\Repository\AssetRepository;
-use TYPO3\Media\Domain\Repository\ImageRepository;
-use TYPO3\Media\Domain\Service\ImageService;
-use TYPO3\Media\Domain\Model\AssetCollection;
+use Neos\Media\Domain\Repository\AssetCollectionRepository;
+use Neos\Media\Domain\Repository\AssetRepository;
+use Neos\Media\Domain\Repository\ImageRepository;
+use Neos\Media\Domain\Service\ImageService;
+use Neos\Media\Domain\Model\AssetCollection;
 
 
 class ContactService
@@ -255,7 +255,7 @@ class ContactService
                                     $contact->setImage($existingAsset);
                                 } else {
 
-                                    $image = new \TYPO3\Media\Domain\Model\Image($resource);
+                                    $image = new \Neos\Media\Domain\Model\Image($resource);
                                     if ($image) {
                                         $image->setTitle($contact->getName()->getFullName());
                                         $image->setCaption($contact->getEventoid());

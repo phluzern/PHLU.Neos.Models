@@ -26,7 +26,7 @@ class Contact extends AbstractModel
 
     
     /**
-     * @var \TYPO3\Media\Domain\Model\Image
+     * @var \Neos\Media\Domain\Model\Image
      * @ORM\OneToOne(cascade={"persist"})
      * @ORM\Column(nullable=true)
      */
@@ -388,7 +388,7 @@ class Contact extends AbstractModel
     
 
     /**
-     * @return \TYPO3\Media\Domain\Model\Image
+     * @return \Neos\Media\Domain\Model\Image
      */
     public function getImage()
     {
@@ -398,7 +398,7 @@ class Contact extends AbstractModel
 
 
     /**
-     * @param \TYPO3\Media\Domain\Model\Image $image
+     * @param \Neos\Media\Domain\Model\Image $image
      */
     public function setImage($image)
     {

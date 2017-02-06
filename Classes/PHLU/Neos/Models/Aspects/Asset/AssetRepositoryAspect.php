@@ -23,7 +23,7 @@ class AssetRepositoryAspect
 
 
     /**
-     * @Flow\Around("method(TYPO3\Media\Domain\Repository\AssetRepository->addImageVariantFilterClause())")
+     * @Flow\Around("method(Neos\Media\Domain\Repository\AssetRepository->addImageVariantFilterClause())")
      * @return void
      */
     public function addImageVariantFilterClause(JoinPointInterface $joinPoint)

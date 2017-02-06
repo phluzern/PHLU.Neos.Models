@@ -11,11 +11,11 @@ use Neos\Flow\Persistence\QueryInterface;
 /**
  * @Flow\Scope("singleton")
  */
-class AssetCollectionRepository extends \TYPO3\Media\Domain\Repository\AssetCollectionRepository
+class AssetCollectionRepository extends \Neos\Media\Domain\Repository\AssetCollectionRepository
 {
 
 
-    const ENTITY_CLASSNAME = 'TYPO3\Media\Domain\Model\AssetCollection';
+    const ENTITY_CLASSNAME = 'Neos\Media\Domain\Model\AssetCollection';
 
 
     /**

@@ -24,7 +24,7 @@ use Neos\Flow\Annotations as Flow;
  * @Flow\Scope("singleton")
  * @see \Neos\Flow\ResourceManagement\ResourceManager
  */
-class AssetRepository extends \TYPO3\Media\Domain\Repository\AssetRepository
+class AssetRepository extends \Neos\Media\Domain\Repository\AssetRepository
 {
 
 
@@ -33,7 +33,7 @@ class AssetRepository extends \TYPO3\Media\Domain\Repository\AssetRepository
      */
     public function __construct()
     {
-        $this->entityClassName = 'TYPO3\Media\Domain\Model\Asset';
+        $this->entityClassName = 'Neos\Media\Domain\Model\Asset';
     }
 
 

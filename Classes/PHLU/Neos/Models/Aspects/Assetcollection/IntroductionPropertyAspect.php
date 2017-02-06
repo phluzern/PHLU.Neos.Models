@@ -23,7 +23,7 @@ class IntroductionPropertyAspect
     /**
      * @var boolean
      * @ORM\Column(nullable=true)
-     * @Flow\Introduce("class(TYPO3\Media\Domain\Model\AssetCollection)")
+     * @Flow\Introduce("class(Neos\Media\Domain\Model\AssetCollection)")
      */
     public $hidden;
 

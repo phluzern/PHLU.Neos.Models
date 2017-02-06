@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
 use PHLU\Qmpilot\Domain\Model\Qmpilot;
 
 /**
- * @Flow\Introduce("class(TYPO3\Media\Domain\Model\AssetCollection)", interfaceName="PHLU\Neos\Models\Aspects\AssetCollection\AssetCollectionInterface")
+ * @Flow\Introduce("class(Neos\Media\Domain\Model\AssetCollection)", interfaceName="PHLU\Neos\Models\Aspects\AssetCollection\AssetCollectionInterface")
  * @Flow\Aspect
  */
 class IntroductionInterfaceAspect
@@ -27,7 +27,7 @@ class IntroductionInterfaceAspect
      * Around advice, implements the new method "getQmpilot" of the AssetCollectionInterface     *
      * @param  \Neos\Flow\Aop\JoinPointInterface $joinPoint The current join point
      * @return void
-     * @Flow\Around("method(TYPO3\Media\Domain\Model\AssetCollection->getHidden())")
+     * @Flow\Around("method(Neos\Media\Domain\Model\AssetCollection->getHidden())")
      */
     public function getHidden(\Neos\Flow\Aop\JoinPointInterface $joinPoint) {
 
@@ -41,7 +41,7 @@ class IntroductionInterfaceAspect
      *
      * @param  \Neos\Flow\Aop\JoinPointInterface $joinPoint The current join point
      * @return void
-     * @Flow\Around("method(TYPO3\Media\Domain\Model\AssetCollection->setHidden())")
+     * @Flow\Around("method(Neos\Media\Domain\Model\AssetCollection->setHidden())")
      */
     public function setHidden(\Neos\Flow\Aop\JoinPointInterface $joinPoint) {
 

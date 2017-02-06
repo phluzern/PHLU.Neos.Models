@@ -23,21 +23,21 @@ class IntroductionPropertyAspect
     /**
      * @var boolean
      * @ORM\Column(nullable=true)
-     * @Flow\Introduce("class(TYPO3\Media\Domain\Model\Asset)")
+     * @Flow\Introduce("class(Neos\Media\Domain\Model\Asset)")
      */
     public $hidden;
 
     /**
      * @var string
      * @ORM\Column(nullable=true)
-     * @Flow\Introduce("class(TYPO3\Media\Domain\Model\Asset)")
+     * @Flow\Introduce("class(Neos\Media\Domain\Model\Asset)")
      */
     public $keywords;
 
     /**
      * @var string
      * @ORM\Column(type="text", nullable=true)
-     * @Flow\Introduce("class(TYPO3\Media\Domain\Model\Asset)")
+     * @Flow\Introduce("class(Neos\Media\Domain\Model\Asset)")
      */
     public $searchIndex;
 
