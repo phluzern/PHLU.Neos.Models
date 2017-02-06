@@ -22,7 +22,7 @@ use TYPO3\Flow\Annotations as Flow;
  * provided by Resource Manager instead.
  *
  * @Flow\Scope("singleton")
- * @see \TYPO3\Flow\Resource\ResourceManager
+ * @see \TYPO3\Flow\ResourceManagement\ResourceManager
  */
 class AssetRepository extends \TYPO3\Media\Domain\Repository\AssetRepository
 {
