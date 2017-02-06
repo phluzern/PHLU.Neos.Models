@@ -10,10 +10,10 @@ use Neos\Flow\Aop\JoinPointInterface;
 use Neos\Flow\Error\Exception;
 use Neos\Flow\Persistence\Doctrine\PersistenceManager;
 use Neos\Neos\Domain\Service\SiteService;
-use TYPO3\TYPO3CR\Domain\Model\NodeData;
-use TYPO3\TYPO3CR\Domain\Repository\NodeDataRepository;
+use Neos\ContentRepository\Domain\Model\NodeData;
+use Neos\ContentRepository\Domain\Repository\NodeDataRepository;
 use Neoslive\Hybridsearch\Factory\SearchIndexFactory;
-use TYPO3\TYPO3CR\Domain\Service\NodeTypeManager;
+use Neos\ContentRepository\Domain\Service\NodeTypeManager;
 
 /**
  * @Flow\Scope("singleton")
@@ -25,7 +25,7 @@ class ContactAspect
 
     /**
      * @Flow\Inject
-     * @var \TYPO3\TYPO3CR\Domain\Repository\WorkspaceRepository
+     * @var \Neos\ContentRepository\Domain\Repository\WorkspaceRepository
      */
     protected $workspaceRepository;
 
@@ -163,7 +163,7 @@ class ContactAspect
 
 
     /**
-     * @Flow\Before("method(TYPO3\TYPO3CR\Domain\Repository\NodeDataRepository->update(object.nodeType.name == 'PHLU.Corporate:Contact'))")
+     * @Flow\Before("method(Neos\ContentRepository\Domain\Repository\NodeDataRepository->update(object.nodeType.name == 'PHLU.Corporate:Contact'))")
      * @return void
      */
     public function updateContactNodeData(JoinPointInterface $joinPoint)

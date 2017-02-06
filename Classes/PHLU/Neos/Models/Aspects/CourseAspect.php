@@ -11,13 +11,13 @@ use Neos\Flow\Persistence\Doctrine\PersistenceManager;
 use Neos\Neos\Domain\Repository\SiteRepository;
 use Neos\Neos\Domain\Service\ContentContextFactory;
 use Neos\Neos\Utility\NodeUriPathSegmentGenerator;
-use TYPO3\TYPO3CR\Domain\Model\NodeData;
-use TYPO3\TYPO3CR\Domain\Repository\NodeDataRepository;
-use TYPO3\TYPO3CR\Domain\Service\NodeTypeManager;
+use Neos\ContentRepository\Domain\Model\NodeData;
+use Neos\ContentRepository\Domain\Repository\NodeDataRepository;
+use Neos\ContentRepository\Domain\Service\NodeTypeManager;
 use Neos\Flow\Aop\JoinPointInterface;
 use Neos\Neos\Domain\Service\SiteService;
 use Neos\Neos\Domain\Model\Site;
-use TYPO3\TYPO3CR\Domain\Model\Node;
+use Neos\ContentRepository\Domain\Model\Node;
 
 /**
  * @Flow\Scope("singleton")
@@ -43,7 +43,7 @@ class CourseAspect
 
     /**
      * @Flow\Inject
-     * @var \TYPO3\TYPO3CR\Domain\Repository\WorkspaceRepository
+     * @var \Neos\ContentRepository\Domain\Repository\WorkspaceRepository
      */
     protected $workspaceRepository;
 
@@ -278,7 +278,7 @@ class CourseAspect
      * @param array $dimensions
      * @param array $targetDimensions
      * @param Site $currentSite
-     * @return \TYPO3\TYPO3CR\Domain\Service\Context
+     * @return \Neos\ContentRepository\Domain\Service\Context
      */
     protected
     function createContext($workspaceName, $dimensions, $targetDimensions, $currentSite)
