@@ -17,7 +17,7 @@ class Contact extends AbstractModel
 
 
     /**
-     * @var \TYPO3\Party\Domain\Model\PersonName
+     * @var \Neos\Party\Domain\Model\PersonName
      * @ORM\OneToOne
      * @Flow\Validate(type="NotEmpty")
      */
@@ -550,7 +550,7 @@ class Contact extends AbstractModel
     /**
      * Sets the current name of this person
      *
-     * @param \TYPO3\Party\Domain\Model\PersonName $name Name of this person
+     * @param \Neos\Party\Domain\Model\PersonName $name Name of this person
      * @return void
      */
     public function setName(\PHLU\Neos\Models\Domain\Model\PersonName $name) {
@@ -560,7 +560,7 @@ class Contact extends AbstractModel
     /**
      * Returns the current name of this person
      *
-     * @return \TYPO3\Party\Domain\Model\PersonName Name of this person
+     * @return \Neos\Party\Domain\Model\PersonName Name of this person
      */
     public function getName() {
         return $this->name;

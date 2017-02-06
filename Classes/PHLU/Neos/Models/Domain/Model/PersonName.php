@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @Flow\Entity
  */
-class PersonName extends \TYPO3\Party\Domain\Model\PersonName
+class PersonName extends \Neos\Party\Domain\Model\PersonName
 {
 
 
