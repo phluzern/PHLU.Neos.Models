@@ -1,0 +1,45 @@
+<?php
+namespace Phlu\Neos\Models\Domain\Repository;
+
+/*
+ * This file is part of the Phlu.Ppdb package.
+ */
+
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Persistence\Repository;
+
+/**
+ * @Flow\Scope("singleton")
+ */
+class PublicationRepository extends Repository
+{
+
+
+    /**
+     * @param int $ppdbId
+     * @return \Neos\Flow\Persistence\QueryInterface
+     */
+    public function getOneByPpDbId($ppdbId) {
+
+
+        $query = $this->createQuery();
+
+        return $query->matching($query->equals('id', $ppdbId))->execute()->getFirst();
+
+
+    }
+
+    /**
+     * @param int $ppdbProjectId
+     * @return \Neos\Flow\Persistence\QueryInterface
+     */
+    public function getByPpdbProjectId($ppdbProjectId) {
+
+
+        $query = $this->createQuery();
+        return $query->matching($query->like('projects', '%:'.$ppdbProjectId.';%'))->execute();
+
+
+    }
+
+}

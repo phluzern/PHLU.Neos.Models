@@ -1,8 +1,8 @@
 <?php
-namespace PHLU\Neos\Models\Tests\Unit\Domain\Model;
+namespace Phlu\Neos\Models\Tests\Unit\Domain\Model;
 
 /*
- * This file is part of the PHLU.Neos.Models package.
+ * This file is part of the Phlu.Neos.Models package.
  */
 
 /**

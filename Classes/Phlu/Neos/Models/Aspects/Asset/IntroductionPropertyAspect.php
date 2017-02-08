@@ -1,5 +1,5 @@
 <?php
-namespace Phlu\Neos\Models\Aspects\AssetCollection;
+namespace Phlu\Neos\Models\Aspects\Asset;
 
 /*
  * This file is part of the Neos.Neos package.
@@ -23,9 +23,25 @@ class IntroductionPropertyAspect
     /**
      * @var boolean
      * @ORM\Column(nullable=true)
-     * @Flow\Introduce("class(Neos\Media\Domain\Model\AssetCollection)")
+     * @Flow\Introduce("class(Neos\Media\Domain\Model\Asset)")
      */
     public $hidden;
+
+    /**
+     * @var string
+     * @ORM\Column(nullable=true)
+     * @Flow\Introduce("class(Neos\Media\Domain\Model\Asset)")
+     */
+    public $keywords;
+
+    /**
+     * @var string
+     * @ORM\Column(type="text", nullable=true)
+     * @Flow\Introduce("class(Neos\Media\Domain\Model\Asset)")
+     */
+    public $searchIndex;
+
+
 
 
 }

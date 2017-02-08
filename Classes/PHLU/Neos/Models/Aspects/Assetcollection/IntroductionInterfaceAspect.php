@@ -1,5 +1,5 @@
 <?php
-namespace PHLU\Neos\Models\Aspects\AssetCollection;
+namespace Phlu\Neos\Models\Aspects\AssetCollection;
 
 /*
  * This file is part of the Neos.Neos package.
@@ -13,10 +13,10 @@ namespace PHLU\Neos\Models\Aspects\AssetCollection;
 
 use Neos\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
-use PHLU\Qmpilot\Domain\Model\Qmpilot;
+use Phlu\Qmpilot\Domain\Model\Qmpilot;
 
 /**
- * @Flow\Introduce("class(Neos\Media\Domain\Model\AssetCollection)", interfaceName="PHLU\Neos\Models\Aspects\AssetCollection\AssetCollectionInterface")
+ * @Flow\Introduce("class(Neos\Media\Domain\Model\AssetCollection)", interfaceName="Phlu\Neos\Models\Aspects\AssetCollection\AssetCollectionInterface")
  * @Flow\Aspect
  */
 class IntroductionInterfaceAspect

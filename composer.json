@@ -7,12 +7,12 @@
     "name": "phlu/neos-models",
     "autoload": {
         "psr-0": {
-            "PHLU\\Neos\\Models": "Classes/"
+            "Phlu\\Neos\\Models": "Classes/"
         }
     },
     "extra": {
         "neos": {
-            "package-key": "PHLU.Neos.Models"
+            "package-key": "Phlu.Neos.Models"
         },
         "applied-flow-migrations": [
             "TYPO3.FLOW3-201201261636",

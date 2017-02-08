@@ -1,4 +1,4 @@
-PHLU.Neos.Models |version| Documentation
+Phlu.Neos.Models |version| Documentation
 ==================================================================================================
 
 This documentation covering version |release| has been rendered at: |today|
