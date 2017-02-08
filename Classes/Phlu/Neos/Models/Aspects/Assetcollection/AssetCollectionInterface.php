@@ -1,6 +1,6 @@
 <?php
 
-namespace Phlu\Neos\Models\Aspects\AssetCollection;
+namespace Phlu\Neos\Models\Aspects\Assetcollection;
 
 /*
  * This file is part of the Neos.Flow package.

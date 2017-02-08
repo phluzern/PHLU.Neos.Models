@@ -1,6 +1,5 @@
 <?php
-namespace Phlu\Neos\Models\Aspects\AssetCollection;
-
+namespace Phlu\Neos\Models\Aspects\Assetcollection;
 /*
  * This file is part of the Neos.Neos package.
  *
@@ -16,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Phlu\Qmpilot\Domain\Model\Qmpilot;
 
 /**
- * @Flow\Introduce("class(Neos\Media\Domain\Model\AssetCollection)", interfaceName="Phlu\Neos\Models\Aspects\AssetCollection\AssetCollectionInterface")
+ * @Flow\Introduce("class(Neos\Media\Domain\Model\AssetCollection)", interfaceName="Phlu\Neos\Models\Aspects\Assetcollection\AssetCollectionInterface")
  * @Flow\Aspect
  */
 class IntroductionInterfaceAspect
