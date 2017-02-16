@@ -252,12 +252,18 @@ class CourseAspect
         $node->setProperty('deleted', $course->isDeleted());
 
 
+        $node->setProperty('years', $course->getYears());
+        $node->setProperty('genre', $course->getGenre());
+        $node->setProperty('start', $course->getStart());
+        $node->setProperty('isinstock', $course->isIsinstock());
+
+
+
         switch ($node->getNodeType()->getName()) {
 
             case 'Phlu.Neos.NodeTypes:Course.Study.FurtherEducation':
                 /* @var $course \Phlu\Neos\Models\Domain\Model\Course\Study\FurtherEducation\Course */
                 $node->setProperty('graduation', $course->getGraduation());
-                $node->setProperty('years', $course->getYears());
                 break;
 
             case 'Phlu.Neos.NodeTypes:Course.Module.FurtherEducation':

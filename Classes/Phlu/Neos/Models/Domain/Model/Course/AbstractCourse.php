@@ -68,6 +68,104 @@ abstract class AbstractCourse extends AbstractModel
     protected $targetgroups;
 
     /**
+     * @var array
+     * @ORM\Column(nullable=true)
+     */
+    protected $years;
+
+    /**
+     * @var array
+     * @ORM\Column(nullable=true)
+     */
+    protected $genre;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(nullable=true)
+     */
+    protected $start;
+
+
+     /**
+     * @var boolean
+     * @ORM\Column(nullable=true)
+     */
+    protected $isinstock;
+
+    /**
+     * @return bool
+     */
+    public function isIsinstock()
+    {
+        return $this->isinstock;
+    }
+
+    /**
+     * @param bool $isinstock
+     */
+    public function setIsinstock($isinstock)
+    {
+        $this->isinstock = $isinstock;
+    }
+
+
+
+
+    /**
+     * @return \DateTime
+     */
+    public function getStart()
+    {
+        return $this->start;
+    }
+
+    /**
+     * @param \DateTime $start
+     */
+    public function setStart($start)
+    {
+        $this->start = $start;
+    }
+
+
+
+    /**
+     * @return array
+     */
+    public function getGenre()
+    {
+        return $this->genre;
+    }
+
+    /**
+     * @param array $genre
+     */
+    public function setGenre($genre)
+    {
+        $this->genre = $genre;
+    }
+
+
+
+    /**
+     * @return array
+     */
+    public function getYears()
+    {
+        return $this->years;
+    }
+
+    /**
+     * @param array $years
+     */
+    public function setYears($years)
+    {
+        $this->years = $years;
+    }
+
+
+
+    /**
      * @return boolean
      */
     public function isDeleted()

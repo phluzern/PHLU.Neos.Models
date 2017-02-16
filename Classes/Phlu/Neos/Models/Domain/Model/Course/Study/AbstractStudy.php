@@ -25,29 +25,6 @@ abstract class AbstractStudy extends AbstractCourse
 
 
     /**
-     * @var array
-     * @ORM\Column(nullable=true)
-     */
-    protected $years;
-
-    /**
-     * @return array
-     */
-    public function getYears()
-    {
-        return $this->years;
-    }
-
-    /**
-     * @param array $years
-     */
-    public function setYears($years)
-    {
-        $this->years = $years;
-    }
-
-
-    /**
      * @return string
      */
     public function getGraduation()
