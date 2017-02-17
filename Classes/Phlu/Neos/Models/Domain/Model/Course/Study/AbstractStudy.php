@@ -25,6 +25,30 @@ abstract class AbstractStudy extends AbstractCourse
 
 
     /**
+     * @var array
+     * @ORM\Column(nullable=true)
+     */
+    protected $targetgroupsModules;
+
+    /**
+     * @return array
+     */
+    public function getTargetgroupsModules()
+    {
+        return $this->targetgroupsModules;
+    }
+
+    /**
+     * @param array $targetgroupsModules
+     */
+    public function setTargetgroupsModules($targetgroupsModules)
+    {
+        $this->targetgroupsModules = $targetgroupsModules;
+    }
+
+
+
+    /**
      * @return string
      */
     public function getGraduation()
