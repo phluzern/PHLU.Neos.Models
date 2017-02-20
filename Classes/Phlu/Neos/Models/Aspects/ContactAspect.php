@@ -128,6 +128,7 @@ class ContactAspect
         $node->setProperty('phone', $contact->getPhone());
         $node->setProperty('text', $contact->getName()->getFirstName() . " " . $contact->getName()->getLastName());
         $node->setProperty('eventoid', $contact->getEventoid());
+        $node->setProperty('organisations', $contact->getOrganisations());
 //        $node->setProperty('education', $contact->getEducation());
 //        $node->setProperty('activities', $contact->getActivities());
 //        $node->setProperty('functions', $contact->getFunctions());
