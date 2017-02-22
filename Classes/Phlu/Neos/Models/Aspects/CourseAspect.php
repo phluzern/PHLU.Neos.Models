@@ -206,7 +206,7 @@ class CourseAspect
                 $courseDetailNode->setHidden(false);
                 $courseDetailNode->setProperty('uriPathSegment', $this->nodeUriPathSegmentGenerator->generateUriPathSegment(null, $course->getTitle()));
                 $this->nodeDataRepository->update($courseDetailNode->getNodeData());
-                $this->persistenceManager->persistAll();
+               // $this->persistenceManager->persistAll();
 
                 $baseNodeHeader = $this->nodeDataRepository->findOneByPath($courseDetailNode->getPath() . "/header", $this->workspaceRepository->findByIdentifier('live'));
 
@@ -227,7 +227,7 @@ class CourseAspect
 
         }
 
-        $this->persistenceManager->persistAll();
+      //  $this->persistenceManager->persistAll();
 
 
     }
