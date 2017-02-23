@@ -92,6 +92,7 @@ class CourseAspect
      */
     protected $contentContextFactory;
 
+
     /**
      * @Flow\After("method(Phlu\Neos\Models\Domain\Repository\Course\Study\FurtherEducation\CourseRepository->add|update())")
      * @return void
@@ -120,7 +121,7 @@ class CourseAspect
 
         $settings = $this->importService->getSettingsFromObject($course);
 
-\Neos\Flow\var_dump($course->isHasChanges(),$course->getId());
+
 
         $courseid = false;
         foreach ($this->workspaceRepository->findAll() as $workspace) {
