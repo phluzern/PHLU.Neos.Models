@@ -120,6 +120,7 @@ class CourseAspect
 
         $settings = $this->importService->getSettingsFromObject($course);
 
+\Neos\Flow\var_dump($course->isHasChanges(),$course->getId());
 
         $courseid = false;
         foreach ($this->workspaceRepository->findAll() as $workspace) {
