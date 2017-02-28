@@ -71,6 +71,12 @@ abstract class AbstractCourse extends AbstractModel
      * @var array
      * @ORM\Column(nullable=true)
      */
+    protected $sections;
+
+    /**
+     * @var array
+     * @ORM\Column(nullable=true)
+     */
     protected $years;
 
     /**
@@ -106,6 +112,22 @@ abstract class AbstractCourse extends AbstractModel
     public function setIsinstock($isinstock)
     {
         $this->isinstock = $isinstock;
+    }
+
+    /**
+     * @return array
+     */
+    public function getSections()
+    {
+        return $this->sections;
+    }
+
+    /**
+     * @param array $sections
+     */
+    public function setSections($sections)
+    {
+        $this->sections = $sections;
     }
 
 

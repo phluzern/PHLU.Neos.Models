@@ -114,6 +114,52 @@ class CourseAspect
 
     /**
      * @param mixed $course
+     * @param NodeData $node
+     * @throws \Neos\Flow\Persistence\Exception\IllegalObjectTypeException
+     * @return NodeData
+     */
+    protected function updateProperties($course, $node) {
+
+        $node->setProperty('uriPathSegment', $this->nodeUriPathSegmentGenerator->generateUriPathSegment(null, $course->getTitle()));
+        $node->setProperty('title', $course->getTitle());
+
+        $node->setProperty('nr', $course->getNr());
+        $node->setProperty('description', $course->getDescription());
+        $node->setProperty('ects', $course->getEcts());
+        $node->setProperty('fee', $course->getFee());
+        $node->setProperty('leaders', $course->getLeaders());
+        $node->setProperty('targetgroups', $course->getTargetgroups());
+        $node->setProperty('deleted', $course->isDeleted());
+        $node->setProperty('sections', $course->getSections());
+
+
+        switch ($node->getNodeType()->getName()) {
+
+            case 'Phlu.Neos.NodeTypes:Course.Study.FurtherEducation':
+                /* @var $course \Phlu\Neos\Models\Domain\Model\Course\Study\FurtherEducation\Course */
+                $node->setProperty('graduation', $course->getGraduation());
+                break;
+
+            case 'Phlu.Neos.NodeTypes:Course.Module.FurtherEducation':
+                /* @var $course \Phlu\Neos\Models\Domain\Model\Course\Module\FurtherEducation\Course */
+
+                break;
+
+        }
+
+
+        $node->setProperty('years', $course->getYears());
+        $node->setProperty('genre', $course->getGenre());
+        $node->setProperty('start', $course->getStart());
+        $node->setProperty('isinstock', $course->isIsinstock());
+
+        return $node;
+
+    }
+
+
+    /**
+     * @param mixed $course
      * @throws \Neos\Flow\Persistence\Exception\IllegalObjectTypeException
      */
     protected function findCourseNodesAndUpdate($course)
@@ -137,13 +183,17 @@ class CourseAspect
         /* @var $baseNode NodeData */
         $baseNode = $this->nodeDataRepository->findOneByIdentifier($settings['detailContainerNodeId'], $this->workspaceRepository->findByIdentifier('live'));
 
+
+
+        $lastworkspace = null;
         foreach ($this->workspaceRepository->findAll() as $workspace) {
             foreach ($this->nodeDataRepository->findByParentAndNodeTypeRecursively($baseNode->getPath(), $settings['detailNodeType'], $this->workspaceRepository->findByName($workspace)->getFirst()) as $node) {
-                if ($node->getProperty('internalid') == $course->getId()) {
+                if ($lastworkspace !== $node->getWorkspace()->getName() && $node->getProperty('internalid') == $course->getId()) {
 
                     $courseDetailId = $course->getId();
-                    $node->setProperty('uriPathSegment', $this->nodeUriPathSegmentGenerator->generateUriPathSegment(null, $course->getTitle()));
-                    $node->setProperty('title', $course->getTitle());
+                    $node = $this->updateProperties($course,$node);
+
+
                     $node->setHidden(false);
                     $this->nodeDataRepository->update($node);
                     $baseNodeHeader = $this->nodeDataRepository->findOneByPath($node->getPath() . "/header", $this->workspaceRepository->findByIdentifier('live'));
@@ -159,6 +209,26 @@ class CourseAspect
                         $text->setProperty('text',$course->getDescription());
                         $this->nodeDataRepository->update($text);
                     }
+
+
+
+                    $baseNodeMain = $this->nodeDataRepository->findOneByPath($node->getPath() . "/main", $this->workspaceRepository->findByIdentifier('live'));
+                    $baseNodeMainSections = $this->nodeDataRepository->findByParentAndNodeType($baseNodeMain->getPath(),$settings['sectionNodeType'],$this->workspaceRepository->findByIdentifier('live'));
+
+                    /* @var Course $course */
+                    $courseSections = array();
+
+
+                    foreach ($baseNodeMainSections as $section) {
+                        \Neos\Flow\var_dump($section->getProperty('internalid'));
+                    }
+
+
+
+
+
+
+                    $lastworkspace = $node->getWorkspace()->getName();
 
                 }
             }
@@ -177,6 +247,7 @@ class CourseAspect
                 if ($this->nodeDataRepository->findOneByPath($baseNodeDatabase->getPath() . "/" . strtolower($settings['repository']) . '-' . $course->getId(), $this->workspaceRepository->findByIdentifier('live')) === null) {
                     $courseNode = $baseNodeDatabase->createNodeData(strtolower($settings['repository']) . '-' . $course->getId(), $nodeType);
                     $courseNode->setProperty('id', $course->getId());
+
                     $this->nodeDataRepository->update($this->updateCourseNode($courseNode, $course));
                 }
             }
@@ -201,8 +272,11 @@ class CourseAspect
 
             if ($baseNode !== null) {
 
+                /* @var Course $course */
+
                 $nodeType = $this->nodeTypeManager->getNodeType($settings['detailNodeType']);
                 $courseDetailNode = $baseNode->createNode(strtolower($settings['repository']) . '-' . $course->getId(), $nodeType);
+                $courseDetailNode = $this->updateProperties($course,$courseDetailNode);
                 $courseDetailNode->setProperty('title', $course->getTitle());
                 $courseDetailNode->setProperty('internalid', $course->getId());
                 $courseDetailNode->setHidden(false);
@@ -258,7 +332,6 @@ class CourseAspect
         $node->setProperty('genre', $course->getGenre());
         $node->setProperty('start', $course->getStart());
         $node->setProperty('isinstock', $course->isIsinstock());
-
 
 
         switch ($node->getNodeType()->getName()) {
