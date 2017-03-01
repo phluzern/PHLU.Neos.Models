@@ -194,8 +194,10 @@ class CourseAspect
 
 
         $lastworkspace = null;
-        foreach ($this->workspaceRepository->findAll() as $workspace) {
+        $workspace = $this->workspaceRepository->findByIdentifier('live');
+
             $node = $this->nodeDataRepository->findOneByPath($baseNode->getPath() . "/" . strtolower($settings['repository']) . '-' . $course->getId(), $this->workspaceRepository->findByName($workspace)->getFirst());
+
             if ($node) {
                 $courseDetailId = $course->getId();
                 $node = $this->updateProperties($course, $node);
@@ -220,6 +222,8 @@ class CourseAspect
                 $baseNodeMain = $this->nodeDataRepository->findOneByPath($node->getPath() . "/main", $this->workspaceRepository->findByIdentifier('live'));
                 $baseNodeMainSections = $this->nodeDataRepository->findByParentAndNodeType($baseNodeMain->getPath(), $settings['sectionNodeType'], $this->workspaceRepository->findByIdentifier('live'));
 
+
+
                 /* @var Course $course */
                 $courseSections = array();
 
@@ -240,7 +244,7 @@ class CourseAspect
 
                     if (isset($nodeSections[$nr]) == false) {
                         // create node section
-                        $nodeSections[$nr] = $baseNodeMain->createNodeData('section-' . $course->getId() . "-" . $nr, $this->nodeTypeManager->getNodeType($settings['sectionNodeType']));
+                        $nodeSections[$nr] = $baseNodeMain->createNodeData('section-' . $course->getId() . "-" . $nr, $this->nodeTypeManager->getNodeType($settings['sectionNodeType']), null, $workspace);
                         $nodeSections[$nr]->setProperty('internalid', $nr);
                     }
 
@@ -258,7 +262,7 @@ class CourseAspect
                     }
 
                     if ($sectionTextNode === null) {
-                        $sectionTextNode = $baseNodeSection->getPrimaryChildNode()->createNode('text-' . $course->getId() . "-" . $nr, $this->nodeTypeManager->getNodeType($settings['sectionTextNodeType']));
+                        $sectionTextNode = $baseNodeSection->getPrimaryChildNode()->createNode('text-' . $course->getId() . "-" . $nr, $this->nodeTypeManager->getNodeType($settings['sectionTextNodeType']))->getNodeData();
                     }
 
                     /** @var Node $sectionTextNode */
@@ -273,12 +277,10 @@ class CourseAspect
 
 
                 $this->nodeDataRepository->update($baseNodeMain);
-                $lastworkspace = $node->getWorkspace()->getName();
-
 
             }
 
-        }
+
 
 
         if ($courseid === false && $course->isDeleted() === false) {
