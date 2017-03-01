@@ -228,10 +228,13 @@ class CourseAspect
                 $courseSections = array();
 
                 foreach ($course->getSections() as $courseSection) {
-                    $courseSections[$courseSection->Nr] = $courseSection;
+                    if ($courseSection->Text !== $course->getDescription()) {
+                        $courseSections[$courseSection->Nr] = $courseSection;
+                    }
                 }
 
                 $nodeSections = array();
+                $nodeSectionsUpdated = array();
 
                 foreach ($baseNodeMainSections as $section) {
                     if ($section->getProperty('internalid') > 0) {
@@ -266,12 +269,12 @@ class CourseAspect
                     }
 
                     /** @var Node $sectionTextNode */
-                    $sectionTextNode->setProperty('text', $courseSection->Text);
+                    $sectionTextNode->setProperty('text', substr($courseSection->Text,0,1) == "<" ? $courseSection->Text : "<p>".$courseSection->Text."</p>");
                     $sectionTextNode->setProperty('internalid', $nr);
-                    $nodeSections[$nr]->setProperty('title', $courseSection->Label);
+                    $nodeSections[$nr]->setProperty('title', strip_tags($courseSection->Label));
                     $this->nodeDataRepository->update($sectionTextNode);
                     $this->nodeDataRepository->update($nodeSections[$nr]);
-
+                    $nodeSectionsUpdated[$nr] = $nr;
 
                 }
 
@@ -280,6 +283,12 @@ class CourseAspect
 
             }
 
+            foreach ($nodeSections as $nodeSection){
+                if (isset($nodeSectionsUpdated[$nodeSection->getProperty('internalid')]) === false) {
+                    // remove node section
+                    $this->nodeDataRepository->remove($nodeSection);
+                }
+            }
 
 
 
