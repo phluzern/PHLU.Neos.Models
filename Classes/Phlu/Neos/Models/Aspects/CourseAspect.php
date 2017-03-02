@@ -226,10 +226,11 @@ class CourseAspect
 
                 /* @var Course $course */
                 $courseSections = array();
-
-                foreach ($course->getSections() as $courseSection) {
-                    if ($courseSection->Text !== $course->getDescription()) {
-                        $courseSections[$courseSection->Nr] = $courseSection;
+                if ($course->getSections()) {
+                    foreach ($course->getSections() as $courseSection) {
+                        if ($courseSection->Text !== $course->getDescription()) {
+                            $courseSections[$courseSection->Nr] = $courseSection;
+                        }
                     }
                 }
 
