@@ -146,6 +146,18 @@ class Project extends AbstractModel
      */
     protected $participants;
 
+    /**
+     * @var array
+     * @ORM\Column(nullable=true)
+     */
+    protected $participantsExtern;
+
+    /**
+     * @var array
+     * @ORM\Column(nullable=true)
+     */
+    protected $participantsIntern;
+
 
     /**
      * @var \DateTime
@@ -197,6 +209,38 @@ class Project extends AbstractModel
     public function setPPDBStatusLifetime($pPDBStatusLifetime)
     {
         $this->pPDBStatusLifetime = $pPDBStatusLifetime;
+    }
+
+    /**
+     * @return array
+     */
+    public function getParticipantsExtern()
+    {
+        return $this->participantsExtern;
+    }
+
+    /**
+     * @param array $participantsExtern
+     */
+    public function setParticipantsExtern($participantsExtern)
+    {
+        $this->participantsExtern = $participantsExtern;
+    }
+
+    /**
+     * @return array
+     */
+    public function getParticipantsIntern()
+    {
+        return $this->participantsIntern;
+    }
+
+    /**
+     * @param array $participantsIntern
+     */
+    public function setParticipantsIntern($participantsIntern)
+    {
+        $this->participantsIntern = $participantsIntern;
     }
 
 

@@ -46,14 +46,11 @@ class ProjectService
     protected $projectRepository;
 
 
-
     /**
      * @Flow\Inject
      * @var \Neos\Flow\Persistence\PersistenceManagerInterface
      */
     protected $persistenceManager;
-
-
 
 
     /**
@@ -93,7 +90,38 @@ class ProjectService
         $project->setProjectType($data['ProjectType']);
         $project->setPhotos($data['Photos']);
         $project->setDocuments($data['Documents']);
+
         $project->setParticipants($data['Participants']);
+
+        $participantsIntern = array();
+        $i = 0;
+        foreach ($data['Participants'] as $functionName => $participants) {
+            foreach ($participants as $participant) {
+                 if ($participant['EventoID'] > 0) {
+                    $participantsIntern[$functionName][$i] = $participant;
+                    $i++;
+                }
+            }
+        }
+
+
+
+        $project->setParticipantsIntern($participantsIntern);
+
+        $participantsExtern = array();
+        $i = 0;
+        foreach ($data['Participants'] as $functionName => $participants) {
+            foreach ($participants as $participant) {
+                if (!$participant['EventoID']) {
+                    $participantsExtern[$functionName][$i] = $participant;
+                    $i++;
+                }
+            }
+        }
+
+        $project->setParticipantsExtern($participantsExtern);
+
+
         $project->setPublications($data['Publications']);
         $project->setLinks($data['Links']);
         $project->setStartDate(is_object($data['StartDate']) ? $data['StartDate'] : new \DateTime());
@@ -103,9 +131,6 @@ class ProjectService
 
         $project->setHasChanges($project->getHash() === $hash ? false : true);
         $project->setHash($hash);
-
-
-
 
 
         return $project;
@@ -120,7 +145,8 @@ class ProjectService
      * @return Project persisted project
      * @api
      */
-    public function createOrUpdateProject(Project $project)
+    public
+    function createOrUpdateProject(Project $project)
     {
 
 
