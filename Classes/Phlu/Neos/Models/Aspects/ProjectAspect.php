@@ -126,6 +126,7 @@ class ProjectAspect
 
 
         $node->setProperty('id', $project->getId());
+        $node->setProperty('projectType', $project->getProjectType());
         $node->setProperty('title', $project->getTitleGerman());
         $node->setProperty('status', $project->getPPDBStatus());
         $node->setProperty('statuslifetime', $project->getPPDBStatusLifetime());

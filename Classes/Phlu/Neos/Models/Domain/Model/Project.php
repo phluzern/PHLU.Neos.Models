@@ -64,6 +64,8 @@ class Project extends AbstractModel
     protected $teaserTextGerman;
 
 
+
+
     /**
      * @var string
      * @ORM\Column(nullable=true,type="text")
