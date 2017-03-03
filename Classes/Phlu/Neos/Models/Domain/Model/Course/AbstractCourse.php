@@ -98,6 +98,32 @@ abstract class AbstractCourse extends AbstractModel
      */
     protected $isinstock;
 
+
+    /**
+     * @var array
+     * @ORM\Column(nullable=true)
+     */
+    protected $lessons;
+
+    /**
+     * @return array
+     */
+    public function getLessons()
+    {
+        return $this->lessons;
+    }
+
+    /**
+     * @param array $lessons
+     */
+    public function setLessons($lessons)
+    {
+        $this->lessons = $lessons;
+    }
+
+
+
+
     /**
      * @return bool
      */

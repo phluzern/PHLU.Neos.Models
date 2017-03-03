@@ -133,6 +133,7 @@ class CourseAspect
         $node->setProperty('targetgroups', $course->getTargetgroups());
         $node->setProperty('deleted', $course->isDeleted());
         $node->setProperty('sections', $course->getSections());
+        $node->setProperty('lessons', $course->getLessons());
 
 
         switch ($node->getNodeType()->getName()) {
