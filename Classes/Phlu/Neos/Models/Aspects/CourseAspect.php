@@ -184,166 +184,30 @@ class CourseAspect
         /* @var $baseNode NodeData */
         $baseNode = $this->nodeDataRepository->findOneByIdentifier($settings['detailContainerNodeId'], $this->workspaceRepository->findByIdentifier('live'));
 
-        // create course detail page node
-        /* @var $baseNode NodeData */
-        $baseNodeData = $this->nodeDataRepository->findOneByIdentifier($settings['detailContainerNodeId'], $this->workspaceRepository->findByIdentifier('live'));
+        if ($baseNode) {
 
-        if ($baseNodeData) {
-            $p = explode("/", $baseNodeData->getContextPath());
+            // create course detail page node
+            /* @var $baseNode NodeData */
+            $baseNodeData = $this->nodeDataRepository->findOneByIdentifier($settings['detailContainerNodeId'], $this->workspaceRepository->findByIdentifier('live'));
 
-            $context = $this->createContext($baseNodeData->getWorkspace()->getName(), $baseNodeData->getDimensions(), array(), $this->siteRepository->findByIdentifier($p[2]));
-
-
-            $lastworkspace = null;
-            $workspace = $this->workspaceRepository->findByIdentifier('live');
-
-            $node = $this->nodeDataRepository->findOneByPath($baseNode->getPath() . "/" . strtolower($settings['repository']) . '-' . $course->getId(), $this->workspaceRepository->findByName($workspace)->getFirst());
-
-            if ($node) {
-                $courseDetailId = $course->getId();
-                $node = $this->updateProperties($course, $node);
-
-                $node->setHidden(false);
-                $this->nodeDataRepository->update($node);
-                $baseNodeHeader = $this->nodeDataRepository->findOneByPath($node->getPath() . "/header", $this->workspaceRepository->findByIdentifier('live'));
-
-                $baseNodeHeaderHeadlines = $this->nodeDataRepository->findByParentAndNodeType($baseNodeHeader->getPath(), 'Phlu.Corporate:Headline', $this->workspaceRepository->findByIdentifier('live'));
-                foreach ($baseNodeHeaderHeadlines as $headline) {
-                    $headline->setProperty('text', $course->getTitle());
-                    $this->nodeDataRepository->update($headline);
-                }
-
-                $baseNodeHeaderTextes = $this->nodeDataRepository->findByParentAndNodeType($baseNodeHeader->getPath(), 'Phlu.Corporate:TextPlain', $this->workspaceRepository->findByIdentifier('live'));
-                foreach ($baseNodeHeaderTextes as $text) {
-                    $text->setProperty('text', $course->getDescription());
-                    $this->nodeDataRepository->update($text);
-                }
-
-
-                $baseNodeMain = $this->nodeDataRepository->findOneByPath($node->getPath() . "/main", $this->workspaceRepository->findByIdentifier('live'));
-                $baseNodeMainSections = $this->nodeDataRepository->findByParentAndNodeType($baseNodeMain->getPath(), $settings['sectionNodeType'], $this->workspaceRepository->findByIdentifier('live'));
-
-
-                /* @var Course $course */
-                $courseSections = array();
-                if ($course->getSections()) {
-                    foreach ($course->getSections() as $courseSection) {
-                        if ($courseSection->Text !== $course->getDescription()) {
-                            $courseSections[$courseSection->Nr] = $courseSection;
-                        }
-                    }
-                }
-
-                $nodeSections = array();
-                $nodeSectionsUpdated = array();
-
-                foreach ($baseNodeMainSections as $section) {
-                    if ($section->getProperty('internalid') > 0) {
-                        $nodeSections[$section->getProperty('internalid')] = $section;
-                    }
-                }
-
-
-                foreach ($courseSections as $nr => $courseSection) {
-
-                    if (isset($nodeSections[$nr]) == false) {
-                        // create node section
-                        $nodeSections[$nr] = $baseNodeMain->createNodeData('section-' . $course->getId() . "-" . $nr, $this->nodeTypeManager->getNodeType($settings['sectionNodeType']), null, $workspace);
-                        $nodeSections[$nr]->setProperty('internalid', $nr);
-                    }
-
-                    /** @var Node $node */
-                    $baseNodeSection = new Node(
-                        $nodeSections[$nr],
-                        $context
-                    );
-
-                    $sectionTextNode = null;
-                    foreach ($baseNodeSection->getPrimaryChildNode()->getChildNodes($settings['sectionTextNodeType']) as $sectionText) {
-                        if ($sectionText->getProperty('internalid') == $nr || $sectionText->getName() == 'text-' . $course->getId() . "-" . $nr) {
-                            $sectionTextNode = $sectionText->getNodeData();
-                        }
-                    }
-
-                    if ($sectionTextNode === null) {
-                        $sectionTextNode = $baseNodeSection->getPrimaryChildNode()->createNode('text-' . $course->getId() . "-" . $nr, $this->nodeTypeManager->getNodeType($settings['sectionTextNodeType']))->getNodeData();
-                    }
-
-                    /** @var Node $sectionTextNode */
-                    $sectionTextNode->setProperty('text', substr($courseSection->Text, 0, 1) == "<" ? $courseSection->Text : "<p>" . $courseSection->Text . "</p>");
-                    $sectionTextNode->setProperty('internalid', $nr);
-                    $nodeSections[$nr]->setProperty('title', strip_tags($courseSection->Label));
-                    $this->nodeDataRepository->update($sectionTextNode);
-                    $this->nodeDataRepository->update($nodeSections[$nr]);
-                    $nodeSectionsUpdated[$nr] = $nr;
-
-                }
-
-
-                $this->nodeDataRepository->update($baseNodeMain);
-
-            }
-
-            if (isset($nodeSections)) {
-                foreach ($nodeSections as $nodeSection) {
-                    if (isset($nodeSectionsUpdated[$nodeSection->getProperty('internalid')]) === false) {
-                        // remove node section
-                        $this->nodeDataRepository->remove($nodeSection);
-                    }
-                }
-            }
-
-
-            if ($courseid === false && $course->isDeleted() === false) {
-
-                // create course node
-                $baseNode = $this->nodeDataRepository->findOneByIdentifier($settings['containerNodeId'], $this->workspaceRepository->findByIdentifier('live'));
-                /* @var $baseNodeDatabase NodeData */
-                $baseNodeDatabase = $this->nodeDataRepository->findOneByPath($baseNode->getPath() . "/database", $this->workspaceRepository->findByIdentifier('live'));
-                if ($baseNodeDatabase !== null) {
-                    $nodeType = $this->nodeTypeManager->getNodeType($settings['nodeTypeName']);
-
-                    if ($this->nodeDataRepository->findOneByPath($baseNodeDatabase->getPath() . "/" . strtolower($settings['repository']) . '-' . $course->getId(), $this->workspaceRepository->findByIdentifier('live')) === null) {
-                        $courseNode = $baseNodeDatabase->createNodeData(strtolower($settings['repository']) . '-' . $course->getId(), $nodeType);
-                        $courseNode->setProperty('id', $course->getId());
-
-                        $this->nodeDataRepository->update($this->updateCourseNode($courseNode, $course));
-                    }
-                }
-
-            }
-
-            if ($courseDetailId === false && $course->isDeleted() === false) {
-                // create course detail page node
-                /* @var $baseNode NodeData */
-                $baseNodeData = $this->nodeDataRepository->findOneByIdentifier($settings['detailContainerNodeId'], $this->workspaceRepository->findByIdentifier('live'));
-
+            if ($baseNodeData) {
                 $p = explode("/", $baseNodeData->getContextPath());
 
                 $context = $this->createContext($baseNodeData->getWorkspace()->getName(), $baseNodeData->getDimensions(), array(), $this->siteRepository->findByIdentifier($p[2]));
 
-                /** @var Node $node */
-                $baseNode = new Node(
-                    $baseNodeData,
-                    $context
-                );
 
+                $lastworkspace = null;
+                $workspace = $this->workspaceRepository->findByIdentifier('live');
 
-                if ($baseNode !== null) {
+                $node = $this->nodeDataRepository->findOneByPath($baseNode->getPath() . "/" . strtolower($settings['repository']) . '-' . $course->getId(), $this->workspaceRepository->findByName($workspace)->getFirst());
 
-                    /* @var Course $course */
+                if ($node) {
+                    $courseDetailId = $course->getId();
+                    $node = $this->updateProperties($course, $node);
 
-                    $nodeType = $this->nodeTypeManager->getNodeType($settings['detailNodeType']);
-                    $courseDetailNode = $baseNode->createNode(strtolower($settings['repository']) . '-' . $course->getId(), $nodeType);
-                    $courseDetailNode = $this->updateProperties($course, $courseDetailNode);
-                    $courseDetailNode->setProperty('title', $course->getTitle());
-                    $courseDetailNode->setProperty('internalid', $course->getId());
-                    $courseDetailNode->setHidden(false);
-                    $courseDetailNode->setProperty('uriPathSegment', $this->nodeUriPathSegmentGenerator->generateUriPathSegment(null, $course->getTitle()));
-                    $this->nodeDataRepository->update($courseDetailNode->getNodeData());
-
-
-                    $baseNodeHeader = $this->nodeDataRepository->findOneByPath($courseDetailNode->getPath() . "/header", $this->workspaceRepository->findByIdentifier('live'));
+                    $node->setHidden(false);
+                    $this->nodeDataRepository->update($node);
+                    $baseNodeHeader = $this->nodeDataRepository->findOneByPath($node->getPath() . "/header", $this->workspaceRepository->findByIdentifier('live'));
 
                     $baseNodeHeaderHeadlines = $this->nodeDataRepository->findByParentAndNodeType($baseNodeHeader->getPath(), 'Phlu.Corporate:Headline', $this->workspaceRepository->findByIdentifier('live'));
                     foreach ($baseNodeHeaderHeadlines as $headline) {
@@ -358,8 +222,151 @@ class CourseAspect
                     }
 
 
+                    $baseNodeMain = $this->nodeDataRepository->findOneByPath($node->getPath() . "/main", $this->workspaceRepository->findByIdentifier('live'));
+                    $baseNodeMainSections = $this->nodeDataRepository->findByParentAndNodeType($baseNodeMain->getPath(), $settings['sectionNodeType'], $this->workspaceRepository->findByIdentifier('live'));
+
+
+                    /* @var Course $course */
+                    $courseSections = array();
+                    if ($course->getSections()) {
+                        foreach ($course->getSections() as $courseSection) {
+                            if ($courseSection->Text !== $course->getDescription()) {
+                                $courseSections[$courseSection->Nr] = $courseSection;
+                            }
+                        }
+                    }
+
+                    $nodeSections = array();
+                    $nodeSectionsUpdated = array();
+
+                    foreach ($baseNodeMainSections as $section) {
+                        if ($section->getProperty('internalid') > 0) {
+                            $nodeSections[$section->getProperty('internalid')] = $section;
+                        }
+                    }
+
+
+                    foreach ($courseSections as $nr => $courseSection) {
+
+                        if (isset($nodeSections[$nr]) == false) {
+                            // create node section
+                            $nodeSections[$nr] = $baseNodeMain->createNodeData('section-' . $course->getId() . "-" . $nr, $this->nodeTypeManager->getNodeType($settings['sectionNodeType']), null, $workspace);
+                            $nodeSections[$nr]->setProperty('internalid', $nr);
+                        }
+
+                        /** @var Node $node */
+                        $baseNodeSection = new Node(
+                            $nodeSections[$nr],
+                            $context
+                        );
+
+                        $sectionTextNode = null;
+                        foreach ($baseNodeSection->getPrimaryChildNode()->getChildNodes($settings['sectionTextNodeType']) as $sectionText) {
+                            if ($sectionText->getProperty('internalid') == $nr || $sectionText->getName() == 'text-' . $course->getId() . "-" . $nr) {
+                                $sectionTextNode = $sectionText->getNodeData();
+                            }
+                        }
+
+                        if ($sectionTextNode === null) {
+                            $sectionTextNode = $baseNodeSection->getPrimaryChildNode()->createNode('text-' . $course->getId() . "-" . $nr, $this->nodeTypeManager->getNodeType($settings['sectionTextNodeType']))->getNodeData();
+                        }
+
+                        /** @var Node $sectionTextNode */
+                        $sectionTextNode->setProperty('text', substr($courseSection->Text, 0, 1) == "<" ? $courseSection->Text : "<p>" . $courseSection->Text . "</p>");
+                        $sectionTextNode->setProperty('internalid', $nr);
+                        $nodeSections[$nr]->setProperty('title', strip_tags($courseSection->Label));
+                        $this->nodeDataRepository->update($sectionTextNode);
+                        $this->nodeDataRepository->update($nodeSections[$nr]);
+                        $nodeSectionsUpdated[$nr] = $nr;
+
+                    }
+
+
+                    $this->nodeDataRepository->update($baseNodeMain);
+
                 }
 
+                if (isset($nodeSections)) {
+                    foreach ($nodeSections as $nodeSection) {
+                        if (isset($nodeSectionsUpdated[$nodeSection->getProperty('internalid')]) === false) {
+                            // remove node section
+                            $this->nodeDataRepository->remove($nodeSection);
+                        }
+                    }
+                }
+
+
+                if ($courseid === false && $course->isDeleted() === false) {
+
+                    // create course node
+                    $baseNode = $this->nodeDataRepository->findOneByIdentifier($settings['containerNodeId'], $this->workspaceRepository->findByIdentifier('live'));
+                    if ($baseNode) {
+                        /* @var $baseNodeDatabase NodeData */
+                        $baseNodeDatabase = $this->nodeDataRepository->findOneByPath($baseNode->getPath() . "/database", $this->workspaceRepository->findByIdentifier('live'));
+                        if ($baseNodeDatabase !== null) {
+                            $nodeType = $this->nodeTypeManager->getNodeType($settings['nodeTypeName']);
+
+                            if ($this->nodeDataRepository->findOneByPath($baseNodeDatabase->getPath() . "/" . strtolower($settings['repository']) . '-' . $course->getId(), $this->workspaceRepository->findByIdentifier('live')) === null) {
+                                $courseNode = $baseNodeDatabase->createNodeData(strtolower($settings['repository']) . '-' . $course->getId(), $nodeType);
+                                $courseNode->setProperty('id', $course->getId());
+
+                                $this->nodeDataRepository->update($this->updateCourseNode($courseNode, $course));
+                            }
+                        }
+                    }
+
+                }
+
+                if ($courseDetailId === false && $course->isDeleted() === false) {
+                    // create course detail page node
+                    /* @var $baseNode NodeData */
+                    $baseNodeData = $this->nodeDataRepository->findOneByIdentifier($settings['detailContainerNodeId'], $this->workspaceRepository->findByIdentifier('live'));
+
+                    if ($baseNodeData) {
+                        $p = explode("/", $baseNodeData->getContextPath());
+
+                        $context = $this->createContext($baseNodeData->getWorkspace()->getName(), $baseNodeData->getDimensions(), array(), $this->siteRepository->findByIdentifier($p[2]));
+
+                        /** @var Node $node */
+                        $baseNode = new Node(
+                            $baseNodeData,
+                            $context
+                        );
+
+
+                        if ($baseNode !== null) {
+
+                            /* @var Course $course */
+
+                            $nodeType = $this->nodeTypeManager->getNodeType($settings['detailNodeType']);
+                            $courseDetailNode = $baseNode->createNode(strtolower($settings['repository']) . '-' . $course->getId(), $nodeType);
+                            $courseDetailNode = $this->updateProperties($course, $courseDetailNode);
+                            $courseDetailNode->setProperty('title', $course->getTitle());
+                            $courseDetailNode->setProperty('internalid', $course->getId());
+                            $courseDetailNode->setHidden(false);
+                            $courseDetailNode->setProperty('uriPathSegment', $this->nodeUriPathSegmentGenerator->generateUriPathSegment(null, $course->getTitle()));
+                            $this->nodeDataRepository->update($courseDetailNode->getNodeData());
+
+
+                            $baseNodeHeader = $this->nodeDataRepository->findOneByPath($courseDetailNode->getPath() . "/header", $this->workspaceRepository->findByIdentifier('live'));
+
+                            $baseNodeHeaderHeadlines = $this->nodeDataRepository->findByParentAndNodeType($baseNodeHeader->getPath(), 'Phlu.Corporate:Headline', $this->workspaceRepository->findByIdentifier('live'));
+                            foreach ($baseNodeHeaderHeadlines as $headline) {
+                                $headline->setProperty('text', $course->getTitle());
+                                $this->nodeDataRepository->update($headline);
+                            }
+
+                            $baseNodeHeaderTextes = $this->nodeDataRepository->findByParentAndNodeType($baseNodeHeader->getPath(), 'Phlu.Corporate:TextPlain', $this->workspaceRepository->findByIdentifier('live'));
+                            foreach ($baseNodeHeaderTextes as $text) {
+                                $text->setProperty('text', $course->getDescription());
+                                $this->nodeDataRepository->update($text);
+                            }
+
+
+                        }
+                    }
+
+                }
             }
         }
         //  $this->persistenceManager->persistAll();
