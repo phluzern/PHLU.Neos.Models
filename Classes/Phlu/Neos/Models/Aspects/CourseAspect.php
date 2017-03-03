@@ -300,6 +300,7 @@ class CourseAspect
 
                     // create course node
                     $baseNode = $this->nodeDataRepository->findOneByIdentifier($settings['containerNodeId'], $this->workspaceRepository->findByIdentifier('live'));
+
                     if ($baseNode) {
                         /* @var $baseNodeDatabase NodeData */
                         $baseNodeDatabase = $this->nodeDataRepository->findOneByPath($baseNode->getPath() . "/database", $this->workspaceRepository->findByIdentifier('live'));
