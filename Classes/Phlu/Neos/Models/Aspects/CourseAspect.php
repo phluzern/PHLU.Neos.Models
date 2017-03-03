@@ -134,6 +134,7 @@ class CourseAspect
         $node->setProperty('deleted', $course->isDeleted());
         $node->setProperty('sections', $course->getSections());
         $node->setProperty('lessons', $course->getLessons());
+        $node->setProperty('id',$course->getId());
 
 
         switch ($node->getNodeType()->getName()) {
