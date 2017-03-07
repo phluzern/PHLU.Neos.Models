@@ -3,6 +3,7 @@
 namespace Phlu\Neos\Models\Aspects;
 
 
+use Neos\Utility\ObjectAccess;
 use Phlu\Evento\Service\Course\ImportService;
 use Phlu\Neos\Models\Domain\Model\Course\Study\FurtherEducation\Course;
 use Phlu\Neos\Models\Domain\Repository\CourseRepository;
@@ -122,6 +123,8 @@ class CourseAspect
     {
 
 
+
+
         $node->setProperty('uriPathSegment', $this->nodeUriPathSegmentGenerator->generateUriPathSegment(null, $course->getTitle()));
         $node->setProperty('title', $course->getTitle());
 
@@ -135,7 +138,6 @@ class CourseAspect
         $node->setProperty('sections', $course->getSections());
         $node->setProperty('lessons', $course->getLessons());
         $node->setProperty('id',$course->getId());
-
 
         switch ($node->getNodeType()->getName()) {
 
