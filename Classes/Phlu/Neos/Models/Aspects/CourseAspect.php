@@ -3,6 +3,7 @@
 namespace Phlu\Neos\Models\Aspects;
 
 
+use Neos\Eel\FlowQuery\FlowQuery;
 use Neos\Utility\ObjectAccess;
 use Phlu\Evento\Service\Course\ImportService;
 use Phlu\Neos\Models\Domain\Model\Course\Study\FurtherEducation\Course;
@@ -176,7 +177,7 @@ class CourseAspect
 
         $courseid = false;
         foreach ($this->workspaceRepository->findAll() as $workspace) {
-            foreach ($this->nodeDataRepository->findByParentAndNodeTypeRecursively(SiteService::SITES_ROOT_PATH, $settings['nodeTypeName'], $this->workspaceRepository->findByName($workspace)->getFirst()) as $node) {
+            foreach ($this->nodeDataRepository->findByParentAndNodeTypeRecursively(SiteService::SITES_ROOT_PATH, $settings['nodeTypeName'], $this->workspaceRepository->findByName($workspace)->getFirst(), null, true) as $node) {
                 if ($node->getProperty('id') == $course->getId()) {
                     $this->nodeDataRepository->update($this->updateCourseNode($node, $course));
                     $courseid = $course->getId();
@@ -188,11 +189,15 @@ class CourseAspect
         /* @var $baseNode NodeData */
         $baseNode = $this->nodeDataRepository->findOneByIdentifier($settings['detailContainerNodeId'], $this->workspaceRepository->findByIdentifier('live'));
 
+
+
+
         if ($baseNode) {
 
             // create course detail page node
             /* @var $baseNode NodeData */
             $baseNodeData = $this->nodeDataRepository->findOneByIdentifier($settings['detailContainerNodeId'], $this->workspaceRepository->findByIdentifier('live'));
+            $workspace = $this->workspaceRepository->findByIdentifier('live');
 
             if ($baseNodeData) {
                 $p = explode("/", $baseNodeData->getContextPath());
@@ -201,7 +206,7 @@ class CourseAspect
 
 
                 $lastworkspace = null;
-                $workspace = $this->workspaceRepository->findByIdentifier('live');
+
 
                 $node = $this->nodeDataRepository->findOneByPath($baseNode->getPath() . "/" . strtolower($settings['repository']) . '-' . $course->getId(), $this->workspaceRepository->findByName($workspace)->getFirst());
 
@@ -250,11 +255,13 @@ class CourseAspect
                     }
 
 
+
+
                     foreach ($courseSections as $nr => $courseSection) {
 
                         if (isset($nodeSections[$nr]) == false) {
                             // create node section
-                            $nodeSections[$nr] = $baseNodeMain->createNodeData('section-' . $course->getId() . "-" . $nr, $this->nodeTypeManager->getNodeType($settings['sectionNodeType']), null, $workspace);
+                            $nodeSections[$nr] = $baseNodeMain->createNodeData('section-' . $course->getId() . "-" . $nr, $this->nodeTypeManager->getNodeType($settings['sectionNodeType']), null,$workspace, $baseNode->getDimensions());
                             $nodeSections[$nr]->setProperty('internalid', $nr);
                         }
 
@@ -265,11 +272,15 @@ class CourseAspect
                         );
 
                         $sectionTextNode = null;
-                        foreach ($baseNodeSection->getPrimaryChildNode()->getChildNodes($settings['sectionTextNodeType']) as $sectionText) {
+
+
+                        foreach ($this->nodeDataRepository->findByParentWithoutReduce($baseNodeSection->getPath()."/main", $this->workspaceRepository->findByIdentifier('live'),true) as $sectionText) {
+
                             if ($sectionText->getProperty('internalid') == $nr || $sectionText->getName() == 'text-' . $course->getId() . "-" . $nr) {
-                                $sectionTextNode = $sectionText->getNodeData();
+                                $sectionTextNode = $sectionText;
                             }
                         }
+
 
                         if ($sectionTextNode === null) {
                             $sectionTextNode = $baseNodeSection->getPrimaryChildNode()->createNode('text-' . $course->getId() . "-" . $nr, $this->nodeTypeManager->getNodeType($settings['sectionTextNodeType']))->getNodeData();
@@ -290,6 +301,7 @@ class CourseAspect
 
                 }
 
+
                 if (isset($nodeSections)) {
                     foreach ($nodeSections as $nodeSection) {
                         if (isset($nodeSectionsUpdated[$nodeSection->getProperty('internalid')]) === false) {
@@ -300,27 +312,40 @@ class CourseAspect
                 }
 
 
+
                 if ($courseid === false && $course->isDeleted() === false) {
 
                     // create course node
                     $baseNode = $this->nodeDataRepository->findOneByIdentifier($settings['containerNodeId'], $this->workspaceRepository->findByIdentifier('live'));
 
+
+
                     if ($baseNode) {
                         /* @var $baseNodeDatabase NodeData */
                         $baseNodeDatabase = $this->nodeDataRepository->findOneByPath($baseNode->getPath() . "/database", $this->workspaceRepository->findByIdentifier('live'));
+
+
+
                         if ($baseNodeDatabase !== null) {
                             $nodeType = $this->nodeTypeManager->getNodeType($settings['nodeTypeName']);
 
-                            if ($this->nodeDataRepository->findOneByPath($baseNodeDatabase->getPath() . "/" . strtolower($settings['repository']) . '-' . $course->getId(), $this->workspaceRepository->findByIdentifier('live')) === null) {
-                                $courseNode = $baseNodeDatabase->createNodeData(strtolower($settings['repository']) . '-' . $course->getId(), $nodeType);
+
+                            $b = $this->nodeDataRepository->findOneByPath($baseNodeDatabase->getPath() . "/" . strtolower($settings['repository']) . '-' . $course->getId(), $this->workspaceRepository->findByIdentifier('live'));
+
+                            if (is_null($b)) {
+
+                                $courseNode = $baseNodeDatabase->createNodeData(strtolower($settings['repository']) . '-' . $course->getId(), $nodeType, null,$workspace, $baseNode->getDimensions());
                                 $courseNode->setProperty('id', $course->getId());
 
                                 $this->nodeDataRepository->update($this->updateCourseNode($courseNode, $course));
+
                             }
                         }
                     }
 
                 }
+
+
 
                 if ($courseDetailId === false && $course->isDeleted() === false) {
                     // create course detail page node
