@@ -226,7 +226,12 @@ class CourseAspect
 
                     $baseNodeHeaderTextes = $this->nodeDataRepository->findByParentAndNodeType($baseNodeHeader->getPath(), 'Phlu.Corporate:TextPlain', $this->workspaceRepository->findByIdentifier('live'));
                     foreach ($baseNodeHeaderTextes as $text) {
-                        $text->setProperty('text', $course->getDescription());
+                        if ($node->getNodeType()->getName() == 'Phlu.Corporate:Page.FurtherEducation.Detail.Module') {
+                            $text->setProperty('text', '');
+                        } else {
+                            $text->setProperty('text', $course->getDescription());
+                        }
+
                         $this->nodeDataRepository->update($text);
                     }
 
@@ -244,6 +249,15 @@ class CourseAspect
                             }
                         }
                     }
+
+                    if (count($courseSections) == 0 && $node->getNodeType()->getName() == 'Phlu.Corporate:Page.FurtherEducation.Detail.Module') {
+                        $courseSection = new \stdClass();
+                        $courseSection->Text = nl2br($course->getDescription());
+                        $courseSection->Nr = 900000;
+                        $courseSection->Label = 'Beschreibung';
+                        $courseSections[$courseSection->Nr] = $courseSection;
+                    }
+
 
                     $nodeSections = array();
                     $nodeSectionsUpdated = array();
