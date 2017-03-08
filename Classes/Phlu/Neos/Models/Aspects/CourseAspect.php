@@ -229,7 +229,9 @@ class CourseAspect
                         if ($node->getNodeType()->getName() == 'Phlu.Corporate:Page.FurtherEducation.Detail.Module') {
                             $text->setProperty('text', '');
                         } else {
-                            $text->setProperty('text', $course->getDescription());
+                            if ($text->getProperty('text') == '') {
+                                $text->setProperty('text', $course->getDescription());
+                            }
                         }
 
                         $this->nodeDataRepository->update($text);
