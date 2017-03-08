@@ -412,6 +412,11 @@ class CourseAspect
                 $node->setProperty('graduation', $course->getGraduation());
                 break;
 
+            case 'Phlu.Corporate:Page.FurtherEducation.Detail.Study':
+                /* @var $course \Phlu\Neos\Models\Domain\Model\Course\Study\FurtherEducation\Course */
+                $node->setProperty('graduation', $course->getGraduation());
+                break;
+
             case 'Phlu.Neos.NodeTypes:Course.Module.FurtherEducation':
                 /* @var $course \Phlu\Neos\Models\Domain\Model\Course\Module\FurtherEducation\Course */
 
