@@ -143,6 +143,7 @@ class CourseAspect
         switch ($node->getNodeType()->getName()) {
 
             case 'Phlu.Neos.NodeTypes:Course.Study.FurtherEducation':
+            case 'Phlu.Corporate:Page.FurtherEducation.Detail.Study':
                 /* @var $course \Phlu\Neos\Models\Domain\Model\Course\Study\FurtherEducation\Course */
                 $node->setProperty('graduation', $course->getGraduation());
                 break;
