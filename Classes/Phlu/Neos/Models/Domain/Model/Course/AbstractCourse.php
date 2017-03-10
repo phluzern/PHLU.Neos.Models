@@ -65,6 +65,12 @@ abstract class AbstractCourse extends AbstractModel
      * @var array
      * @ORM\Column(nullable=true)
      */
+    protected $contacts;
+
+    /**
+     * @var array
+     * @ORM\Column(nullable=true)
+     */
     protected $targetgroups;
 
     /**
@@ -365,6 +371,23 @@ abstract class AbstractCourse extends AbstractModel
     {
         $this->targetgroups = $targetgroups;
     }
+
+    /**
+     * @return array
+     */
+    public function getContacts()
+    {
+        return $this->contacts;
+    }
+
+    /**
+     * @param array $contacts
+     */
+    public function setContacts($contacts)
+    {
+        $this->contacts = $contacts;
+    }
+
 
 
 }

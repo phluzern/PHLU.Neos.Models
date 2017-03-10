@@ -134,6 +134,7 @@ class CourseAspect
         $node->setProperty('ects', $course->getEcts());
         $node->setProperty('fee', $course->getFee());
         $node->setProperty('leaders', $course->getLeaders());
+        $node->setProperty('contacts', $course->getContacts());
         $node->setProperty('targetgroups', $course->getTargetgroups());
         $node->setProperty('deleted', $course->isDeleted());
         $node->setProperty('sections', $course->getSections());
