@@ -241,6 +241,13 @@ class CourseAspect
 
 
                     $baseNodeMain = $this->nodeDataRepository->findOneByPath($node->getPath() . "/main", $this->workspaceRepository->findByIdentifier('live'));
+
+
+                    if (!$baseNodeMain) {
+                        return $course;
+                    }
+
+
                     $baseNodeMainSections = $this->nodeDataRepository->findByParentAndNodeType($baseNodeMain->getPath(), $settings['sectionNodeType'], $this->workspaceRepository->findByIdentifier('live'));
 
 
