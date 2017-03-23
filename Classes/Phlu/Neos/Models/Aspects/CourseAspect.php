@@ -5,6 +5,7 @@ namespace Phlu\Neos\Models\Aspects;
 
 use Neos\Eel\FlowQuery\FlowQuery;
 use Neos\Utility\ObjectAccess;
+use org\bovigo\vfs\vfsStreamWrapperAlreadyRegisteredTestCase;
 use Phlu\Evento\Service\Course\ImportService;
 use Phlu\Neos\Models\Domain\Model\Course\Study\FurtherEducation\Course;
 use Phlu\Neos\Models\Domain\Repository\CourseRepository;
@@ -177,9 +178,12 @@ class CourseAspect
         $settings = $this->importService->getSettingsFromObject($course);
 
 
+
+
         $courseid = false;
         foreach ($this->workspaceRepository->findAll() as $workspace) {
-            foreach ($this->nodeDataRepository->findByParentAndNodeTypeRecursively(SiteService::SITES_ROOT_PATH, $settings['nodeTypeName'], $this->workspaceRepository->findByName($workspace)->getFirst(), null, true) as $node) {
+
+            foreach ($this->nodeDataRepository->findByParentAndNodeTypeRecursively(SiteService::SITES_ROOT_PATH, $settings['nodeTypeName'], $this->workspaceRepository->findByName($workspace)->getFirst()) as $node) {
                 if ($node->getProperty('id') == $course->getId()) {
                     $this->nodeDataRepository->update($this->updateCourseNode($node, $course));
                     $courseid = $course->getId();
@@ -195,6 +199,8 @@ class CourseAspect
 
 
         if ($baseNode) {
+
+
 
             // create course detail page node
             /* @var $baseNode NodeData */
@@ -437,6 +443,8 @@ class CourseAspect
      */
     public function updateCourseNode(NodeData $node, $course)
     {
+
+
 
         /* @var $course \Phlu\Neos\Models\Domain\Model\Course\AbstractCourse */
         $node->setProperty('title', $course->getTitle());
