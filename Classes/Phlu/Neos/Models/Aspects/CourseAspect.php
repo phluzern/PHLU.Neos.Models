@@ -129,7 +129,6 @@ class CourseAspect
 
         $node->setProperty('uriPathSegment', $this->nodeUriPathSegmentGenerator->generateUriPathSegment(null, $course->getTitle()));
         $node->setProperty('title', $course->getTitle());
-
         $node->setProperty('nr', $course->getNr());
         $node->setProperty('description', $course->getDescription());
         $node->setProperty('ects', $course->getEcts());
@@ -144,6 +143,7 @@ class CourseAspect
         $node->setProperty('isEmpfohlen',$course->isisEmpfohlen());
         $node->setProperty('isLastMinute',$course->isisLastMinute());
         $node->setProperty('isNeuste',$course->isisNeuste());
+
 
         switch ($node->getNodeType()->getName()) {
 
