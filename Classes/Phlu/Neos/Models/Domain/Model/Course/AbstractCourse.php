@@ -105,11 +105,81 @@ abstract class AbstractCourse extends AbstractModel
     protected $isinstock;
 
 
+     /**
+     * @var boolean
+     * @ORM\Column(nullable=true)
+     */
+    protected $isEmpfohlen;
+
+
+     /**
+     * @var boolean
+     * @ORM\Column(nullable=true)
+     */
+    protected $isLastMinute;
+
+
+     /**
+     * @var boolean
+     * @ORM\Column(nullable=true)
+     */
+    protected $isNeuste;
+
+
     /**
      * @var array
      * @ORM\Column(nullable=true)
      */
     protected $lessons;
+
+    /**
+     * @return bool
+     */
+    public function isIsEmpfohlen()
+    {
+        return $this->isEmpfohlen;
+    }
+
+    /**
+     * @param bool $isEmpfohlen
+     */
+    public function setIsEmpfohlen($isEmpfohlen)
+    {
+        $this->isEmpfohlen = $isEmpfohlen;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isIsLastMinute()
+    {
+        return $this->isLastMinute;
+    }
+
+    /**
+     * @param bool $isLastMinute
+     */
+    public function setIsLastMinute($isLastMinute)
+    {
+        $this->isLastMinute = $isLastMinute;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isIsNeuste()
+    {
+        return $this->isNeuste;
+    }
+
+    /**
+     * @param bool $isNeuste
+     */
+    public function setIsNeuste($isNeuste)
+    {
+        $this->isNeuste = $isNeuste;
+    }
+
 
     /**
      * @return array
