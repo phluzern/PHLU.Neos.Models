@@ -135,7 +135,7 @@ abstract class AbstractCourse extends AbstractModel
     /**
      * @return bool
      */
-    public function isIsEmpfohlen()
+    public function isisEmpfohlen()
     {
         return $this->isEmpfohlen;
     }
@@ -143,7 +143,7 @@ abstract class AbstractCourse extends AbstractModel
     /**
      * @param bool $isEmpfohlen
      */
-    public function setIsEmpfohlen($isEmpfohlen)
+    public function setisEmpfohlen($isEmpfohlen)
     {
         $this->isEmpfohlen = $isEmpfohlen;
     }
@@ -151,7 +151,7 @@ abstract class AbstractCourse extends AbstractModel
     /**
      * @return bool
      */
-    public function isIsLastMinute()
+    public function isisLastMinute()
     {
         return $this->isLastMinute;
     }
@@ -159,7 +159,7 @@ abstract class AbstractCourse extends AbstractModel
     /**
      * @param bool $isLastMinute
      */
-    public function setIsLastMinute($isLastMinute)
+    public function setisLastMinute($isLastMinute)
     {
         $this->isLastMinute = $isLastMinute;
     }
@@ -167,7 +167,7 @@ abstract class AbstractCourse extends AbstractModel
     /**
      * @return bool
      */
-    public function isIsNeuste()
+    public function isisNeuste()
     {
         return $this->isNeuste;
     }
@@ -175,7 +175,7 @@ abstract class AbstractCourse extends AbstractModel
     /**
      * @param bool $isNeuste
      */
-    public function setIsNeuste($isNeuste)
+    public function setisNeuste($isNeuste)
     {
         $this->isNeuste = $isNeuste;
     }

@@ -141,9 +141,9 @@ class CourseAspect
         $node->setProperty('sections', $course->getSections());
         $node->setProperty('lessons', $course->getLessons());
         $node->setProperty('id',$course->getId());
-        $node->setProperty('IsEmpfohlen',$course->isIsEmpfohlen());
-        $node->setProperty('IsLastMinute',$course->isIsLastMinute());
-        $node->setProperty('IsNeuste',$course->isIsNeuste());
+        $node->setProperty('isEmpfohlen',$course->isisEmpfohlen());
+        $node->setProperty('isLastMinute',$course->isisLastMinute());
+        $node->setProperty('isNeuste',$course->isisNeuste());
 
         switch ($node->getNodeType()->getName()) {
 
