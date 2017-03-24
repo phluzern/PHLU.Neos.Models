@@ -165,6 +165,10 @@ class CourseAspect
         $node->setProperty('genre', $course->getGenre());
         $node->setProperty('start', $course->getStart());
         $node->setProperty('isinstock', $course->isIsinstock());
+        $node->setProperty('isEmpfohlen',$course->isisEmpfohlen());
+        $node->setProperty('isLastMinute',$course->isisLastMinute());
+        $node->setProperty('isNeuste',$course->isisNeuste());
+
 
         return $node;
 
