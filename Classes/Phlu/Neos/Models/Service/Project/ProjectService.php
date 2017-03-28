@@ -132,7 +132,7 @@ class ProjectService
         $project->setHasChanges($project->getHash() === $hash ? false : true);
         $project->setHash($hash);
 
-
+\Neos\Flow\var_dump($project->getTitleGerman());
         return $project;
 
 
