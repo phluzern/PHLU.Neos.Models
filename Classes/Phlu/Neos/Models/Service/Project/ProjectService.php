@@ -35,7 +35,9 @@ class ProjectService
         'EndDate' => '',
         'LastModify' => '',
         'ProjectType' => '',
-        'Participants' => array()
+        'Participants' => array(),
+        'ExternProjectPartners' => array(),
+        'ExternProjectFinanciers' => array(),
     );
 
 
@@ -64,6 +66,7 @@ class ProjectService
     {
 
 
+
         // set default values
         foreach ($this->defaultData as $key => $val) {
             if (isset($data[$key]) === false) $data[$key] = $val;
@@ -90,6 +93,8 @@ class ProjectService
         $project->setProjectType($data['ProjectType']);
         $project->setPhotos($data['Photos']);
         $project->setDocuments($data['Documents']);
+        $project->setPartnersExternal($data['ExternProjectPartners']);
+        $project->setFinanciersExternal($data['ExternProjectFinanciers']);
 
         $project->setParticipants($data['Participants']);
 
@@ -132,7 +137,7 @@ class ProjectService
         $project->setHasChanges($project->getHash() === $hash ? false : true);
         $project->setHash($hash);
 
-\Neos\Flow\var_dump($project->getTitleGerman());
+
         return $project;
 
 

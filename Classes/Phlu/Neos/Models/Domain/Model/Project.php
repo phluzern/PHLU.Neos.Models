@@ -158,6 +158,18 @@ class Project extends AbstractModel
      */
     protected $participantsIntern;
 
+    /**
+     * @var array
+     * @ORM\Column(nullable=true)
+     */
+    protected $financiersExternal;
+
+    /**
+     * @var array
+     * @ORM\Column(nullable=true)
+     */
+    protected $partnersExternal;
+
 
     /**
      * @var \DateTime
@@ -176,6 +188,40 @@ class Project extends AbstractModel
      * @ORM\Column(nullable=true)
      */
     protected $lastModify;
+
+    /**
+     * @return array
+     */
+    public function getFinanciersExternal()
+    {
+        return $this->financiersExternal;
+    }
+
+    /**
+     * @param array $financiersExternal
+     */
+    public function setFinanciersExternal($financiersExternal)
+    {
+        $this->financiersExternal = $financiersExternal;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPartnersExternal()
+    {
+        return $this->partnersExternal;
+    }
+
+    /**
+     * @param array $partnersExternal
+     */
+    public function setPartnersExternal($partnersExternal)
+    {
+        $this->partnersExternal = $partnersExternal;
+    }
+
+
 
     /**
      * @return array
