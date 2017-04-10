@@ -217,8 +217,13 @@ class ContactService
 
             if ($response->getStatusCode() == 200) {
 
-                $resource = $this->resourceManager->importResourceFromContent($response->getContent(), basename($data['_imageUrl']));
+                $sha1 = sha1($response->getContent());
 
+                $resource = $this->resourceManager->getResourceBySha1($sha1);
+
+                if (!$resource) {
+                    $resource = $this->resourceManager->importResourceFromContent($response->getContent(), basename($data['_imageUrl']));
+                }
 
                 if ($resource) {
                     if ($resource->getMediaType() === 'image/jpeg') {
