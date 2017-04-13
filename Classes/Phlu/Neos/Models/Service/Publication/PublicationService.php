@@ -72,7 +72,14 @@ class PublicationService
         $publication->setPublicationType($data['PublicationTypeId']);
         $publication->setPersons($data['Persons']);
         $publication->setOrganisations($data['Organisations']);
-        $publication->setUrl($data['URL']);
+
+        if (isset($data['DOI_URL']) && strlen($data['DOI_URL']) > 6) {
+            $publication->setUrl($data['DOI_URL']);
+        } else {
+            $publication->setUrl($data['URL']);
+        }
+
+
 
         $publication->setHasChanges($publication->getHash() === $hash ? false : true);
         $publication->setHash($hash);
