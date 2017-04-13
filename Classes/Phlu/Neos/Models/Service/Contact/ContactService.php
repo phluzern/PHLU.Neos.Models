@@ -195,10 +195,10 @@ class ContactService
         $contact->setExpertise($data['expertise']);
         $contact->setConsulting($data['consulting']);
 
-        if ($skippublications === null) {
+        if ($skippublications !== true) {
             $contact->setPublications($data['publications']);
         }
-        if ($skipprojects === null) {
+        if ($skipprojects !== true) {
             $contact->setProjects($data['projects']);
         }
 
