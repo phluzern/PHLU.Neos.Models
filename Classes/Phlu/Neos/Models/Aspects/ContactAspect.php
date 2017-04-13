@@ -74,7 +74,7 @@ class ContactAspect
 
         $contactid = false;
         $workspace = 'live';
-        
+
         foreach ($this->nodeDataRepository->findByParentAndNodeTypeRecursively(SiteService::SITES_ROOT_PATH, 'Phlu.Corporate:Contact', $this->workspaceRepository->findByName($workspace)->getFirst()) as $node) {
             if ($node->getProperty('contact') == $contact->getEventoid()) {
                 $this->nodeDataRepository->update($this->updateContactNode($node, $contact));
