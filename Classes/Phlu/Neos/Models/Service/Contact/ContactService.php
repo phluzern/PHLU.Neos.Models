@@ -1,4 +1,5 @@
 <?php
+
 namespace Phlu\Neos\Models\Service\Contact;
 
 /*
@@ -111,13 +112,13 @@ class ContactService
     protected $assetCollection = false;
 
 
-
     /**
      * Returns a contact model
      * @return AssetCollection
      * @api
      */
-    public function getAssetCollection() {
+    public function getAssetCollection()
+    {
 
 
         if ($this->assetCollection === false) {
@@ -140,15 +141,16 @@ class ContactService
     }
 
 
-
     /**
      * Returns a contact model
      *
      * @param array $data
+     * @param boolean skippublications don't sync publications
+     * @param boolean skipprojects don't sync projects
      * @return Contact
      * @api
      */
-    public function getModel($data)
+    public function getModel($data, $skippublications = null, $skipprojects = null)
     {
 
 
@@ -192,8 +194,14 @@ class ContactService
         $contact->setActivities($data['activities']);
         $contact->setExpertise($data['expertise']);
         $contact->setConsulting($data['consulting']);
-        $contact->setPublications($data['publications']);
-        $contact->setProjects($data['projects']);
+
+        if ($skippublications === null) {
+            $contact->setPublications($data['publications']);
+        }
+        if ($skipprojects === null) {
+            $contact->setProjects($data['projects']);
+        }
+
         $contact->setShowPortrait($data['showPortrait']);
         $contact->setShowPortraitImage($data['showPortraitImage']);
         $contact->setOrganisations($data['organisations']);
@@ -202,7 +210,6 @@ class ContactService
 
         $contact->setHasChanges($contact->getHash() === $hash ? false : true);
         $contact->setHash($hash);
-
 
 
         if ($contact->isHasChanges() && $data['_imageUrl']) {
@@ -234,7 +241,6 @@ class ContactService
                         } catch (\Exception $e) {
                             $validImage = false;
                         }
-
 
 
                         if ($validImage) {
@@ -273,9 +279,6 @@ class ContactService
                             }
 
                         }
-
-
-
 
 
                     }
