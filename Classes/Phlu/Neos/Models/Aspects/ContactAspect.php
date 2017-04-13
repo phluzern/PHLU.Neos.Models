@@ -73,14 +73,15 @@ class ContactAspect
 
 
         $contactid = false;
-        foreach ($this->workspaceRepository->findAll() as $workspace) {
-            foreach ($this->nodeDataRepository->findByParentAndNodeTypeRecursively(SiteService::SITES_ROOT_PATH, 'Phlu.Corporate:Contact', $this->workspaceRepository->findByName($workspace)->getFirst()) as $node) {
-                if ($node->getProperty('contact') == $contact->getEventoid()) {
-                    $this->nodeDataRepository->update($this->updateContactNode($node, $contact));
-                    $contactid = $contact->getEventoid();
-                }
+        $workspace = 'live';
+        
+        foreach ($this->nodeDataRepository->findByParentAndNodeTypeRecursively(SiteService::SITES_ROOT_PATH, 'Phlu.Corporate:Contact', $this->workspaceRepository->findByName($workspace)->getFirst()) as $node) {
+            if ($node->getProperty('contact') == $contact->getEventoid()) {
+                $this->nodeDataRepository->update($this->updateContactNode($node, $contact));
+                $contactid = $contact->getEventoid();
             }
         }
+
 
         if ($contactid === false) {
 
