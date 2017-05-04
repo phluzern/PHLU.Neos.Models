@@ -147,7 +147,7 @@ class PublicationAspect
         } else {
             $sortingkey = "0000";
         }
-        $sortingkey = $sortingkey."-".strtoupper(substr($publication->getCitationstyle(),0,1));
+        $sortingkey = $sortingkey."-".strtoupper(substr($publication->getCitationstyle(),0,3));
 
         $node->setProperty('Sortingkey',$sortingkey);
 
