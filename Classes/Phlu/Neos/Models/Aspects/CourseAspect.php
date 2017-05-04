@@ -113,6 +113,7 @@ class CourseAspect
             /* @var AbstractStudy $course */
             if ($course) {
                 $course->setHash(time());
+                $course->setHasChanges(true);
                 $this->furtherEducationStudyRepository->update($course);
             }
         }
@@ -135,6 +136,7 @@ class CourseAspect
             /* @var AbstractStudy $course */
             if ($course) {
                 $course->setHash(time());
+                $course->setHasChanges(true);
                 $this->furtherEducationModuleRepository->update($course);
             }
         }
