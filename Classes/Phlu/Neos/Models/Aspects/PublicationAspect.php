@@ -140,6 +140,17 @@ class PublicationAspect
         $node->setProperty('Organisations', $publication->getOrganisations());
         $node->setProperty('Url', $publication->getUrl());
 
+
+        preg_match("([0-9]{4})",$publication->getCitationstyle(),$matches);
+        if (isset($matches[0]) && $matches[0] > 1900) {
+            $sortingkey = $matches[0];
+        } else {
+            $sortingkey = "0000";
+        }
+        $sortingkey = $sortingkey."-".strtoupper(substr($publication->getCitationstyle(),0,1));
+
+        $node->setProperty('Sortingkey',$sortingkey);
+
         return $node;
 
 
