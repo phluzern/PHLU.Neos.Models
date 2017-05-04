@@ -97,52 +97,7 @@ class CourseAspect
     protected $contentContextFactory;
 
 
-    /**
-     * @Flow\After("within(Neos\ContentRepository\Domain\Repository\NodeDataRepository) && method(public .+->(update)(object.nodeType.name == 'Phlu.Corporate:Page.FurtherEducation.Detail.Study'))")
-     * @return void
-     */
-    public function updateFurtherEducationStudyDetailPageEvent(JoinPointInterface $joinPoint)
-    {
-
-        // force update further education module/study on changing detail page
-        $object = $joinPoint->getMethodArgument('object');
-        /* @var \Neos\ContentRepository\Domain\Model\NodeData $object */
-
-        if ($object->getWorkspace()->getName() == 'live') {
-            $course = $this->furtherEducationStudyRepository->getOneById($object->getProperty('internalid'));
-            /* @var AbstractStudy $course */
-            if ($course) {
-                $course->setHash(time());
-                $course->setHasChanges(true);
-                $this->furtherEducationStudyRepository->update($course);
-            }
-        }
-
-    }
-
-    /**
-     * @Flow\After("within(Neos\ContentRepository\Domain\Repository\NodeDataRepository) && method(public .+->(update)(object.nodeType.name == 'Phlu.Corporate:Page.FurtherEducation.Detail.Module'))")
-     * @return void
-     */
-    public function updateFurtherEducationModuleDetailPageEvent(JoinPointInterface $joinPoint)
-    {
-
-        // force update further education module/study on changing detail page
-        $object = $joinPoint->getMethodArgument('object');
-        /* @var \Neos\ContentRepository\Domain\Model\NodeData $object */
-
-        if ($object->getWorkspace()->getName() == 'live') {
-            $course = $this->furtherEducationModuleRepository->getOneById($object->getProperty('internalid'));
-            /* @var AbstractStudy $course */
-            if ($course) {
-                $course->setHash(time());
-                $course->setHasChanges(true);
-                $this->furtherEducationModuleRepository->update($course);
-            }
-        }
-
-    }
-
+    
 
 
     /**
