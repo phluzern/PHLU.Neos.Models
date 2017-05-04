@@ -196,10 +196,19 @@ class ContactService
         $contact->setConsulting($data['consulting']);
 
         if ($skippublications !== true) {
-            $contact->setPublications($data['publications']);
+            if (is_array($data['publications'])) {
+                $contact->setPublications($data['publications']);
+            } else {
+                $contact->setPublications(array());
+            }
         }
         if ($skipprojects !== true) {
-            $contact->setProjects($data['projects']);
+            if (is_array($data['projects'])) {
+                $contact->setProjects($data['projects']);
+            } else {
+                $contact->setProjects(array());
+            }
+
         }
 
         $contact->setShowPortrait($data['showPortrait']);
