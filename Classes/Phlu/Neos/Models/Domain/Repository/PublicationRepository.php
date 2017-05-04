@@ -42,4 +42,17 @@ class PublicationRepository extends Repository
 
     }
 
+    /**
+     * @param int $ppdbPersonId
+     * @return \Neos\Flow\Persistence\QueryInterface
+     */
+    public function getByEventoId($ppdbPersonId) {
+
+
+        $query = $this->createQuery();
+        return $query->matching($query->like('persons', '%:'.$ppdbPersonId.';%'))->execute();
+
+
+    }
+
 }

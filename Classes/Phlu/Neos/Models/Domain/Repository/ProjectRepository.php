@@ -1,4 +1,5 @@
 <?php
+
 namespace Phlu\Neos\Models\Domain\Repository;
 
 /*
@@ -19,12 +20,31 @@ class ProjectRepository extends Repository
      * @param int $ppdbId
      * @return \Neos\Flow\Persistence\QueryInterface
      */
-    public function getOneByPpDbId($ppdbId) {
+    public function getOneByPpDbId($ppdbId)
+    {
+
+        $query = $this->createQuery();
+        return $query->matching($query->equals('id', $ppdbId))->execute()->getFirst();
+
+    }
+
+    /**
+     * @param int $ppdbPersonId
+     * @return \Neos\Flow\Persistence\QueryInterface
+     */
+    public function getByEventoId($ppdbPersonId)
+    {
+
 
 
         $query = $this->createQuery();
 
-        return $query->matching($query->equals('id', $ppdbId))->execute()->getFirst();
+        return $query->matching(
+            $query->logicalAnd(
+                $query->like('participants', '%:' . $ppdbPersonId . ';%'),
+                $query->like('participantsintern', '%:' . $ppdbPersonId . ';%')
+            )
+        )->execute();
 
 
     }
