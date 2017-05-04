@@ -118,6 +118,15 @@ class CourseAspect
         $this->findCourseNodesAndUpdate($joinPoint->getMethodArgument('object'));
     }
 
+    /**
+     * @Flow\After("method(Phlu\Neos\Models\Domain\Repository\Course\Event\FurtherEducation\CourseRepository->add|update())")
+     * @return void
+     */
+    public function updateFurtherEducationEvent(JoinPointInterface $joinPoint)
+    {
+        $this->findCourseNodesAndUpdate($joinPoint->getMethodArgument('object'));
+    }
+
 
     /**
      * @param mixed $course
