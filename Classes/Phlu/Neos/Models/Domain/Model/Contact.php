@@ -103,6 +103,12 @@ class Contact extends AbstractModel
      */
     protected $links;
 
+    /**
+     * @var string
+     * @ORM\Column(nullable=true,type="text")
+     */
+    protected $linkssocial;
+
 
     /**
      * @var string
@@ -597,6 +603,23 @@ class Contact extends AbstractModel
     {
         $this->achievements = $achievements;
     }
+
+    /**
+     * @return string
+     */
+    public function getLinkssocial()
+    {
+        return $this->linkssocial;
+    }
+
+    /**
+     * @param string $linkssocial
+     */
+    public function setLinkssocial($linkssocial)
+    {
+        $this->linkssocial = $linkssocial;
+    }
+
 
 
 

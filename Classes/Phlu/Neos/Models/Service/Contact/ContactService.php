@@ -175,6 +175,9 @@ class ContactService
             $name = $contact->getName();
         }
 
+
+
+
         $name->setFirstName($data['firstname']);
         $name->setLastName($data['lastname']);
         $name->setTitle($data['title']);
@@ -189,6 +192,7 @@ class ContactService
         $contact->setFunction($data['function']);
         $contact->setFunctions($data['functions']);
         $contact->setLinks($data['links']);
+        $contact->setLinkssocial($data['linkssocial']);
         $contact->setEducation($data['education']);
         $contact->setHonorific($data['honorific']);
         $contact->setActivities($data['activities']);
