@@ -261,7 +261,6 @@ class CourseAspect
                                 $text->setProperty('text', $course->getDescription());
                             }
                         }
-
                         $this->nodeDataRepository->update($text);
                     }
 
@@ -311,39 +310,53 @@ class CourseAspect
                     foreach ($courseSections as $nr => $courseSection) {
 
                         if (isset($nodeSections[$nr]) == false) {
+
                             // create node section
-                            $nodeSections[$nr] = $baseNodeMain->createNodeData('section-' . $course->getId() . "-" . $nr, $this->nodeTypeManager->getNodeType($settings['sectionNodeType']), null,$workspace, $baseNode->getDimensions());
-                            $nodeSections[$nr]->setProperty('internalid', $nr);
-                        }
-
-                        /** @var Node $node */
-                        $baseNodeSection = new Node(
-                            $nodeSections[$nr],
-                            $context
-                        );
-
-                        $sectionTextNode = null;
-
-
-                        foreach ($this->nodeDataRepository->findByParentWithoutReduce($baseNodeSection->getPath()."/main", $this->workspaceRepository->findByIdentifier('live'),true) as $sectionText) {
-
-                            if ($sectionText->getProperty('internalid') == $nr || $sectionText->getName() == 'text-' . $course->getId() . "-" . $nr) {
-                                $sectionTextNode = $sectionText;
+                            if ($nr !== 4) {
+                                $nodeSections[$nr] = $baseNodeMain->createNodeData('section-' . $course->getId() . "-" . $nr, $this->nodeTypeManager->getNodeType($settings['sectionNodeType']), null, $workspace, $baseNode->getDimensions());
+                                $nodeSections[$nr]->setProperty('internalid', $nr);
                             }
                         }
 
 
-                        if ($sectionTextNode === null) {
-                            $sectionTextNode = $baseNodeSection->getPrimaryChildNode()->createNode('text-' . $course->getId() . "-" . $nr, $this->nodeTypeManager->getNodeType($settings['sectionTextNodeType']))->getNodeData();
-                        }
+                        if (isset($nodeSections[$nr]) == true) {
 
-                        /** @var Node $sectionTextNode */
-                        $sectionTextNode->setProperty('text', substr($courseSection->Text, 0, 1) == "<" ? $courseSection->Text : "<p>" . $courseSection->Text . "</p>");
-                        $sectionTextNode->setProperty('internalid', $nr);
-                        $nodeSections[$nr]->setProperty('title', strip_tags($courseSection->Label));
-                        $this->nodeDataRepository->update($sectionTextNode);
-                        $this->nodeDataRepository->update($nodeSections[$nr]);
-                        $nodeSectionsUpdated[$nr] = $nr;
+                            /** @var Node $node */
+                            $baseNodeSection = new Node(
+                                $nodeSections[$nr],
+                                $context
+                            );
+
+                            $sectionTextNode = null;
+
+
+                            foreach ($this->nodeDataRepository->findByParentWithoutReduce($baseNodeSection->getPath() . "/main", $this->workspaceRepository->findByIdentifier('live'), true) as $sectionText) {
+
+                                if ($sectionText->getProperty('internalid') == $nr || $sectionText->getName() == 'text-' . $course->getId() . "-" . $nr) {
+                                    $sectionTextNode = $sectionText;
+                                }
+                            }
+
+
+                            if ($sectionTextNode === null) {
+                                $sectionTextNode = $baseNodeSection->getPrimaryChildNode()->createNode('text-' . $course->getId() . "-" . $nr, $this->nodeTypeManager->getNodeType($settings['sectionTextNodeType']))->getNodeData();
+                            }
+
+
+                            /** @var Node $sectionTextNode */
+                            $sectionTextNode->setProperty('text', substr($courseSection->Text, 0, 1) == "<" ? $courseSection->Text : "<p>" . $courseSection->Text . "</p>");
+                            $sectionTextNode->setProperty('internalid', $nr);
+                            $nodeSections[$nr]->setProperty('title', strip_tags($courseSection->Label));
+                            $this->nodeDataRepository->update($sectionTextNode);
+                            $this->nodeDataRepository->update($nodeSections[$nr]);
+                            $nodeSectionsUpdated[$nr] = $nr;
+
+                            if ($courseSection->Nr == 4) {
+                                $sectionTextNode->remove();
+                                $nodeSections[$nr]->remove();
+                            }
+
+                        }
 
                     }
 
