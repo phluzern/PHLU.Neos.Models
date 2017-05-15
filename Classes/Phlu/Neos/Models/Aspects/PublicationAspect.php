@@ -95,11 +95,13 @@ class PublicationAspect
 
             // create publication node
             $baseNode = $this->nodeDataRepository->findOneByIdentifier('b70fb030-fa84-474c-81cf-5dedc5ca74ef', $this->workspaceRepository->findByIdentifier('live'));
-            /* @var $baseNodeDatabase NodeData */
-            $baseNodeDatabase = $this->nodeDataRepository->findOneByPath($baseNode->getPath() . "/database", $this->workspaceRepository->findByIdentifier('live'));
 
-
-
+            if ($baseNode) {
+                /* @var $baseNodeDatabase NodeData */
+                $baseNodeDatabase = $this->nodeDataRepository->findOneByPath($baseNode->getPath() . "/database", $this->workspaceRepository->findByIdentifier('live'));
+            } else {
+                return fase;
+            }
 
             if ($baseNodeDatabase !== null) {
                 $nodeType = $this->nodeTypeManager->getNodeType('Phlu.Neos.NodeTypes:Publication');
@@ -147,7 +149,6 @@ class PublicationAspect
         } else {
             $sortingkey = "0000";
         }
-        $sortingkey = $sortingkey."-".$publication->getCitationstyle();
 
         $node->setProperty('Sortingkey',$sortingkey);
 
