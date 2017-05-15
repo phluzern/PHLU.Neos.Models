@@ -97,10 +97,8 @@ class PublicationAspect
 
             if ($baseNodeDatabase !== null) {
                 $nodeType = $this->nodeTypeManager->getNodeType('Phlu.Neos.NodeTypes:Publication');
-                if ($this->nodeDataRepository->findOneByPath($baseNodeDatabase->getPath() . "/" . 'publication-' . $publication->getId(), $this->workspaceRepository->findByIdentifier('live')) === null) {
-                    $publicationNode = $baseNodeDatabase->createNodeData('publication-' . $publication->getId(), $nodeType);
-                    $this->nodeDataRepository->update($this->updatePublicationNode($publicationNode, $publication));
-                }
+                $publicationNode = $baseNodeDatabase->createNodeData('publication-' . $publication->getId(), $nodeType);
+                $this->nodeDataRepository->update($this->updatePublicationNode($publicationNode, $publication));
             }
 
 
@@ -137,14 +135,14 @@ class PublicationAspect
         $node->setProperty('Url', $publication->getUrl());
 
 
-        preg_match("([0-9]{4})",$publication->getCitationstyle(),$matches);
+        preg_match("([0-9]{4})", $publication->getCitationstyle(), $matches);
         if (isset($matches[0]) && $matches[0] > 1900) {
             $sortingkey = $matches[0];
         } else {
             $sortingkey = "0000";
         }
 
-        $node->setProperty('Sortingkey',$sortingkey);
+        $node->setProperty('Sortingkey', $sortingkey);
 
         return $node;
 

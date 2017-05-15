@@ -73,39 +73,35 @@ class ProjectAspect
 
     /**
      * @param Project $project
+     * @return mixed
      * @throws \Neos\Flow\Persistence\Exception\IllegalObjectTypeException
      */
     protected function findProjectNodesAndUpdate(Project $project)
     {
 
 
-        $projectId = false;
-        foreach ($this->workspaceRepository->findAll() as $workspace) {
-            foreach ($this->nodeDataRepository->findByParentAndNodeTypeRecursively(SiteService::SITES_ROOT_PATH, 'Phlu.Neos.NodeTypes:Project', $this->workspaceRepository->findByName($workspace)->getFirst()) as $node) {
-                if ($node->getProperty('id') == $project->getId()) {
-                    $this->nodeDataRepository->update($this->updateProjectNode($node, $project));
-                    $projectId = $project->getId();
-                }
-            }
+        // create project node
+        $baseNode = $this->nodeDataRepository->findOneByIdentifier('fc3e89af-ca93-4f2d-ab77-a2bd698f291f', $this->workspaceRepository->findByIdentifier('live'));
+
+        if (!$baseNode) {
+            return null;
         }
 
-        if ($projectId === false) {
+        /* @var $baseNodeDatabase NodeData */
+        $baseNodeDatabase = $this->nodeDataRepository->findOneByPath($baseNode->getPath() . "/database", $this->workspaceRepository->findByIdentifier('live'));
+        $projectNode = $this->nodeDataRepository->findOneByPath($baseNodeDatabase->getPath() . "/" . 'project-' . $project->getId(), $this->workspaceRepository->findByIdentifier('live'));
 
+        if (!$projectNode) {
 
-            // create project node
-            $baseNode = $this->nodeDataRepository->findOneByIdentifier('fc3e89af-ca93-4f2d-ab77-a2bd698f291f', $this->workspaceRepository->findByIdentifier('live'));
-            /* @var $baseNodeDatabase NodeData */
-            $baseNodeDatabase = $this->nodeDataRepository->findOneByPath($baseNode->getPath() . "/database", $this->workspaceRepository->findByIdentifier('live'));
             if ($baseNodeDatabase !== null) {
                 $nodeType = $this->nodeTypeManager->getNodeType('Phlu.Neos.NodeTypes:Project');
-
-                if ($this->nodeDataRepository->findOneByPath($baseNodeDatabase->getPath() . "/" . 'project-' . $project->getId(), $this->workspaceRepository->findByIdentifier('live')) === null) {
-                    $projectNode = $baseNodeDatabase->createNodeData('project-' . $project->getId(), $nodeType);
-                    $this->nodeDataRepository->update($this->updateProjectNode($projectNode, $project));
-                }
+                $projectNode = $baseNodeDatabase->createNodeData('project-' . $project->getId(), $nodeType);
+                $this->nodeDataRepository->update($this->updateProjectNode($projectNode, $project));
             }
 
 
+        } else {
+            $this->nodeDataRepository->update($this->updateProjectNode($projectNode, $project));
         }
 
 
