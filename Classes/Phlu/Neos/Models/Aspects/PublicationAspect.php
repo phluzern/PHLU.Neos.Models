@@ -74,34 +74,26 @@ class PublicationAspect
     /**
      * @param Publication $publication
      * @throws \Neos\Flow\Persistence\Exception\IllegalObjectTypeException
+     * @return mixed
      */
     protected function findPublicationNodesAndUpdate(Publication $publication)
     {
 
 
+        // create publication node
+        $baseNode = $this->nodeDataRepository->findOneByIdentifier('b70fb030-fa84-474c-81cf-5dedc5ca74ef', $this->workspaceRepository->findByIdentifier('live'));
 
-        $publicationId = false;
-        foreach ($this->workspaceRepository->findAll() as $workspace) {
-            foreach ($this->nodeDataRepository->findByParentAndNodeTypeRecursively(SiteService::SITES_ROOT_PATH, 'Phlu.Neos.NodeTypes:Publication', $this->workspaceRepository->findByName($workspace)->getFirst()) as $node) {
-                if ($node->getProperty('Id') == $publication->getId()) {
-                    $this->nodeDataRepository->update($this->updatePublicationNode($node, $publication));
-                    $publicationId = $publication->getId();
-                }
-            }
+        if ($baseNode) {
+            /* @var $baseNodeDatabase NodeData */
+            $baseNodeDatabase = $this->nodeDataRepository->findOneByPath($baseNode->getPath() . "/database", $this->workspaceRepository->findByIdentifier('live'));
+        } else {
+            return false;
         }
 
-        if ($publicationId === false) {
+        $publicationNode = $this->nodeDataRepository->findOneByPath($baseNodeDatabase->getPath() . "/" . 'publication-' . $publication->getId(), $this->workspaceRepository->findByIdentifier('live'));
 
 
-            // create publication node
-            $baseNode = $this->nodeDataRepository->findOneByIdentifier('b70fb030-fa84-474c-81cf-5dedc5ca74ef', $this->workspaceRepository->findByIdentifier('live'));
-
-            if ($baseNode) {
-                /* @var $baseNodeDatabase NodeData */
-                $baseNodeDatabase = $this->nodeDataRepository->findOneByPath($baseNode->getPath() . "/database", $this->workspaceRepository->findByIdentifier('live'));
-            } else {
-                return false;
-            }
+        if (!$publicationNode) {
 
             if ($baseNodeDatabase !== null) {
                 $nodeType = $this->nodeTypeManager->getNodeType('Phlu.Neos.NodeTypes:Publication');
@@ -112,6 +104,8 @@ class PublicationAspect
             }
 
 
+        } else {
+            $this->nodeDataRepository->update($this->updatePublicationNode($publicationNode, $publication));
         }
 
 
