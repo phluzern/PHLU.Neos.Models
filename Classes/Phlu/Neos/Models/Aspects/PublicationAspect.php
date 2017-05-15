@@ -100,7 +100,7 @@ class PublicationAspect
                 /* @var $baseNodeDatabase NodeData */
                 $baseNodeDatabase = $this->nodeDataRepository->findOneByPath($baseNode->getPath() . "/database", $this->workspaceRepository->findByIdentifier('live'));
             } else {
-                return fase;
+                return false;
             }
 
             if ($baseNodeDatabase !== null) {
