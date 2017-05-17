@@ -312,9 +312,11 @@ class CourseAspect
                         if (isset($nodeSections[$nr]) == false) {
 
                             // create node section
-                            if ($nr !== 4) {
+                            if ($nr == 3 || $nr == 5) {
                                 $nodeSections[$nr] = $baseNodeMain->createNodeData('section-' . $course->getId() . "-" . $nr, $this->nodeTypeManager->getNodeType($settings['sectionNodeType']), null, $workspace, $baseNode->getDimensions());
                                 $nodeSections[$nr]->setProperty('internalid', $nr);
+                                $nodeSections[$nr]->setIndex($nr);
+
                             }
                         }
 
@@ -347,11 +349,12 @@ class CourseAspect
                             $sectionTextNode->setProperty('text', substr($courseSection->Text, 0, 1) == "<" ? $courseSection->Text : "<p>" . $courseSection->Text . "</p>");
                             $sectionTextNode->setProperty('internalid', $nr);
                             $nodeSections[$nr]->setProperty('title', strip_tags($courseSection->Label));
+                            $nodeSections[$nr]->setIndex($nr);
                             $this->nodeDataRepository->update($sectionTextNode);
                             $this->nodeDataRepository->update($nodeSections[$nr]);
                             $nodeSectionsUpdated[$nr] = $nr;
 
-                            if ($courseSection->Nr == 4) {
+                            if ($courseSection->Nr != 3 && $courseSection->Nr != 5) {
                                 $sectionTextNode->remove();
                                 $nodeSections[$nr]->remove();
                             }
