@@ -14,7 +14,6 @@ use Neos\ContentRepository\Domain\Model\NodeData;
 use Neos\ContentRepository\Domain\Repository\NodeDataRepository;
 use Neos\ContentRepository\Domain\Service\NodeTypeManager;
 use Neos\ContentRepository\Domain\Service\ContentContextFactory;
-use Neoslive\Hybridsearch\Factory\SearchIndexFactory;
 
 /**
  * @Flow\Scope("singleton")
@@ -31,11 +30,6 @@ class ProjectAspect
     protected $workspaceRepository;
 
 
-    /**
-     * @Flow\Inject
-     * @var SearchIndexFactory
-     */
-    protected $searchIndexFactory;
 
 
     /**

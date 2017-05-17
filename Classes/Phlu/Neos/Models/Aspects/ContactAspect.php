@@ -12,7 +12,6 @@ use Neos\Flow\Persistence\Doctrine\PersistenceManager;
 use Neos\Neos\Domain\Service\SiteService;
 use Neos\ContentRepository\Domain\Model\NodeData;
 use Neos\ContentRepository\Domain\Repository\NodeDataRepository;
-use Neoslive\Hybridsearch\Factory\SearchIndexFactory;
 use Neos\ContentRepository\Domain\Service\NodeTypeManager;
 
 /**
@@ -41,13 +40,6 @@ class ContactAspect
      * @var ContactRepository
      */
     protected $contactRepository;
-
-
-    /**
-     * @Flow\Inject
-     * @var SearchIndexFactory
-     */
-    protected $searchIndexFactory;
 
 
     /**
