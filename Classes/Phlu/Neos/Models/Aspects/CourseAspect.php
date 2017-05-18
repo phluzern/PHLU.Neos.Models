@@ -97,7 +97,7 @@ class CourseAspect
     protected $contentContextFactory;
 
 
-    
+
 
 
     /**
@@ -238,6 +238,8 @@ class CourseAspect
 
                 $node = $this->nodeDataRepository->findOneByPath($baseNode->getPath() . "/" . strtolower($settings['repository']) . '-' . $course->getId(), $this->workspaceRepository->findByName($workspace)->getFirst());
 
+
+
                 if ($node) {
                     $courseDetailId = $course->getId();
                     $node = $this->updateProperties($course, $node);
@@ -286,6 +288,9 @@ class CourseAspect
                         }
                     }
 
+
+
+
                     if (count($courseSections) == 0 && $node->getNodeType()->getName() == 'Phlu.Corporate:Page.FurtherEducation.Detail.Module') {
                         $courseSection = new \stdClass();
                         $courseSection->Text = nl2br($course->getDescription());
@@ -309,6 +314,7 @@ class CourseAspect
 
                     foreach ($courseSections as $nr => $courseSection) {
 
+
                         if (isset($nodeSections[$nr]) == false) {
 
                             // create node section
@@ -319,6 +325,8 @@ class CourseAspect
 
                             }
                         }
+
+
 
 
                         if (isset($nodeSections[$nr]) == true) {
@@ -344,9 +352,12 @@ class CourseAspect
                                 $sectionTextNode = $baseNodeSection->getPrimaryChildNode()->createNode('text-' . $course->getId() . "-" . $nr, $this->nodeTypeManager->getNodeType($settings['sectionTextNodeType']))->getNodeData();
                             }
 
+                            $courseSection->Text = trim($courseSection->Text,"<br>");
+                            $htmlText = substr($courseSection->Text, 0, 1) == "<" ? $courseSection->Text : "<p>" . $courseSection->Text . "</p>";
+
 
                             /** @var Node $sectionTextNode */
-                            $sectionTextNode->setProperty('text', substr($courseSection->Text, 0, 1) == "<" ? $courseSection->Text : "<p>" . $courseSection->Text . "</p>");
+                            $sectionTextNode->setProperty('text', $htmlText);
                             $sectionTextNode->setProperty('internalid', $nr);
                             $nodeSections[$nr]->setProperty('title', strip_tags($courseSection->Label));
                             $nodeSections[$nr]->setIndex($nr);
