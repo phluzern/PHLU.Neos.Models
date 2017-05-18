@@ -466,7 +466,8 @@ class CourseAspect
                 }
             }
         }
-        //  $this->persistenceManager->persistAll();
+
+         $this->persistenceManager->persistAll();
 
 
     }

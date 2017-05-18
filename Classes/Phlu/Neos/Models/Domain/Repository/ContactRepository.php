@@ -46,11 +46,13 @@ class ContactRepository extends Repository
             return $contacts;
         }
 
-        foreach ($this->findAll() as $contact) {
+        $query = $this->createQuery();
+        $query->setOrderings(array('name.lastName' => QueryInterface::ORDER_ASCENDING));
+
+
+        foreach ($query->execute() as $contact) {
 
             /* @var Contact $contact */
-
-
             $contactOrganisationIds = array();
             if (is_array($contact->getOrganisations())) {
                 foreach ($contact->getOrganisations() as $organisation) {

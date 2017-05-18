@@ -13,6 +13,7 @@ use Neos\Neos\Domain\Service\SiteService;
 use Neos\ContentRepository\Domain\Model\NodeData;
 use Neos\ContentRepository\Domain\Repository\NodeDataRepository;
 use Neos\ContentRepository\Domain\Service\NodeTypeManager;
+use Neos\ContentRepository\Domain\Model\NodeInterface;
 
 /**
  * @Flow\Scope("singleton")
@@ -111,6 +112,7 @@ class ContactAspect
 
 
         $node->setProperty('firstname', $contact->getName()->getFirstName());
+        $node->setProperty('title', $contact->getName()->getFullName());
         $node->setProperty('lastname', $contact->getName()->getLastName());
         $node->setProperty('titlename', $contact->getName()->getTitle());
         $node->setProperty('street', $contact->getStreet());
@@ -157,26 +159,46 @@ class ContactAspect
 
 
     /**
-     * @Flow\Before("method(Neos\ContentRepository\Domain\Repository\NodeDataRepository->update(object.nodeType.name == 'Phlu.Corporate:Contact'))")
+     * Update contact node programmatically
+     * @param NodeInterface $node
+     * @param string $propertyName name of the property that has been changed/added
+     * @param mixed $oldValue the property value before it was changed or NULL if the property is new
+     * @param mixed $newValue the new property value
      * @return void
      */
-    public function updateContactNodeData(JoinPointInterface $joinPoint)
+    public function updateContactNodeData(NodeInterface $node,$propertyName, $oldValue, $newValue)
     {
 
 
-        $object = $joinPoint->getMethodArgument('object');
+        if ($node->getNodeType()->getName() == 'Phlu.Corporate:Contact' && $propertyName == 'contact') {
 
-        if ($object->getProperty('contact') != 0) {
-
-            $contact = $this->contactRepository->getOneByEventoId($object->getProperty('contact'));
-
-            if ($contact) {
-                $this->updateContactNode($object, $contact);
-            }
+                if ($oldValue !== $newValue) {
+                    $contact = $this->contactRepository->getOneByEventoId($newValue);
+                    if ($contact) {
+                    $this->updateContactNode($node->getNodeData(), $contact);
+                }
+                }
 
 
         }
 
+
+//        $object = $joinPoint->getMethodArgument('node');
+//
+//        if ($object->getProperty('contact') != 0) {
+//
+//            $oldobject = $this->nodeDataRepository->findOneByIdentifier($object->getIdentifier(), $object->getWorkspace());
+//            \Neos\Flow\var_dump($oldobject->getProperty('contact'),$object->getProperty('contact'));
+//            if ($oldobject->getProperty('contact') !== $object->getProperty('contact')) {
+//                $contact = $this->contactRepository->getOneByEventoId($object->getProperty('contact'));
+//                if ($contact) {
+//                    $this->updateContactNode($object, $contact);
+//                }
+//            }
+//
+//
+//        }
+//
 
     }
 
