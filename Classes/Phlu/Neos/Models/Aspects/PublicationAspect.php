@@ -116,6 +116,7 @@ class PublicationAspect
     {
 
 
+        $node->setProperty('title', $publication->getCitationstyle());
         $node->setProperty('Id', $publication->getId());
         $node->setProperty('Citationstyle', $publication->getCitationstyle());
         $node->setProperty('title', $publication->getTitle());
