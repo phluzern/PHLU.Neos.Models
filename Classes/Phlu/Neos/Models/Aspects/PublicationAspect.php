@@ -115,9 +115,7 @@ class PublicationAspect
     public function updatePublicationNode(NodeData $node, Publication $publication)
     {
 
-
         $node->setProperty('title', $publication->getTitle());
-        $node->setProperty('text', $publication->getCitationstyle());
         $node->setProperty('Id', $publication->getId());
         $node->setProperty('Citationstyle', $publication->getCitationstyle());
         $node->setProperty('Language', $publication->getLanguage());
