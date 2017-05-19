@@ -116,10 +116,10 @@ class PublicationAspect
     {
 
 
-        $node->setProperty('title', $publication->getCitationstyle());
+        $node->setProperty('title', $publication->getTitle());
+        $node->setProperty('text', $publication->getCitationstyle());
         $node->setProperty('Id', $publication->getId());
         $node->setProperty('Citationstyle', $publication->getCitationstyle());
-        $node->setProperty('title', $publication->getTitle());
         $node->setProperty('Language', $publication->getLanguage());
         $node->setProperty('Projects', $publication->getProjects());
         $node->setProperty('Date', $publication->getDate());
