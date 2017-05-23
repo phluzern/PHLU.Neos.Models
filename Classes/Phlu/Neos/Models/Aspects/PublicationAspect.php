@@ -126,12 +126,16 @@ class PublicationAspect
         $node->setProperty('Organisations', $publication->getOrganisations());
         $node->setProperty('Url', $publication->getUrl());
 
-
-        preg_match("([0-9]{4})", $publication->getCitationstyle(), $matches);
-        if (isset($matches[0]) && $matches[0] > 1900) {
-            $sortingkey = $matches[0];
+        preg_match("/\(([0-9]{4})\)/", $publication->getCitationstyle(), $matches);
+        if (isset($matches[1]) && $matches[1] > 1900) {
+            $sortingkey = $matches[1]."0000";
         } else {
-            $sortingkey = "0000";
+            preg_match("/\(([0-9]{2})\.([0-9]{2})\.([0-9]{4})\)/", $publication->getCitationstyle(), $matches);
+            if (isset($matches[3]) && $matches[3] > 1900) {
+                $sortingkey = $matches[3].$matches[2].$matches[1];
+            } else {
+                $sortingkey = "900000000";
+            }
         }
 
         $node->setProperty('Sortingkey', $sortingkey);
