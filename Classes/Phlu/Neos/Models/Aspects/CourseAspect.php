@@ -352,7 +352,7 @@ class CourseAspect
                                 $sectionTextNode = $baseNodeSection->getPrimaryChildNode()->createNode('text-' . $course->getId() . "-" . $nr, $this->nodeTypeManager->getNodeType($settings['sectionTextNodeType']))->getNodeData();
                             }
 
-                            $courseSection = trim($courseSection->Text);
+                            $courseSection->Text = trim($courseSection->Text);
                             $htmlText = substr($courseSection->Text, 0, 1) == "<" ? $courseSection->Text : "<p>" . $courseSection->Text . "</p>";
 
 
