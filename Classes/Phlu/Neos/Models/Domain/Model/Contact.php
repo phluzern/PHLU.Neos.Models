@@ -174,9 +174,31 @@ class Contact extends AbstractModel
     protected $achievements;
 
     /**
+     * @var string
+     * @ORM\Column(nullable=true)
+     */
+    protected $cv;
+
+    /**
      * @var boolean
      */
     protected $showPortrait;
+
+    /**
+     * @return String
+     */
+    public function getCv()
+    {
+        return $this->cv;
+    }
+
+    /**
+     * @param String $cv
+     */
+    public function setCv($cv)
+    {
+        $this->cv = $cv;
+    }
 
 
     /**

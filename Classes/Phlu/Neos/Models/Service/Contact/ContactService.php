@@ -199,6 +199,14 @@ class ContactService
         $contact->setExpertise($data['expertise']);
         $contact->setConsulting($data['consulting']);
 
+        // remove cv resource if not valid anymore
+        if (strlen($contact->getCv())) {
+            $asset = $this->assetRepository->findOneByResourceSha1($contact->getCv());
+            if (!$asset || $asset->getResource()->getCollectionName() == 'disabled') {
+                $contact->setCv('');
+            }
+        }
+
         if ($skippublications !== true) {
             if (is_array($data['publications'])) {
                 $contact->setPublications($data['publications']);
