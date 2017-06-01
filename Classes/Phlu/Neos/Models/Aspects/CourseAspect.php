@@ -201,13 +201,18 @@ class CourseAspect
 
 
         $courseid = false;
+        $id = [];
+
         foreach ($this->workspaceRepository->findAll() as $workspace) {
 
             foreach ($this->nodeDataRepository->findByParentAndNodeTypeRecursively(SiteService::SITES_ROOT_PATH, $settings['nodeTypeName'], $this->workspaceRepository->findByName($workspace)->getFirst()) as $node) {
-                if ($node->getProperty('id') == $course->getId()) {
+
+                if (isset($id[$this->persistenceManager->getIdentifierByObject($node)]) == false && $node->getProperty('id') == $course->getId()) {
+                    $id[$this->persistenceManager->getIdentifierByObject($node)] = true;
                     $this->nodeDataRepository->update($this->updateCourseNode($node, $course));
                     $courseid = $course->getId();
                 }
+
             }
         }
 
@@ -509,6 +514,10 @@ class CourseAspect
         $node->setProperty('genre', $course->getGenre());
         $node->setProperty('start', $course->getStart());
         $node->setProperty('isinstock', $course->isIsinstock());
+        $node->setProperty('isEmpfohlen',$course->isisEmpfohlen());
+        $node->setProperty('isLastMinute',$course->isisLastMinute());
+        $node->setProperty('isNeuste',$course->isisNeuste());
+
 
 
         switch ($node->getNodeType()->getName()) {
