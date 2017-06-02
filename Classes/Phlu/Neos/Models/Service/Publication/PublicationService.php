@@ -7,6 +7,7 @@ namespace Phlu\Neos\Models\Service\Publication;
 
 
 use Phlu\Neos\Models\Domain\Model\Publication;
+use Phlu\Neos\Models\Domain\Repository\ContactRepository;
 use Phlu\Neos\Models\Domain\Repository\PublicationRepository;
 use Neos\Flow\Annotations as Flow;
 
@@ -22,6 +23,14 @@ class PublicationService
         'Persons' => array(),
         'Projects' => array()
     );
+
+
+    /**
+     * @Flow\Inject
+     * @var ContactRepository
+     */
+    protected $contactRepository;
+
 
 
     /**
@@ -57,9 +66,12 @@ class PublicationService
             if (isset($data[$key]) === false) $data[$key] = $val;
         }
 
+
+
         $hash = sha1(json_encode($data));
 
         $publication = $this->publicationRepository->getOneByPpDbId($data['ID']);
+
 
         if ($publication === null) $publication = new Publication();
 
@@ -80,6 +92,16 @@ class PublicationService
         }
 
 
+        if ($publication->isHasChanges()) {
+            // force update contacts publication
+            foreach ($publication->getPersons() as $person) {
+                $contact = $this->contactRepository->getOneByEventoId($person['EventoID']);
+                if ($contact) {
+                    $contact->setHash(time());
+                    $this->contactRepository->update($contact);
+                }
+            }
+        }
 
         $publication->setHasChanges($publication->getHash() === $hash ? false : true);
         $publication->setHash($hash);
