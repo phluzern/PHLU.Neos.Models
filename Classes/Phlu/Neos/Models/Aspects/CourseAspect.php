@@ -358,7 +358,7 @@ class CourseAspect
                             }
 
                             $courseSection->Text = trim($courseSection->Text);
-                            $htmlText = substr($courseSection->Text, 0, 1) == "<" ? $courseSection->Text : "<p>" . $courseSection->Text . "</p>";
+                            $htmlText = substr($courseSection->Text, 0, 2) == "<p" ? $courseSection->Text : "<p>" . $courseSection->Text . "</p>";
 
 
                             /** @var Node $sectionTextNode */
