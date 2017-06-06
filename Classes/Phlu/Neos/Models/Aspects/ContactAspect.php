@@ -143,6 +143,19 @@ class ContactAspect
             $p++;
         }
 
+        $p = 0;
+        $n = $node;
+        while ($p < 10 && $n) {
+            if ($n->getNodeType()->getName() == 'Phlu.Corporate:ContactsGroup' && $n->getProperty('ppdbid')) {
+                $organisations[$n->getProperty('ppdbid')] = true;
+                $n == null;
+            } else {
+                $n = $n->getParent();
+            }
+            $p++;
+        }
+
+
         $customFunction = null;
         if ($organisations) {
             foreach ($contact->getOrganisations() as $org) {
