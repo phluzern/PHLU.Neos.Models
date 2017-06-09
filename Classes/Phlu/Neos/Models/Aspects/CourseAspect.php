@@ -174,6 +174,8 @@ class CourseAspect
         }
 
 
+
+
         $node->setProperty('years', $course->getYears());
         $node->setProperty('genre', $course->getGenre());
         $node->setProperty('start', $course->getStart());
@@ -246,6 +248,9 @@ class CourseAspect
 
 
                 if ($node) {
+
+
+
                     $courseDetailId = $course->getId();
                     $node = $this->updateProperties($course, $node);
 
@@ -453,6 +458,11 @@ class CourseAspect
 
                             $nodeType = $this->nodeTypeManager->getNodeType($settings['detailNodeType']);
                             $courseDetailNode = $baseNode->createNode(strtolower($settings['repository']) . '-' . $course->getId(), $nodeType);
+
+
+
+
+
                             $courseDetailNode = $this->updateProperties($course, $courseDetailNode);
                             $courseDetailNode->setProperty('title', $course->getTitle());
                             $courseDetailNode->setProperty('internalid', $course->getId());
