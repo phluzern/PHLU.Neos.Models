@@ -91,6 +91,10 @@ class PublicationService
             $publication->setUrl($data['URL']);
         }
 
+        if (strlen($publication->getUrl()) < 3 && isset($data['edocURL']) && strlen($data['edocURL']) > 6) {
+            $publication->setUrl($data['edocURL']);
+        }
+
 
         if ($publication->isHasChanges()) {
             // force update contacts publication
