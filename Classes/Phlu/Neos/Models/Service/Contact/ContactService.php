@@ -331,7 +331,7 @@ class ContactService
     /**
      * Creates or updates a contact
      * @param Contact $contact
-     * @return Contact persisted contact
+     * @return boolean updated or not
      * @api
      */
     public function createOrUpdateContact(Contact $contact)
@@ -361,7 +361,7 @@ class ContactService
 
         $this->persistenceManager->persistAll();
 
-        return $contact;
+        return $updated;
 
 
     }
