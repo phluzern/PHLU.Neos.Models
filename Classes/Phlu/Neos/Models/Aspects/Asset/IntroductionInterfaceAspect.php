@@ -178,6 +178,11 @@ class IntroductionInterfaceAspect
 
         $fileType = $this->getMediaTypePrintable($joinPoint->getProxy()->getResource()->getMediaType());
 
+
+        if ($joinPoint->getProxy()->getResource() && substr_count($joinPoint->getProxy()->getResource()->getLink(),"www.phlu.ch/")) {
+            return '_self';
+        }
+
         if ($fileType == 'shortcut') {
             return $this->getMediaTypePrintable($joinPoint->getProxy()->getResource()->getSha1());
         }
