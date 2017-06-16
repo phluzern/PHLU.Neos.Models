@@ -197,7 +197,16 @@ class ContactAspect
         } else {
             $node->setProperty('function', $node->getProperty('functionCustom'));
         }
-        $node->setProperty('image', $contact->getImage());
+
+        $unchangedImage = false;
+
+        if ($contact->getImage()->getResource() && $node->getProperty('image') && $node->getProperty('image')->getResource() && $node->getProperty('image')->getResource()->getSha1() == $contact->getImage()->getResource()->getSha1()) {
+            $unchangedImage = true;
+        }
+
+        if ($unchangedImage == false) {
+            $node->setProperty('image', $contact->getImage());
+        }
 
 
         return $node;
