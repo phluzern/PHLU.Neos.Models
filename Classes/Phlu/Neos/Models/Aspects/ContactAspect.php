@@ -200,7 +200,7 @@ class ContactAspect
 
         $unchangedImage = false;
 
-        if ($contact->getImage()->getResource() && $node->getProperty('image') && $node->getProperty('image')->getResource() && $node->getProperty('image')->getResource()->getSha1() == $contact->getImage()->getResource()->getSha1()) {
+        if ($contact->getImage() && $contact->getImage()->getResource() && $node->getProperty('image') && $node->getProperty('image')->getResource() && $node->getProperty('image')->getResource()->getSha1() == $contact->getImage()->getResource()->getSha1()) {
             $unchangedImage = true;
         }
 
