@@ -108,13 +108,14 @@ class ContactRepository extends Repository
 
 
                 if ($org['OrganisationId'] == $organisationId) {
-                    $organisations[$org['OrganisationId']] =  array('issuborg' => false,'name' => $org['OrganisationName'],'id' => $org['OrganisationId'],'code' => isset($org['OrganisationCode']) ? $org['OrganisationCode'] : $org['OrganisationId']);
+
+                    $organisations[$org['OrganisationId']] =  array('orderingkey' => $org['orderingkey'], 'issuborg' => false,'name' => $org['OrganisationName'],'id' => $org['OrganisationId'],'code' => isset($org['OrganisationCode']) ? $org['OrganisationCode'] : $org['OrganisationId']);
                 } else {
                     if (isset($org['OrganisationPath'])) {
 
                         foreach ($org['OrganisationPath'] as $suborg) {
                             if ($suborg['id'] == $organisationId) {
-                                $organisations[$org['OrganisationId']] =  array('issuborg' => true,'name' => $org['OrganisationName'],'id' => $org['OrganisationId'],'code' => isset($org['OrganisationCode']) ? $org['OrganisationCode'] : $org['OrganisationId']);
+                                $organisations[$org['OrganisationId']] =  array('orderingkey' => $org['orderingkey'], 'issuborg' => true,'name' => $org['OrganisationName'],'id' => $org['OrganisationId'],'code' => isset($org['OrganisationCode']) ? $org['OrganisationCode'] : $org['OrganisationId']);
                             }
                         }
 
