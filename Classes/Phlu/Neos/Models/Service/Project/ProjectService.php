@@ -79,8 +79,6 @@ class ProjectService
         if ($project === null) $project = new Project();
 
 
-
-
         $project->setId($data['ID']);
         $project->setPPDBStatus($data['PPDBStatus']);
         $project->setTitleGerman($data['TitleGerman'] !== '' ? $data['TitleGerman'] : $data['TitleEnglish']);
