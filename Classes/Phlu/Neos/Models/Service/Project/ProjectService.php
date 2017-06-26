@@ -78,13 +78,16 @@ class ProjectService
 
         if ($project === null) $project = new Project();
 
+
+
+
         $project->setId($data['ID']);
         $project->setPPDBStatus($data['PPDBStatus']);
-        $project->setTitleGerman($data['TitleGerman']);
+        $project->setTitleGerman($data['TitleGerman'] !== '' ? $data['TitleGerman'] : $data['TitleEnglish']);
         $project->setTitleEnglish($data['TitleEnglish']);
-        $project->setTeaserTextGerman($data['TeaserTextGerman']);
+        $project->setTeaserTextGerman($data['TeaserTextGerman'] !== '' ? $data['TeaserTextGerman'] : $data['TeaserTextEnglish']);
         $project->setTeaserTextEnglish($data['TeaserTextEnglish']);
-        $project->setAbstractTextGerman($data['AbstractTextGerman']);
+        $project->setAbstractTextGerman($data['AbstractTextGerman'] !== '' ? $data['AbstractTextGerman'] : $data['AbstractTextEnglish']);
         $project->setAbstractTextEnglish($data['AbstractTextEnglish']);
         $project->setResearchMainFocus($data['ResearchMainFocus']);
         $project->setResearchUnit($data['ResearchUnit']);
