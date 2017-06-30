@@ -180,9 +180,34 @@ class Contact extends AbstractModel
     protected $cv;
 
     /**
+     * @var string
+     * @ORM\Column(nullable=true)
+     */
+    protected $shorthandSymbol;
+
+
+    /**
      * @var boolean
      */
     protected $showPortrait;
+
+    /**
+     * @return string
+     */
+    public function getShorthandSymbol()
+    {
+        return $this->shorthandSymbol;
+    }
+
+    /**
+     * @param string $shorthandSymbol
+     */
+    public function setShorthandSymbol($shorthandSymbol)
+    {
+        $this->shorthandSymbol = $shorthandSymbol;
+    }
+
+
 
     /**
      * @return String
