@@ -182,10 +182,10 @@ class ContactAspect
         $node->setProperty('city', $contact->getCity());
         $node->setProperty('email', $contact->getEmail());
         $node->setProperty('phone', $contact->getPhone());
-        $node->setProperty('text', $contact->getName()->getFirstName() . " " . $contact->getName()->getLastName());
         $node->setProperty('eventoid', $contact->getEventoid());
         $node->setProperty('organisations', $contact->getOrganisations());
         $node->setProperty('shorthandSymbol', $contact->getShorthandSymbol());
+
 
 //        $node->setProperty('education', $contact->getEducation());
 //        $node->setProperty('activities', $contact->getActivities());
