@@ -32,7 +32,6 @@ class ContactAspect
     protected $contentContextFactory;
 
 
-
     /**
      * @Flow\Inject
      * @var \Neos\ContentRepository\Domain\Repository\WorkspaceRepository
@@ -126,7 +125,6 @@ class ContactAspect
     {
 
 
-
         // calculate custom function based on organisation
         $p = 0;
         $n = $node;
@@ -164,12 +162,9 @@ class ContactAspect
                 }
             }
         }
-
-
         if ($customFunction) {
-            $node->setProperty('functionCustom',$customFunction);
+            $node->setProperty('functionCustom', $customFunction);
         }
-
 
         // update default properties
         $node->setProperty('firstname', $contact->getName()->getFirstName());
@@ -187,18 +182,7 @@ class ContactAspect
         $node->setProperty('shorthandSymbol', $contact->getShorthandSymbol());
 
 
-//        $node->setProperty('education', $contact->getEducation());
-//        $node->setProperty('activities', $contact->getActivities());
-//        $node->setProperty('functions', $contact->getFunctions());
-//        $node->setProperty('consulting', $contact->getConsulting());
-//        $node->setProperty('expertise', $contact->getExpertise());
-
-
-        if ($node->getProperty('functionCustom') == '') {
-            $node->setProperty('function', $contact->getFunction());
-        } else {
-            $node->setProperty('function', $node->getProperty('functionCustom'));
-        }
+        $node->setProperty('function', $contact->getFunction());
 
         $unchangedImage = false;
 
@@ -238,18 +222,18 @@ class ContactAspect
      * @param mixed $newValue the new property value
      * @return void
      */
-    public function updateContactNodeData(NodeInterface $node,$propertyName, $oldValue, $newValue)
+    public function updateContactNodeData(NodeInterface $node, $propertyName, $oldValue, $newValue)
     {
 
 
         if ($node->getNodeType()->getName() == 'Phlu.Corporate:Contact' && $propertyName == 'contact') {
 
-                if ($oldValue !== $newValue) {
-                    $contact = $this->contactRepository->getOneByEventoId($newValue);
-                    if ($contact) {
+            if ($oldValue !== $newValue) {
+                $contact = $this->contactRepository->getOneByEventoId($newValue);
+                if ($contact) {
                     $this->updateContactNode($node->getNodeData(), $contact);
                 }
-                }
+            }
 
 
         }
