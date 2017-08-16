@@ -147,7 +147,7 @@ class IntroductionInterfaceAspect
 
         $fileType = $this->getMediaTypePrintable($joinPoint->getProxy()->getResource()->getMediaType(), true);
 
-        if ($fileType == 'internal') {
+        if ($fileType == 'internal' || $this->getTarget($joinPoint) == '_self') {
             return '';
         }
 
@@ -179,7 +179,7 @@ class IntroductionInterfaceAspect
         $fileType = $this->getMediaTypePrintable($joinPoint->getProxy()->getResource()->getMediaType());
 
 
-        if ($joinPoint->getProxy()->getResource() && substr_count($joinPoint->getProxy()->getResource()->getLink(),"www.phlu.ch/")) {
+        if ($joinPoint->getProxy()->getResource() && (substr_count($joinPoint->getProxy()->getResource()->getLink(),"iframe.phlu.ch/") || substr_count($joinPoint->getProxy()->getResource()->getLink(),"www.phlu.ch/"))) {
             return '_self';
         }
 
