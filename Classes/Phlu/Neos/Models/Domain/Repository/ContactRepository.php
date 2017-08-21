@@ -149,10 +149,9 @@ class ContactRepository extends Repository
      */
     public function getOneByEmailPart($emailpart) {
 
-
         $query = $this->createQuery();
 
-        return $query->matching($query->like('email',$emailpart."%"))->execute()->getFirst();
+        return $query->matching($query->like('email',$emailpart."@%"))->execute()->getFirst();
 
 
     }
