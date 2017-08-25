@@ -185,11 +185,35 @@ class Contact extends AbstractModel
      */
     protected $shorthandSymbol;
 
+    /**
+     * @var string
+     * @ORM\Column(nullable=true)
+     */
+    protected $officeid;
+
 
     /**
      * @var boolean
      */
     protected $showPortrait;
+
+    /**
+     * @return string
+     */
+    public function getOfficeid()
+    {
+        return $this->officeid;
+    }
+
+    /**
+     * @param string $officeid
+     */
+    public function setOfficeid($officeid)
+    {
+        $this->officeid = $officeid;
+    }
+
+
 
     /**
      * @return string

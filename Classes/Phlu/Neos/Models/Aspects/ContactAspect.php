@@ -184,6 +184,7 @@ class ContactAspect
         $node->setProperty('eventoid', $contact->getEventoid());
         $node->setProperty('organisations', $contact->getOrganisations());
         $node->setProperty('shorthandSymbol', $contact->getShorthandSymbol());
+        $node->setProperty('officeid', $contact->getOfficeid());
 
 
         $node->setProperty('function', $contact->getFunction());

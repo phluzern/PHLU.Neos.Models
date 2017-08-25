@@ -199,6 +199,7 @@ class ContactService
         $contact->setExpertise($data['expertise']);
         $contact->setConsulting($data['consulting']);
         $contact->setShorthandSymbol($data['shorthandSymbol']);
+        $contact->setOfficeid($data['officeid']);
 
         // remove cv resource if not valid anymore
         if (strlen($contact->getCv())) {
