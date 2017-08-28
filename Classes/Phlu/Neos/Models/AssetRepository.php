@@ -49,4 +49,26 @@ class AssetRepository extends \Neos\Media\Domain\Repository\AssetRepository
     }
 
 
+    /**
+     * Find assets by search index
+     * @Flow\Around("method(Neos\Media\Domain\Repository\AssetRepository->findBySearchIndex())")
+     * @param string $searchTerm
+     * @return \Neos\Flow\Persistence\QueryResultInterface
+     */
+    public function findBySearchIndex($searchTerm)
+    {
+        $query = $this->createQuery();
+
+        $constraints = array(
+            $query->like('searchIndex', '%' . $searchTerm . '%')
+        );
+
+
+        $query->matching($query->logicalOr($constraints));
+
+        return $query->execute();
+    }
+
+
+
 }
