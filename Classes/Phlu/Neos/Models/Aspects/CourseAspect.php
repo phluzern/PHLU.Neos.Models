@@ -197,8 +197,8 @@ class CourseAspect
     protected function findCourseNodesAndUpdate($course)
     {
 
-        $settings = $this->importService->getSettingsFromObject($course);
 
+        $settings = $this->importService->getSettingsFromObject($course);
 
 
 
@@ -224,7 +224,6 @@ class CourseAspect
 
 
 
-
         if ($baseNode) {
 
 
@@ -246,9 +245,7 @@ class CourseAspect
                 $node = $this->nodeDataRepository->findOneByPath($baseNode->getPath() . "/" . strtolower($settings['repository']) . '-' . $course->getId(), $this->workspaceRepository->findByName($workspace)->getFirst());
 
 
-
                 if ($node) {
-
 
 
                     $courseDetailId = $course->getId();
