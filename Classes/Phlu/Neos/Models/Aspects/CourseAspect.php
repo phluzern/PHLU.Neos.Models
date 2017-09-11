@@ -146,6 +146,7 @@ class CourseAspect
         $node->setProperty('description', $course->getDescription());
         $node->setProperty('ects', $course->getEcts());
         $node->setProperty('fee', $course->getFee());
+        $node->setProperty('subsidizedFee', $course->getSubsidizedFee());
         $node->setProperty('leaders', $course->getLeaders());
         $node->setProperty('contacts', $course->getContacts());
         $node->setProperty('targetgroups', $course->getTargetgroups());
@@ -512,6 +513,7 @@ class CourseAspect
         $node->setProperty('description', $course->getDescription());
         $node->setProperty('ects', $course->getEcts());
         $node->setProperty('fee', $course->getFee());
+        $node->setProperty('subsidizedFee', $course->getSubsidizedFee());
         $node->setProperty('leaders', $course->getLeaders());
         $node->setProperty('targetgroups', $course->getTargetgroups());
         $node->setProperty('deleted', $course->isDeleted());

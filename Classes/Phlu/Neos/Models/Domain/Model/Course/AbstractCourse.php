@@ -56,6 +56,12 @@ abstract class AbstractCourse extends AbstractModel
     protected $fee;
 
     /**
+     * @var float
+     * @ORM\Column(nullable=true)
+     */
+    protected $subsidizedFee;
+
+    /**
      * @var array
      * @ORM\Column(nullable=true)
      */
@@ -408,6 +414,22 @@ abstract class AbstractCourse extends AbstractModel
     public function setFee($fee)
     {
         $this->fee = $fee;
+    }
+
+    /**
+     * @return float
+     */
+    public function getSubsidizedFee()
+    {
+        return $this->subsidizedFee;
+    }
+
+    /**
+     * @param float $subsidizedFee
+     */
+    public function setSubsidizedFee($subsidizedFee)
+    {
+        $this->subsidizedFee = $subsidizedFee;
     }
 
     /**
