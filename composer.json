@@ -2,7 +2,7 @@
     "description": "Add description here",
     "type": "neos-package",
     "require": {
-        "typo3/flow": "*"
+        "neos/neos": "~3.0 || dev-master"
     },
     "name": "phlu/neos-models",
     "autoload": {
