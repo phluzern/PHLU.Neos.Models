@@ -527,6 +527,7 @@ class CourseAspect
         $node->setProperty('isEmpfohlen',$course->isisEmpfohlen());
         $node->setProperty('isLastMinute',$course->isisLastMinute());
         $node->setProperty('isNeuste',$course->isisNeuste());
+        $node->setProperty('isRequestable',$course->isRequestable());
 
 
 
