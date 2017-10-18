@@ -132,11 +132,36 @@ abstract class AbstractCourse extends AbstractModel
     protected $isNeuste;
 
 
+     /**
+     * @var boolean
+     * @ORM\Column(nullable=true)
+     */
+    protected $isRequestable;
+
+
     /**
      * @var array
      * @ORM\Column(nullable=true)
      */
     protected $lessons;
+
+    /**
+     * @return bool
+     */
+    public function isRequestable()
+    {
+        return $this->isRequestable;
+    }
+
+    /**
+     * @param bool $isRequestable
+     */
+    public function setIsRequestable($isRequestable)
+    {
+        $this->isRequestable = $isRequestable;
+    }
+
+
 
     /**
      * @return bool
