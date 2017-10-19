@@ -27,6 +27,13 @@ abstract class AbstractCourse extends AbstractModel
      * @var string
      * @ORM\Column(nullable=true,type="text")
      */
+    protected $statusDescription;
+
+
+    /**
+     * @var string
+     * @ORM\Column(nullable=true,type="text")
+     */
     protected $title;
 
 
@@ -144,6 +151,25 @@ abstract class AbstractCourse extends AbstractModel
      * @ORM\Column(nullable=true)
      */
     protected $lessons;
+
+
+    /**
+     * @return string
+     */
+    public function getStatusDescription()
+    {
+        return $this->statusDescription;
+    }
+
+    /**
+     * @param string $statusDescription
+     */
+    public function setStatusDescription($statusDescription)
+    {
+        $this->statusDescription = $statusDescription;
+    }
+
+
 
     /**
      * @return bool
