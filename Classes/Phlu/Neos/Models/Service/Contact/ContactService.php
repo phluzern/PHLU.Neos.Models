@@ -309,6 +309,11 @@ class ContactService
 
             }
 
+            if ($response->getStatusCode() == 404) {
+                $contact->clearImage();
+                $contact->setShowPortraitImage(false);
+            }
+
 
             // find assets with same sha1, set hidden
             if ($contact->getImage()) {
