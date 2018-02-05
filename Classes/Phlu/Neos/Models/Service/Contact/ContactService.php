@@ -235,85 +235,93 @@ class ContactService
         $contact->setHash($hash);
 
 
-        if ($contact->isHasChanges() && $data['_imageUrl']) {
+        if ($contact->isHasChanges()) {
 
             // import image
-            $this->browserRequestEngine->setOption(CURLOPT_SSL_VERIFYPEER, FALSE);
-            $this->browserRequestEngine->setOption(CURLOPT_CONNECTTIMEOUT, 60);
-            $this->browserRequestEngine->setOption(CURLOPT_TIMEOUT, 60);
-            $this->browser->setRequestEngine($this->browserRequestEngine);
 
-            $response = $this->browser->request($data['_imageUrl'], 'GET');
+            if ($data['_imageUrl']) {
+                $this->browserRequestEngine->setOption(CURLOPT_SSL_VERIFYPEER, FALSE);
+                $this->browserRequestEngine->setOption(CURLOPT_CONNECTTIMEOUT, 60);
+                $this->browserRequestEngine->setOption(CURLOPT_TIMEOUT, 60);
+                $this->browser->setRequestEngine($this->browserRequestEngine);
 
-            if ($response->getStatusCode() == 200) {
+                $response = $this->browser->request($data['_imageUrl'], 'GET');
 
-                $sha1 = sha1($response->getContent());
+                if ($response->getStatusCode() == 200) {
 
-                $resource = $this->resourceManager->getResourceBySha1($sha1);
+                    $sha1 = sha1($response->getContent());
 
-                if (!$resource) {
-                    $resource = $this->resourceManager->importResourceFromContent($response->getContent(), basename($data['_imageUrl']));
-                }
+                    $resource = $this->resourceManager->getResourceBySha1($sha1);
 
-                if ($resource) {
-                    if ($resource->getMediaType() === 'image/jpeg') {
+                    if (!$resource) {
+                        $resource = $this->resourceManager->importResourceFromContent($response->getContent(), basename($data['_imageUrl']));
+                    }
 
-                        $validImage = true;
-                        try {
-                            $this->imagineService->read($resource->getStream());
-                        } catch (\Exception $e) {
-                            $validImage = false;
-                        }
+                    if ($resource) {
+                        if ($resource->getMediaType() === 'image/jpeg') {
 
-
-                        if ($validImage) {
-
-                            $existingAsset = $this->assetRepository->findOneByResourceSha1($resource->getSha1());
+                            $validImage = true;
+                            try {
+                                $this->imagineService->read($resource->getStream());
+                            } catch (\Exception $e) {
+                                $validImage = false;
+                            }
 
 
-                            if ($contact->getImage()) {
+                            if ($validImage) {
 
-                                if ($existingAsset) {
-                                    $resource = $existingAsset->getResource();
-                                }
+                                $existingAsset = $this->assetRepository->findOneByResourceSha1($resource->getSha1());
 
-                                $contact->getImage()->setHidden(true);
-                                $contact->getImage()->setResource($resource);
-                                $contact->getImage()->refresh();
-                                $contact->getImage()->setTitle($contact->getName()->getFullName());
-                                $contact->getImage()->setCaption($contact->getEventoid());
 
-                            } else {
+                                if ($contact->getImage()) {
 
-                                if ($existingAsset) {
-                                    $contact->setImage($existingAsset);
+                                    if ($existingAsset) {
+                                        $resource = $existingAsset->getResource();
+                                    }
+
+                                    $contact->getImage()->setHidden(true);
+                                    $contact->getImage()->setResource($resource);
+                                    $contact->getImage()->refresh();
+                                    $contact->getImage()->setTitle($contact->getName()->getFullName());
+                                    $contact->getImage()->setCaption($contact->getEventoid());
+
                                 } else {
 
-                                    $image = new \Neos\Media\Domain\Model\Image($resource);
-                                    if ($image) {
-                                        $image->setTitle($contact->getName()->getFullName());
-                                        $image->setCaption($contact->getEventoid());
-                                        $image->setHidden(true);
-                                        $contact->setImage($image);
+                                    if ($existingAsset) {
+                                        $contact->setImage($existingAsset);
+                                    } else {
 
+                                        $image = new \Neos\Media\Domain\Model\Image($resource);
+                                        if ($image) {
+                                            $image->setTitle($contact->getName()->getFullName());
+                                            $image->setCaption($contact->getEventoid());
+                                            $image->setHidden(true);
+                                            $contact->setImage($image);
+
+                                        }
                                     }
+
                                 }
 
                             }
 
+
                         }
-
-
                     }
+
                 }
 
-            }
+                if ($response->getStatusCode() == 404) {
+                    $contact->clearImage();
+                    $contact->setShowPortraitImage(false);
+                }
 
-            if ($response->getStatusCode() == 404) {
+
+
+            } else {
                 $contact->clearImage();
                 $contact->setShowPortraitImage(false);
             }
-
 
             // find assets with same sha1, set hidden
             if ($contact->getImage()) {
@@ -367,6 +375,7 @@ class ContactService
 
 
         $this->persistenceManager->persistAll();
+
 
         return $contact;
 
