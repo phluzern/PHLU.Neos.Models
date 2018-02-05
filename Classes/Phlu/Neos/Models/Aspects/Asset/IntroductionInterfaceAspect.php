@@ -238,6 +238,10 @@ class IntroductionInterfaceAspect
             $fileType = 'word';
         }
 
+        else if (substr_count($fileType, 'officedocument.presentationml')) {
+            $fileType = 'powerpoint';
+        }
+
         else if (substr_count($fileType, 'ms-excel')) {
             $fileType = 'excel';
         }
@@ -268,6 +272,10 @@ class IntroductionInterfaceAspect
 
                 case 'pdf':
                     return 'PDF';
+                    break;
+
+                case 'powerpoint':
+                    return 'Powerpoint';
                     break;
 
                 case 'jpeg':
