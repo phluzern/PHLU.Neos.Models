@@ -482,6 +482,13 @@ class Contact extends AbstractModel
         $this->image = $image;
     }
 
+    /**
+     * Clear image
+     */
+    public function clearImage()
+    {
+        $this->image = null;
+    }
 
 
     /**
