@@ -296,13 +296,14 @@ class CourseAspect
                             }
                         }
                     }
-
-
-
+                    
 
                     if (count($courseSections) == 0 && $node->getNodeType()->getName() == 'Phlu.Corporate:Page.FurtherEducation.Detail.Module') {
                         $courseSection = new \stdClass();
                         $courseSection->Text = nl2br($course->getDescription());
+                        if ($course->getShortdescription() && strlen($course->getShortdescription())) {
+                            $courseSection->Text = $courseSection->Text . "<h3>".nl2br($course->getShortdescription())."</h3>";
+                        }
                         $courseSection->Nr = 900000;
                         $courseSection->Label = 'Beschreibung';
                         $courseSections[$courseSection->Nr] = $courseSection;
