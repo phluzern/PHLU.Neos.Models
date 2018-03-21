@@ -303,7 +303,7 @@ class CourseAspect
                         $courseSection = new \stdClass();
                         $courseSection->Text = nl2br($course->getDescription());
                         if ($course->getShortdescription() && strlen($course->getShortdescription())) {
-                            $courseSection->Text = $courseSection->Text . "<h3>".nl2br($course->getShortdescription())."</h3>";
+                            $courseSection->Text = $courseSection->Text . "<h3>Bemerkungen</h3>".nl2br($course->getShortdescription())."</h3>";
                         }
                         $courseSection->Nr = 900000;
                         $courseSection->Label = 'Beschreibung';
