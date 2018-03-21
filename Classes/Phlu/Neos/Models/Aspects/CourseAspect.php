@@ -169,8 +169,9 @@ class CourseAspect
                 break;
 
             case 'Phlu.Neos.NodeTypes:Course.Module.FurtherEducation':
+            case 'Phlu.Corporate:Page.FurtherEducation.Detail.Module':
                 /* @var $course \Phlu\Neos\Models\Domain\Model\Course\Module\FurtherEducation\Course */
-
+                $node->setProperty('region', $course->getRegion());
                 break;
 
         }
@@ -296,7 +297,7 @@ class CourseAspect
                             }
                         }
                     }
-                    
+
 
                     if (count($courseSections) == 0 && $node->getNodeType()->getName() == 'Phlu.Corporate:Page.FurtherEducation.Detail.Module') {
                         $courseSection = new \stdClass();
