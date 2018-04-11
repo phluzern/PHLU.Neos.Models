@@ -159,6 +159,8 @@ class CourseAspect
         $node->setProperty('isLastMinute',$course->isisLastMinute());
         $node->setProperty('isNeuste',$course->isisNeuste());
         $node->setProperty('isRequestable',$course->isRequestable());
+        $node->setProperty('holKursComment',$course->getHolKursComment());
+        $node->setProperty('duration',$course->getDuration());
 
 
         switch ($node->getNodeType()->getName()) {
@@ -532,6 +534,7 @@ class CourseAspect
         $node->setProperty('isLastMinute',$course->isisLastMinute());
         $node->setProperty('isNeuste',$course->isisNeuste());
         $node->setProperty('isRequestable',$course->isRequestable());
+        $node->setProperty('holKursComment',$course->getHolKursComment());
         $node->setProperty('statusDescription',$course->getStatusDescription());
 
 

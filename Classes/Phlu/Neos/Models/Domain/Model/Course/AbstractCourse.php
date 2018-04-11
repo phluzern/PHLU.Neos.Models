@@ -159,6 +159,19 @@ abstract class AbstractCourse extends AbstractModel
      */
     protected $isRequestable;
 
+    /**
+     * @var string
+     * @ORM\Column(nullable=true,type="text")
+     */
+    protected $holKursComment;
+
+
+    /**
+     * @var float
+     * @ORM\Column(nullable=true)
+     */
+    protected $duration;
+
 
     /**
      * @var array
@@ -216,6 +229,37 @@ abstract class AbstractCourse extends AbstractModel
         $this->isRequestable = $isRequestable;
     }
 
+    /**
+     * @return string
+     */
+    public function getHolKursComment()
+    {
+        return $this->holKursComment;
+    }
+
+    /**
+     * @param string $holKursComment
+     */
+    public function setHolKursComment($holKursComment)
+    {
+        $this->holKursComment = $holKursComment;
+    }
+
+    /**
+     * @return float
+     */
+    public function getDuration()
+    {
+        return $this->duration;
+    }
+
+    /**
+     * @param float $duration
+     */
+    public function setDuration($duration)
+    {
+        $this->duration = $duration;
+    }
 
 
     /**
