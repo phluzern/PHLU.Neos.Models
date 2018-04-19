@@ -536,6 +536,7 @@ class CourseAspect
         $node->setProperty('isRequestable',$course->isRequestable());
         $node->setProperty('holKursComment',$course->getHolKursComment());
         $node->setProperty('statusDescription',$course->getStatusDescription());
+        $node->setProperty('duration',$course->getDuration());
 
 
         switch ($node->getNodeType()->getName()) {
