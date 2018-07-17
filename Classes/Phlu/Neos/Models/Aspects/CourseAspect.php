@@ -160,6 +160,7 @@ class CourseAspect
         $node->setProperty('isNeuste',$course->isisNeuste());
         $node->setProperty('isRequestable',$course->isRequestable());
         $node->setProperty('holKursComment',$course->getHolKursComment());
+        $node->setProperty('holKursAnmeldeLink',$course->getHolKursAnmeldeLink());
         $node->setProperty('duration',$course->getDuration());
 
 
@@ -535,6 +536,7 @@ class CourseAspect
         $node->setProperty('isNeuste',$course->isisNeuste());
         $node->setProperty('isRequestable',$course->isRequestable());
         $node->setProperty('holKursComment',$course->getHolKursComment());
+        $node->setProperty('holKursAnmeldeLink',$course->getHolKursAnmeldeLink());
         $node->setProperty('statusDescription',$course->getStatusDescription());
         $node->setProperty('duration',$course->getDuration());
 

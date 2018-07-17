@@ -165,6 +165,11 @@ abstract class AbstractCourse extends AbstractModel
      */
     protected $holKursComment;
 
+    /**
+     * @var string
+     * @ORM\Column(nullable=true,type="text")
+     */
+    protected $holKursAnmeldeLink;
 
     /**
      * @var float
@@ -243,6 +248,22 @@ abstract class AbstractCourse extends AbstractModel
     public function setHolKursComment($holKursComment)
     {
         $this->holKursComment = $holKursComment;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHolKursAnmeldeLink()
+    {
+        return $this->holKursAnmeldeLink;
+    }
+
+    /**
+     * @param string $holKursAnmeldeLink
+     */
+    public function setHolKursAnmeldeLink($holKursAnmeldeLink)
+    {
+        $this->holKursAnmeldeLink = $holKursAnmeldeLink;
     }
 
     /**
